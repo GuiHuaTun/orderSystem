@@ -3,6 +3,7 @@ package com.os;
 import com.config.RandomRibbonConfiguration;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.web.servlet.ServletComponentScan;
 import org.springframework.cloud.client.loadbalancer.LoadBalanced;
 import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 import org.springframework.cloud.netflix.ribbon.RibbonClient;
@@ -13,6 +14,7 @@ import org.springframework.web.client.RestTemplate;
 @EnableEurekaClient
 /*其中 name 是服务的名字，configuration是策略配置类的名字*/
 @RibbonClient(name = "order-provider", configuration = RandomRibbonConfiguration.class)
+@ServletComponentScan("com.os.util")
 public class OrderConsumerApplication {
     /*
  *RestTemplate 是 Spring 提供的用于访问 Rest 服务的客户端，
