@@ -1,17 +1,7 @@
-<%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
-<%
-	String path = request.getContextPath();
-	String basePath = request.getScheme() + "://"
-			+ request.getServerName() + ":" + request.getServerPort()
-			+ path + "/";
-%>
-
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
 <head>
-<base href="<%=basePath%>">
-
-<title>${ORDER_SYS_NAME}-餐厅管理员</title>
+	<meta charset="utf-8">
+<title>餐厅管理员</title>
 
 <meta http-equiv="pragma" content="no-cache">
 <meta http-equiv="cache-control" content="no-cache">
@@ -21,18 +11,18 @@
 <!--
 	<link rel="stylesheet" type="text/css" href="styles.css">
 	-->
-<link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
-<link rel="stylesheet" href="css/dashboard.css">
+<link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css">
+<link rel="stylesheet" href="/css/dashboard.css">
 
 
-<link rel="stylesheet" href="css/font-awesome.min.css">
+<link rel="stylesheet" href="/css/font-awesome.min.css">
 
 <!-- jQuery文件。务必在bootstrap.min.js 之前引入 -->
-<script src="bootstrap/js/jquery-1.11.1.min.js"></script>
+<script src="/bootstrap/js/jquery-1.11.1.min.js"></script>
 
 <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
-<script src="bootstrap/js/bootstrap.min.js"></script>
-<script type="text/javascript" src="js/ajax.js"></script>
+<script src="/bootstrap/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="/js/ajax.js"></script>
 <script type="text/javascript">
 	function deleteUser(id, name, obj) {
 
@@ -183,7 +173,7 @@
 			<div class="col-sm-3 col-md-2 sidebar">
 				<ul class="nav nav-sidebar">
 					<li class="nav-header"
-						style="font-size: 18;margin-bottom: 10px;margin-left: 10px"><i
+						style="font-size: 18px;margin-bottom: 10px;margin-left: 10px"><i
 						class="icon-credit-card icon-large"></i>&nbsp;运营功能</li>
 					<li><a href="toadminmain.order"><i
 							class="icon-money icon-large"></i>&nbsp; 顾客结账界面 <span
@@ -193,7 +183,7 @@
 				</ul>
 				<ul class="nav nav-sidebar">
 					<li class="nav-header"
-						style="font-size: 18;margin-bottom: 10px;margin-left: 10px"><i
+						style="font-size: 18px;margin-bottom: 10px;margin-left: 10px"><i
 						class="icon-cog icon-large"></i>&nbsp;餐厅管理</li>
 					<li><a href="touseradmin.order"><i
 							class="icon-group icon-large"></i>&nbsp;员工管理</a></li>
@@ -265,12 +255,6 @@
 	</div>
 
 	<br>
-
-
-
-
-
-
 	<!-- Modal -->
 	<div class="modal fade" id="myModal" tabindex="-1" role="dialog"
 		aria-labelledby="myModalLabel">
@@ -284,17 +268,7 @@
 					<h4 class="modal-title" id="myModalLabel">详细信息</h4>
 				</div>
 				<div class="modal-body"
-					style="background-image: url('img/body-bg.png')">
-
-
-
-
-
-
-
-
-
-
+					style="background-image: url('/img/body-bg.png')">
 					<div class="panel panel-danger" style="margin-top: 10px">
 						<div class="panel-heading">
 							<h3 class="panel-title">员工详情</h3>
@@ -314,24 +288,8 @@
 								员工角色：<span id="role"></span>
 							</h3>
 							</p>
-
-
 						</div>
-
-
-
 					</div>
-
-
-
-
-
-
-
-
-
-
-
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-danger" data-dismiss="modal">关闭</button>
@@ -340,19 +298,5 @@
 			</div>
 		</div>
 	</div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 </body>
 </html>

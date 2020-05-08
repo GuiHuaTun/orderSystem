@@ -3,13 +3,12 @@
 	<head>
 		<meta charset="utf-8">
 		<title></title>
-		<link rel="stylesheet" href="../../../static/css/dashboard.css">
-		<script src="../../../static/bootstrap/js/jquery-1.11.1.min.js"></script>
+		<link rel="stylesheet" href="/css/dashboard.css">
+		<script src="/bootstrap/js/jquery-1.11.1.min.js"></script>
 
 		<!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
-		<script src="../../../static/bootstrap/js/bootstrap.min.js"></script>
-		<script type="text/javascript" src="../../../static/js/ajax.js"></script>
-		
+		<script src="/bootstrap/js/bootstrap.min.js"></script>
+		<script type="text/javascript" src="/static/js/ajax.js"></script>
 		<script type="text/javascript">
 			$(function(){
 				$(".click").click(function(){
@@ -33,22 +32,22 @@
 						<span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span> <span class="icon-bar"></span>
 						<span class="icon-bar"></span>
 					</button>
-					<img src="../../../static/img/logo.png" class="navbar-brand" /> <span class="navbar-brand">${ORDER_SYS_NAME}</span>
+					<img src="/img/logo.png" class="navbar-brand" /> <span class="navbar-brand"></span>
 				</div>
 				<div id="navbar" class="navbar-collapse collapse">
 					<ul class="nav navbar-nav navbar-right">
 						<li><span class="navbar-brand">餐厅管理界面</span></li>
 
 						<li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
-							 aria-expanded="false"><img src="../../../static/img/faces/default.jpg" width="24" height="24" class="img-circle" style="border:1px solid #FFF" />&nbsp;&nbsp;当前用户:【】,身份为管理员
+							 aria-expanded="false"><img src="/img/faces/default.jpg" width="24" height="24" class="img-circle" style="border:1px solid #FFF" />&nbsp;&nbsp;当前用户:【】,身份为管理员
 								<span class="caret"></span></a>
 							<ul class="dropdown-menu">
-								<li style="text-align: center;padding-top: 15px"><img src="../../../static/img/faces/default.jpg" width="128" height="128"
+								<li style="text-align: center;padding-top: 15px"><img src="/img/faces/default.jpg" width="128" height="128"
                                                                                       class="img-circle" style="border:1px solid #CCC;box-shadow:0 0 10px rgba(100, 100, 100, 1);margin-bottom: 20px" /></li>
-								<li><a href="#">修改我的密码</a></li>
+								<li><a href="/pages/users/modifyuser.html" target="mainwindow">修改我的密码</a></li>
 								<li role="separator" class="divider"></li>
-								<li><a href="#">查看当前在线的厨师 <span class="badge" style="background-color: orange;">4</span></a></li>
-								<li><a href="#">查看当前在线的点餐员 <span class="badge" style="background-color: orange;">4</span></a></li>
+								<li><a href="/pages/admin/onlinekitchens.html" target="mainwindow">查看当前在线的厨师 <span class="badge" style="background-color: orange;">4</span></a></li>
+								<li><a href="/pages/admin/onlinewaiters.html" target="mainwindow">查看当前在线的点餐员 <span class="badge" style="background-color: orange;">4</span></a></li>
 							</ul>
 						</li>
 						<li><a href="javascript:newOrder()">退出登录</a></li>
@@ -61,14 +60,14 @@
 		</nav>
 		<div class="col-sm-3 col-md-2 sidebar">
 			<ul class="nav nav-sidebar">
-				<li class="nav-header" style="font-size: 18;margin-bottom: 10px;margin-left: 10px"><i class="icon-credit-card icon-large"></i>&nbsp;运营功能</li>
-				<li class="click1"><a href="../admin/main_backup1.html" target="mainwindow"><i class="icon-money icon-large"></i>&nbsp; 顾客结账界面 <span class="sr-only">(current)</span></a></li>
+				<li class="nav-header" style="font-size: 18px;margin-bottom: 10px;margin-left: 10px"><i class="icon-credit-card icon-large"></i>&nbsp;运营功能</li>
+				<li class="click1"><a href="/pages/admin/main_backup1.html" target="mainwindow"><i class="icon-money icon-large"></i>&nbsp; 顾客结账界面 <span class="sr-only">(current)</span></a></li>
 			</ul>
 			<ul class="nav nav-sidebar">
-				<li class="nav-header" style="font-size: 18;margin-bottom: 10px;margin-left: 10px"><i class="icon-cog icon-large"></i>&nbsp;餐厅管理</li>
-				<li class="click"><a href="../admin/useradmin.html" target="mainwindow"><i class="icon-group icon-large"></i>&nbsp;员工管理</a></li>
-				<li class="click"><a href="../admin/dishesadmin.html" target="mainwindow"><i class="icon-coffee icon-large"></i>&nbsp;菜品管理</a></li>
-				<li class="click"><a href="../admin/operatedata.html" target="mainwindow"><i class="icon-bar-chart icon-large"></i>&nbsp;查看经营数据</a></li>
+				<li class="nav-header" style="font-size: 18px;margin-bottom: 10px;margin-left: 10px"><i class="icon-cog icon-large"></i>&nbsp;餐厅管理</li>
+				<li class="click"><a href="/pages/admin/useradmin.html" target="mainwindow"><i class="icon-group icon-large"></i>&nbsp;员工管理</a></li>
+				<li class="click"><a href="/pages/admin/dishesadmin.html" target="mainwindow"><i class="icon-coffee icon-large"></i>&nbsp;菜品管理</a></li>
+				<li class="click"><a href="/pages/admin/operatedata.html" target="mainwindow"><i class="icon-bar-chart icon-large"></i>&nbsp;查看经营数据</a></li>
 			</ul>
 		</div>
 		<section>

@@ -3,9 +3,8 @@
 	<head>
 		<meta charset="utf-8">
 		<title>111</title>
-
 		<link rel="stylesheet" href="/css/dashboard.css">
-		<script src="/bootstrap/js/jquery-1.8.3.min.js"></script>
+		<script src="/bootstrap/js/jquery-1.11.1.min.js"></script>
 <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
 		<script src="/bootstrap/js/bootstrap.min.js"></script>
 		<script type="text/javascript" src="/js/ajax.js"></script>
@@ -17,6 +16,84 @@
 				})
 			});
 		</script>
+		<script type="text/javascript">
+			function begin() {
+
+				var input = document.getElementById("inputfile");
+				if (input.value != "") {
+					var preview = document.getElementById("face");
+					preview.src = "img/loading.gif";
+					imgform.submit();
+					request();
+				}
+
+			}
+
+			function request() {
+				txtAjaxRequest(
+						"state.order?messageTitle=upstate&time=" + Math.random(),
+						"get", true, null, showPreview, null, null);
+			}
+			function showPreview(responseTxt, obj) {
+
+				var preview = document.getElementById("face");
+				preview.src = "img/faces/" + responseTxt;
+				var path = document.getElementById("faceimgname");
+				path.value = responseTxt;
+			}
+			var formstate = 0;
+			function testState() {
+
+				var btu = document.getElementById("addbtu");
+				if ((formstate & 3) == 3) {
+					btu.disabled = false;
+				} else {
+					btu.disabled = "disabled";
+				}
+			}
+
+			function checkpass() {
+				var pass = document.getElementById("userPass");
+				var pass1 = document.getElementById("userPass1");
+				var error = document.getElementById("passerror");
+				if (pass.value == pass1.value) {
+					formstate = formstate | 2;
+					error.innerHTML = "";
+				} else {
+					if (formstate & 2 != 0) {
+						formstate = formstate ^ 2;
+					}
+					error.innerHTML = "两次密码不匹配！";
+				}
+
+				testState();
+			}
+
+			function checkoldpass() {
+
+				var id = document.getElementById("userId");
+				var oldPass = document.getElementById("userOldPass");
+				txtAjaxRequest("checkpass.order?userId=" + id.value + "&userPass="
+						+ oldPass.value + "&time=" + Math.random(), "get", true, null,
+						userCallback, null, null);
+			}
+			function userCallback(responseTxt, obj) {
+				var error = document.getElementById("usererror");
+				if (responseTxt == "OK") {
+					formstate = formstate | 1;
+					error.innerHTML = "";
+				} else {
+
+					if (formstate & 1 != 0) {
+						formstate = formstate ^ 1;
+					}
+					error.innerHTML = "您输入的原密码错误，请重新输入！";
+
+				}
+				testState();
+			}
+		</script>
+
 	</head>
 
 	<body>
@@ -28,19 +105,19 @@
 						<span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span> <span class="icon-bar"></span>
 						<span class="icon-bar"></span>
 					</button>
-					<img src="../../../static/img/logo.png" class="navbar-brand" /> <span class="navbar-brand">${ORDER_SYS_NAME}</span>
+					<img src="/img/logo.png" class="navbar-brand" /> <span class="navbar-brand"></span>
 				</div>
 				<div id="navbar" class="navbar-collapse collapse">
 					<ul class="nav navbar-nav navbar-right">
 						<li><span class="navbar-brand">点单界面：当前桌号<span id="tableresult">【】</span></span></li>
 						<li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
-							 aria-expanded="false"><img src="/img/faces/${USER_INFO.faceimg }" width="24" height="24" class="img-circle"
+							 aria-expanded="false"><img src="" width="24" height="24" class="img-circle"
                                                         style="border:1px solid #FFF" />&nbsp;&nbsp;当前用户:【${USER_INFO.userAccount}】,身份为服务员
 								<span class="caret"></span></a>
 							<ul class="dropdown-menu">
 								<li style="text-align: center;padding-top: 15px"><img src="/img/ok.png" width="128" height="128"
                                                                                       class="img-circle" style="border:1px solid #CCC;box-shadow:0 0 10px rgba(100, 100, 100, 1);margin-bottom: 20px" /></li>
-								<li><a href="../users/modifyuser.html">修改我的密码</a></li>
+								<li><a href="/pages/users/modifyuser.html" target="mainwindow">修改我的密码</a></li>
 								<li role="separator" class="divider"></li>
 							</ul>
 						</li>
@@ -58,16 +135,16 @@
 			<div class="row">
 				<div class="col-sm-3 col-md-2 sidebar">
 					<ul class="nav nav-sidebar">
-						<li class="nav-header" style="font-size: 18;margin-bottom: 10px;margin-left: 10px">
+						<li class="nav-header" style="font-size: 18px;margin-bottom: 10px;margin-left: 10px">
 							<i class="icon-user icon-large"></i>&nbsp;服务员点餐功能
 						</li>
 						<li class="click">
-							<a href="../waiters/takeorder_backup.html" target="mainwindow">
+							<a href="/pages/waiters/takeorder_backup.html" target="mainwindow">
 								<i class="icon-glass icon-large"></i>&nbsp;服务点餐界面 <span class="sr-only">(current)</span>
 							</a>
 						</li>
 						<li class="click">
-							<a href="../waiters/paylist.html" target="mainwindow">
+							<a href="/pages/waiters/paylist.html" target="mainwindow">
 								<i class="icon-credit-card icon-large"></i>&nbsp; 餐桌结账 <span class="sr-only">(current)</span>
 							</a>
 						</li>
@@ -76,7 +153,7 @@
 			</div>
 		</div>
 		<section>
-			<iframe src="" name="mainwindow" scrolling="no" width="100%" height="1400px" frameborder="0px"></iframe>
+			<iframe src="" name="mainwindow" scrolling="no" width="100%" height="900px" frameborder="0px"></iframe>
 		</section>
 	</body>
 
