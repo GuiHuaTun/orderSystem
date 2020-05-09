@@ -6,6 +6,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.client.RestTemplate;
 
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 /**
@@ -25,8 +26,10 @@ public class DishesInfoController {
     @RequestMapping("/dishesInfoFindAll")
     public String dishesInfoFindAll(){
         System.out.println("-----------------consumer-- dishesInfoFindAll");
-        List<Dishesinfo> dishesinfoList= (List<Dishesinfo>) restTemplate.getForObject("http://order-provider/DishesInfoFindAll",List.class);
-        if(dishesinfoList!=null && dishesinfoList.size()>0){
+        List<Dishesinfo> dishesinfoList= (List<Dishesinfo>) restTemplate.getForObject("http://order-provider/dishesInfoFindAll",List.class);
+            if(dishesinfoList!=null && dishesinfoList.size()>0){
+            System.out.println(dishesinfoList);
+
             return "";
         }
         return "";
