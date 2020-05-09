@@ -16,10 +16,10 @@
     userid, useraccount, userpass, locked, faceimg
   </sql>
   <select id="selectAll" resultMap="UserinfoResultMap">
-    select u.*,r.* from userinfo u,roleinfo r
+    select u.*,r.* from userinfo u,roleinfo r and u.role=r.roleid
   </select>
   <select id="loginUser" parameterType="Userinfo" resultMap="UserinfoResultMap">
-    select u.*,r.* from userinfo u,roleinfo r where useraccount=#{useraccount} and userpass=#{userpass}
+    select u.*,r.* from userinfo u,roleinfo r where useraccount=#{useraccount} and userpass=#{userpass} and u.role=r.roleid
   </select>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="UserinfoResultMap">
     select 

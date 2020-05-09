@@ -5,15 +5,14 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>Bootstrap 101 Template</title>
-	<#assign path="${request.getContextPath()}">
 	<!-- Bootstrap -->
-	<link href="${path}/bootstrap/css/bootstrap.css" rel="stylesheet">
-	<link href="${path}/bootstrap/css/main.css" rel="stylesheet">
-	<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-	<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-	<!--[if lt IE 9]>
-	<script src="${path}/js/login.js" type="text/javascript"></script>
-	<![endif]-->
+	<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+	<script src="/bootstrap/js/jquery-1.11.1.js"></script>
+	<script src="/bootstrap/js/bootstrap.js"></script>
+	<link href="/bootstrap/css/bootstrap.css" rel="stylesheet">
+	<link href="/bootstrap/css/main.css" rel="stylesheet">
+	<script type="text/javascript" src="/js/loginUser.js"></script>
+
 	<style type="text/css">
 		.button13 {
 			color: rgba(255,255,255,1);
@@ -67,9 +66,6 @@
 			transform: scale(1,1);
 		}
 	</style>
-
-
-
 	<!--<script type="text/javascript">
         //取得XMLHttpRequest对象是AJAX的要点
         //此getXMLRequest()方法是根据不同浏览器来取得XMLHttpRequest对象
@@ -91,7 +87,7 @@
         }
 
         //此checkcode()方法是更换验证码图片的要点
-        function checkcode() {
+        /*function checkcode() {
             var request = getXMLRequest();//得到XMLHttpRequest对象
             request.onreadystatechange = function() {
                 if (request.readyState == 4) {
@@ -101,7 +97,7 @@
             //将请求发送出去
             request.open("GET", "code", true);
             request.send(null);
-        }
+        }*/
     </script>-->
 
 
@@ -109,7 +105,7 @@
 <body class="login-body">
 
 <div class="panel login-panel">
-	<form role="form" method="post" action="loginUser">
+	<form role="form" method="post" action="loginUser" id="loginForm">
 		<h2 class="text-center">点餐系统登录</h2>
 		<div class="form-group login-text">
 			<label>用户名:</label> <input type="text" class="form-control"
@@ -129,12 +125,9 @@
 		</div>
 
 		<button class="btn btn-lg btn-primary btn-block login-text button13"
-				type="button">登录</button>
+				type="button" id="login">登录</button>
 	</form>
 </div>
-<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-<script src="/bootstrap/js/jquery-1.11.1.min.js"></script>
-<!-- Include all compiled plugins (below), or include individual files as needed -->
-<script src="/bootstrap/js/bootstrap.js"></script>
+
 </body>
 </html>

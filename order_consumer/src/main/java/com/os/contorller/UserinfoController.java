@@ -21,20 +21,45 @@ public class UserinfoController {
     @Autowired
     RestTemplate restTemplate;
 
+    /**
+     * @param useraccount 账号
+     * @param userpass    密码
+     * @param codetext    验证码
+     * @return json类型String数组
+     */
     @RequestMapping(value = "loginUser/{useraccount}/{userpass}/{codetext}", method = RequestMethod.POST)
     @ResponseBody
-    public String login(@PathVariable("useraccount") String useraccount, @PathVariable("userpass") String userpass,
-                        @PathVariable("codetext") String codetext, HttpSession session, HttpServletResponse response) throws Exception{
+    public String[] login(@PathVariable("useraccount") String useraccount, @PathVariable("userpass") String userpass,
+                          @PathVariable("codetext") String codetext, HttpSession session) {
         String checkCodes = (String) session.getAttribute("checkCodes");
+        String[] data = new String[1];
         System.out.println(checkCodes);
-        System.out.println(codetext+"\t"+useraccount+"\t"+userpass);
-        /*if (!(checkCodes.toLowerCase().equals(codetext.toLowerCase()))) {
-            //System.out.println("验证码错误");
-            return "1";
-        }*/
-        Userinfo userinfo=new Userinfo(useraccount,userpass);
-        userinfo= restTemplate.postForObject("http://order-provider/login",userinfo, Userinfo.class);
+        System.out.println(codetext + "\t" + useraccount + "\t" + userpass);
+        if (!(checkCodes.toLowerCase().equals(codetext.toLowerCase()))) {
+            System.out.println("codeError");
+            data[0] = "codeError";
+            return data;
+        }
+        Userinfo userinfo = new Userinfo(useraccount, userpass);
+        userinfo = restTemplate.postForObject("http://order-provider/login", userinfo, Userinfo.class);
         System.out.println(userinfo);
-        return "login";
-    };
+        if (userinfo == null) {
+            data[0] = "false";
+        } else {
+            switch (userinfo.getRoleinfo().getRoleid()) {
+                case 1://后厨
+                    data[0] = "chef";
+                    break;
+                case 2://管理员
+                    System.out.println("admin");
+                    data[0] = "admin";
+                    break;
+                case 3://点餐员
+                    System.out.println("waiter");
+                    data[0] = "waiter";
+                    break;
+            }
+        }
+        return data;
+    }
 }

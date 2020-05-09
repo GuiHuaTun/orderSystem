@@ -16,7 +16,7 @@ import org.springframework.web.client.RestTemplate;
 @RibbonClient(name = "order-provider", configuration = RandomRibbonConfiguration.class)
 @ServletComponentScan("com.os.util")
 public class OrderConsumerApplication {
-    /*
+    /*提交
  *RestTemplate 是 Spring 提供的用于访问 Rest 服务的客户端，
  *RestTemplate 提供了多种便捷访问远程 Http 服务的方法,能够大大提高客户端
 的编写效率。
