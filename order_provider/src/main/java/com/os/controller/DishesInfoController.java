@@ -28,6 +28,7 @@ public class DishesInfoController {
         System.out.println("------------------provider- dishesInfoFindAll");
         List<Dishesinfo> dishesinfoList=dishesinfoService.selectAll();
         if(dishesinfoList!=null && dishesinfoList.size()>0){
+            System.out.println(dishesinfoList);
             return dishesinfoList;
         }
         System.err.println("------------------provider- dishesInfoFindAll fail");
