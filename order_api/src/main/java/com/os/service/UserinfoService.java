@@ -10,7 +10,8 @@ import java.util.List;
  * @date 2020/5/7 - 10:14
  */
 public interface UserinfoService {
-    List<Userinfo> selectAll();
+
+    List<Userinfo> selectAll(String useraccount);
 
     Userinfo loginUser(Userinfo userinfo);
 
