@@ -40,15 +40,15 @@ $(function () {
                             break;
                         case "admin":
                             clean();
-                            location.href="/pages/page/admin";
+                            location.href="URL/admin";
                             break;
                         case "chef":
                             clean();
-                            location.href="/pages/page/kitchen";
+                            location.href="URL/kitchen";
                             break;
                         case "waiter":
                             clean();
-                            location.href="/pages/page/waiterpage";
+                            location.href="URL/waiterpage";
                             break;
                         case "false":
                             alert("账号或密码错误!");

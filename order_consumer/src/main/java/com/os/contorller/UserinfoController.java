@@ -69,6 +69,12 @@ public class UserinfoController {
         return data;
     }
 
+
+    @RequestMapping("URL/{url}")
+    public String gotoURL(@PathVariable("url") String url){
+     return "/pages/page/"+url;
+    }
+
     @RequestMapping("uploadImg")
     public String uploadimg(HttpSession session){
         return "/pages/page/admin";
