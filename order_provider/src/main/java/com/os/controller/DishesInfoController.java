@@ -4,6 +4,7 @@ import com.github.pagehelper.PageHelper;
 import com.os.entity.Dishesinfo;
 import com.os.service.DishesinfoService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -29,8 +30,8 @@ public class DishesInfoController {
      * 查找所有菜品信息
      * @return
      */
-    @RequestMapping("/dishesInfoFindAll")
-    public List<Dishesinfo> dishesInfoFindAll(int pageIndex,int pageSize){
+    @RequestMapping("/dishesInfoFindAll/{pageIndex}/{pageSize}")
+    public List<Dishesinfo> dishesInfoFindAll(@PathVariable("pageIndex") int pageIndex, @PathVariable("pageSize") int pageSize){
         System.out.println("-----------------provider-- dishesInfoFindAll");
         System.out.println("-----------------provider-- pageIndex: "+pageIndex);
         if(pageIndex==0 || pageIndex<1){
