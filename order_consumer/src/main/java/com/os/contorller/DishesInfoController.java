@@ -31,7 +31,8 @@ public class DishesInfoController {
      * @return
      */
     @RequestMapping("/dishesInfoFindAll")
-    public String dishesInfoFindAll(Integer pageIndex,HttpServletRequest request){
+    @ResponseBody
+    public List<Dishesinfo> dishesInfoFindAll(Integer pageIndex,HttpServletRequest request){
         System.out.println("-----------------consumer-- dishesInfoFindAll");
         System.out.println("-----------------consumer-- pageIndex: "+pageIndex);
         Integer pageSize=10;
@@ -39,9 +40,9 @@ public class DishesInfoController {
         if(dishesinfoList!=null && dishesinfoList.size()>0){
             System.out.println(dishesinfoList);
             request.getSession().setAttribute("dishesinfoList",dishesinfoList);
-            return "";
+            return dishesinfoList;
         }
-        return "";
+        return null;
     }
 
     /**
