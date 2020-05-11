@@ -1,13 +1,19 @@
 package com.os.controller;
 
+import com.github.pagehelper.PageHelper;
 import com.os.entity.Dishesinfo;
 import com.os.service.DishesinfoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletRequest;
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
+import java.util.UUID;
 
 /**
  * @author haohui
@@ -24,8 +30,9 @@ public class DishesInfoController {
      * @return
      */
     @RequestMapping("/dishesInfoFindAll")
-    public List<Dishesinfo> dishesInfoFindAll(){
+    public List<Dishesinfo> dishesInfoFindAll(int pageIndex,int pageSize){
         System.out.println("------------------provider- dishesInfoFindAll");
+        PageHelper.startPage(pageIndex,pageSize);
         List<Dishesinfo> dishesinfoList=dishesinfoService.selectAll();
         if(dishesinfoList!=null && dishesinfoList.size()>0){
             System.out.println(dishesinfoList);
@@ -97,5 +104,35 @@ public class DishesInfoController {
         }
         System.err.println("-----------------provider-- dishesInfoDelete fail");
         return 0;
+    }
+
+    /**
+     * 上传菜品图片
+     * @param pic：图片文件
+     * @param request
+     * @return
+     */
+    @RequestMapping("/dishesGetDishesImg")
+    public String getDishesImg(@RequestBody MultipartFile pic, HttpServletRequest request){
+        System.out.println("-----------------provider-- dishesGetDishesImg");
+        String imgname= UUID.randomUUID().toString();//生成随机数用于组成文件名
+        System.out.println("uuid: "+imgname);
+        String originalname=pic.getOriginalFilename();//获取pic的文件名
+        System.out.println("originalname: "+originalname);
+        String extraname=originalname.substring(originalname.lastIndexOf("."));//截取pic的后缀名
+        System.out.println("extraname: "+extraname);
+        String dishesimg=imgname+extraname;//新组成的文件名
+        String path=request.getServletContext().getRealPath("/img/upload");//获取上传文件夹/img/upload的绝对路径
+        System.out.println("path:"+path);
+        File file=new File(path+"/"+dishesimg);//生成文件
+        if(!file.getParentFile().exists()){//判断上传文件夹upload是否存在
+            file.getParentFile().mkdirs();//创建上传文件夹upload文件夹
+        }
+        try {
+            pic.transferTo(file);//将pic文件转到file文件
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return dishesimg;
     }
 }
