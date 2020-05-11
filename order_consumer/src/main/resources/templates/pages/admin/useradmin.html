@@ -7,20 +7,15 @@
 		<meta http-equiv="expires" content="0">
 		<meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
 		<meta http-equiv="description" content="This is my page">
-		<!--
-	<link rel="stylesheet" type="text/css" href="styles.css">
-	-->
 
 		<link rel="stylesheet" href="/css/dashboard.css">
-
-
-		<!-- jQuery文件。务必在bootstrap.min.js 之前引入 -->
-		<script src="/ootstrap/js/jquery-1.11.1.min.js"></script>
-
 		<!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
 		<script src="/bootstrap/js/bootstrap.min.js"></script>
-		<script type="text/javascript" src="/js/ajax.js"></script>
+		<!-- jQuery文件。务必在bootstrap.min.js 之前引入 -->
+		<script src="/bootstrap/js/jquery-1.11.1.min.js"></script>
+		<script src="/js/listUser.js"></script>
 		<script type="text/javascript">
+
 			function deleteUser(id, name, obj) {
 
 				if (confirm("您真的要删除员工【" + name + "】吗？")) {
@@ -135,8 +130,9 @@
 				$("#myModal").modal("show");
 			}
 		</script>
+
 	</head>
-	<body style="font-family: 微软雅黑" onload="getUserList(1)">
+	<body style="font-family: 微软雅黑">
 		<div class="container-fluid">
 			<div class="row">
 				<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
@@ -149,8 +145,13 @@
 						<div class="panel-heading">
 							<h3 class="panel-title">员工列表</h3>
 						</div>
+
 						<div style="text-align: right;">
-							如果您需要在系统中添加一名员工，请点击右边的按钮：<a href="adduser.html" class="btn btn-success" style="width:120px;margin-top: 10px;margin-right: 10px">添加员工</a>
+							<form class="navbar-form navbar-left">
+								<input type="text" class="form-control search" placeholder="搜索点餐员">
+								<input type="button" value="搜索" class="btn btn-success">
+							</form>
+							<a href="adduser.html" class="btn btn-success" style="width:120px;margin-top: 10px;margin-right: 20px">添加员工</a>
 						</div>
 						<div class="panel-body">
 							<div class="table-responsive">
@@ -213,24 +214,8 @@
 									<h3>
 										员工角色：<span id="role"></span></h3>
 								</p>
-
-
 							</div>
-
-
-
 						</div>
-
-
-
-
-
-
-
-
-
-
-
 					</div>
 					<div class="modal-footer">
 						<button type="button" class="btn btn-danger" data-dismiss="modal">关闭</button>
@@ -239,19 +224,5 @@
 				</div>
 			</div>
 		</div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 	</body>
 </html>
