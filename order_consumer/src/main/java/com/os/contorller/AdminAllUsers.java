@@ -38,6 +38,7 @@ public class AdminAllUsers {
         String size="2";
         List<Userinfo> ListUser = (List<Userinfo>)restTemplate.getForObject("http://order-provider/userinfoPageHelper",List.class,index,size);
         */
+
         List<Userinfo> userList=restTemplate.getForObject("http://order-provider/userinfoPageHelper/"+pageIndex+"/"+pageSize+"/"+useraccount, List.class);
         return userList;
     };
