@@ -4,10 +4,16 @@ import com.os.entity.Dishesinfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
+import java.util.UUID;
 
 /**
  * @author haohui
@@ -16,6 +22,7 @@ import java.util.List;
  */
 @Controller
 public class DishesInfoController {
+    String url="http://order-provider/";
     @Autowired
     private RestTemplate restTemplate;
 
@@ -24,12 +31,16 @@ public class DishesInfoController {
      * @return
      */
     @RequestMapping("/dishesInfoFindAll")
-    public String dishesInfoFindAll(){
+    public String dishesInfoFindAll(int pageIndex,HttpServletRequest request){
         System.out.println("-----------------consumer-- dishesInfoFindAll");
-        List<Dishesinfo> dishesinfoList= (List<Dishesinfo>) restTemplate.getForObject("http://order-provider/dishesInfoFindAll",List.class);
-            if(dishesinfoList!=null && dishesinfoList.size()>0){
+        if(pageIndex==0 || pageIndex<1){
+            pageIndex=1;
+        }
+        int pageSize=10;
+        List<Dishesinfo> dishesinfoList= (List<Dishesinfo>) restTemplate.getForObject(url+"dishesInfoFindAll",List.class);
+        if(dishesinfoList!=null && dishesinfoList.size()>0){
             System.out.println(dishesinfoList);
-
+            request.getSession().setAttribute("dishesinfoList",dishesinfoList);
             return "";
         }
         return "";
@@ -43,7 +54,7 @@ public class DishesInfoController {
     @RequestMapping("/dishesInfoFindById")
     public String dishesInfoFindById(int dishesid){
         System.out.println("-----------------consumer-- dishesInfoFindById");
-        Dishesinfo dishesinfo=restTemplate.postForObject("http://order-provider/dishesInfoFindById",dishesid, Dishesinfo.class);
+        Dishesinfo dishesinfo=restTemplate.postForObject(url+"dishesInfoFindById",dishesid, Dishesinfo.class);
         if(dishesinfo!=null){
             return "";
         }
@@ -58,7 +69,7 @@ public class DishesInfoController {
     @RequestMapping("/dishesInfoAdd")
     public String dishesInfoAdd(Dishesinfo dishesinfo){
         System.out.println("-----------------consumer-- dishesInfoAdd");
-        int num=restTemplate.postForObject("http://order-provider/dishesInfoAdd",dishesinfo,Integer.class);
+        int num=restTemplate.postForObject(url+"dishesInfoAdd",dishesinfo,Integer.class);
         if(num>0){
             return "";
         }
@@ -73,7 +84,7 @@ public class DishesInfoController {
     @RequestMapping("/dishesInfoUpdate")
     public String dishesInfoUpdate(Dishesinfo dishesinfo){
         System.out.println("-----------------consumer-- dishesInfoUpdate");
-        int num=restTemplate.postForObject("http://order-provider/dishesInfoUpdate",dishesinfo,Integer.class);
+        int num=restTemplate.postForObject(url+"dishesInfoUpdate",dishesinfo,Integer.class);
         if(num>0){
             return "";
         }
@@ -88,10 +99,23 @@ public class DishesInfoController {
     @RequestMapping("/dishesInfoDelete")
     public String dishesInfoDelete(int dishesid){
         System.out.println("-----------------consumer-- dishesInfoDelete");
-        int num=restTemplate.postForObject("http://order-provider/dishesInfoDelete",dishesid,Integer.class);
+        int num=restTemplate.postForObject(url+"dishesInfoDelete",dishesid,Integer.class);
         if(num>0){
             return "";
         }
         return "";
+    }
+
+    /**
+     * 上传菜品图片
+     * @param pic：图片文件
+     * @return
+     */
+    @RequestMapping("/dishesGetDishesImg")
+    @ResponseBody
+    public String getDishesImg(MultipartFile pic){
+        System.out.println("-----------------consumer-- dishesGetDishesImg");
+        String dishesimg = restTemplate.postForObject(url + "dishesGetDishesImg", pic, String.class);
+        return dishesimg;
     }
 }
