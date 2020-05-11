@@ -51,7 +51,7 @@ public class UserinfoController {
         if (userinfo == null) {
             data[0] = "false";
         } else {
-            request.getSession().setAttribute("user_info",userinfo);
+            session.setAttribute("userInfo",userinfo);
             switch (userinfo.getRoleinfo().getRoleid()) {
                 case 1://后厨
                     data[0] = "chef";
@@ -67,5 +67,10 @@ public class UserinfoController {
             }
         }
         return data;
+    }
+
+    @RequestMapping("uploadImg")
+    public String uploadimg(HttpSession session){
+        return "/pages/page/admin";
     }
 }
