@@ -33,9 +33,7 @@ public class DishesInfoController {
     @RequestMapping("/dishesInfoFindAll")
     public String dishesInfoFindAll(int pageIndex,HttpServletRequest request){
         System.out.println("-----------------consumer-- dishesInfoFindAll");
-        if(pageIndex==0 || pageIndex<1){
-            pageIndex=1;
-        }
+        System.out.println("-----------------consumer-- pageIndex: "+pageIndex);
         int pageSize=10;
         List<Dishesinfo> dishesinfoList= (List<Dishesinfo>) restTemplate.getForObject(url+"dishesInfoFindAll",List.class);
         if(dishesinfoList!=null && dishesinfoList.size()>0){
