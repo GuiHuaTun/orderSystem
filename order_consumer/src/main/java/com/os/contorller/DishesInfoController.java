@@ -3,6 +3,7 @@ package com.os.contorller;
 import com.os.entity.Dishesinfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.client.RestTemplate;
@@ -32,15 +33,18 @@ public class DishesInfoController {
      */
     @RequestMapping("/dishesInfoFindAll")
     @ResponseBody
-    public List<Dishesinfo> dishesInfoFindAll(Integer pageIndex,HttpServletRequest request){
+    public List<Dishesinfo> dishesInfoFindAll(Integer pageIndex, Model model){
         System.out.println("-----------------consumer-- dishesInfoFindAll");
         System.out.println("-----------------consumer-- pageIndex: "+pageIndex);
         Integer pageSize=10;
-        List<Dishesinfo> dishesinfoList= (List<Dishesinfo>) restTemplate.getForObject(url+"dishesInfoFindAll/"+pageIndex+"/"+pageSize,List.class);
+        List list = restTemplate.getForObject(url + "dishesInfoFindAll/" + pageIndex + "/" + pageSize, List.class);
+        List<Dishesinfo> dishesinfoList= (List<Dishesinfo>) list.get(0);
+        int maxPage= (int) list.get(1);
+        System.out.println("-----------------consumer-- maxPage: "+maxPage);
         if(dishesinfoList!=null && dishesinfoList.size()>0){
             System.out.println(dishesinfoList);
-            request.getSession().setAttribute("dishesinfoList",dishesinfoList);
-            return dishesinfoList;
+            list.add(pageIndex);
+            return list;
         }
         return null;
     }
