@@ -42,17 +42,14 @@ $(function () {
                             break;
                         case "admin":
                             clean();
-                            alert("管理员");
                             location.href="/pages/page/admin.html";
                             break;
                         case "chef":
                             clean();
-                            alert("后厨");
                             location.href="/pages/page/kitchen.html";
                             break;
                         case "waiter":
                             clean();
-                            alert("点餐员");
                             location.href="/pages/page/waiterpage.html";
                             break;
                         case "false":
