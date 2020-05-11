@@ -127,7 +127,9 @@ public class DishesInfoController {
         System.out.println("extraname: "+extraname);
         String dishesimg=imgname+extraname;//新组成的文件名
         String path=request.getServletContext().getRealPath("/img/upload");//获取上传文件夹/img/upload的绝对路径
-        System.out.println("path:"+path);
+        System.out.println("path: "+path);
+        String imgPath="/img/upload/"+dishesimg;//生成图片在项目中的相对路径
+        System.out.println("imgPath: "+imgPath);
         File file=new File(path+"/"+dishesimg);//生成文件
         if(!file.getParentFile().exists()){//判断上传文件夹upload是否存在
             file.getParentFile().mkdirs();//创建上传文件夹upload文件夹
@@ -137,6 +139,6 @@ public class DishesInfoController {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return dishesimg;
+        return imgPath;
     }
 }
