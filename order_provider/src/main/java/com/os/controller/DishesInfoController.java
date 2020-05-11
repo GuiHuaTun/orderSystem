@@ -31,14 +31,18 @@ public class DishesInfoController {
      */
     @RequestMapping("/dishesInfoFindAll")
     public List<Dishesinfo> dishesInfoFindAll(int pageIndex,int pageSize){
-        System.out.println("------------------provider- dishesInfoFindAll");
+        System.out.println("-----------------provider-- dishesInfoFindAll");
+        System.out.println("-----------------provider-- pageIndex: "+pageIndex);
+        if(pageIndex==0 || pageIndex<1){
+            pageIndex=1;
+        }
         PageHelper.startPage(pageIndex,pageSize);
         List<Dishesinfo> dishesinfoList=dishesinfoService.selectAll();
         if(dishesinfoList!=null && dishesinfoList.size()>0){
             System.out.println(dishesinfoList);
             return dishesinfoList;
         }
-        System.err.println("------------------provider- dishesInfoFindAll fail");
+        System.err.println("-----------------provider-- dishesInfoFindAll fail");
         return null;
     }
 
