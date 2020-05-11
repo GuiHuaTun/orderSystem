@@ -69,6 +69,14 @@ public class UserinfoController {
         return data;
     }
 
+    @RequestMapping("userinfomation")
+    @ResponseBody
+    public Userinfo userinfoMation(HttpSession session){
+        Userinfo userinfo= (Userinfo) session.getAttribute("userInfo");
+        System.out.println(userinfo);
+        return userinfo;
+    }
+
 
     @RequestMapping("URL/{url}")
     public String gotoURL(@PathVariable("url") String url){

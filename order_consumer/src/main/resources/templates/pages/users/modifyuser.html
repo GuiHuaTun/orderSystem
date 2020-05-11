@@ -11,13 +11,14 @@
 <!--
 	<link rel="stylesheet" type="text/css" href="styles.css">
 	-->
+<script src="/bootstrap/js/jquery-1.11.1.js"></script>
 <link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css">
 
 
 <!-- 可选的Bootstrap主题文件（一般不用引入） -->
-<link rel="stylesheet" href="/static/bootstrap/css/bootstrap-theme.min.css">
-<link rel="stylesheet" href="/static/css/font-awesome.min.css">
-
+<link rel="stylesheet" href="/bootstrap/css/bootstrap-theme.min.css">
+<link rel="stylesheet" href="/css/font-awesome.min.css">
+<script type="text/javascript" src="/js/waiters/modifyuser.js"></script>
 <!-- jQuery文件。务必在bootstrap.min.js 之前引入 -->
 
 </head>
@@ -44,7 +45,7 @@
 							<label for="firstname" class="col-sm-2 control-label">用户名:</label>
 							<div class="col-sm-10">
 								<input type="text" class="form-control" id="firstname"
-									name="userAccount" placeholder="请输入新员工的用户名" disabled="disabled"
+									name="userAccount" placeholder="${userInfo.useraccount}" disabled="disabled"
 									value="">
 							</div>
 
@@ -53,6 +54,7 @@
 
 						<div class="form-group">
 							<label for="userOldPass" class="col-sm-2 control-label">旧密码:</label>
+							<input type="hidden" id="userOldPassWord"/>
 							<div class="col-sm-10">
 								<input type="password" class="form-control" id="userOldPass"
 									name="userOldPass" placeholder="请输入新员工的密码"
@@ -79,7 +81,7 @@
 							<label for="lastname" class="col-sm-2 control-label">角&nbsp;&nbsp;&nbsp;&nbsp;色:</label>
 							<div class="col-sm-10">
 								<select class="form-control" name="roleId" disabled="disabled">
-									
+									<option name="userRoleID"></option>
 								</select>
 							</div>
 							<div style="color: red;float: right;" id="usererror">您的角色信息由系统管理员指定，不能修改</div>

@@ -8,6 +8,8 @@ import com.os.entity.Table;
  * @date 2020/5/7 - 10:13
  */
 public interface TableService {
+    Table selectTableByStatus(Integer tablestatus);
+
     int deleteByPrimaryKey(Integer tableid);
 
 
