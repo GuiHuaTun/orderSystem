@@ -19,8 +19,8 @@ public class UserinfoServiceImpl implements UserinfoService {
     private UserinfoMapper userinfoMapper;
 
     @Override
-    public List<Userinfo> selectAll() {
-        return userinfoMapper.selectAll();
+    public List<Userinfo> selectAll(String useraccount) {
+        return userinfoMapper.selectAll(useraccount);
     }
 
     @Override

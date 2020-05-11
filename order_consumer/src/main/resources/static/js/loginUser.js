@@ -16,7 +16,6 @@ $(function () {
         imagers();
     });
     $("#login").on("click", function () {
-        debugger;
         var useraccount = $("input[name=useraccount]").val();
         var userpass = $("input[name=userpass]").val();
         var codetext = $("input[name=codetext]").val();
@@ -32,7 +31,6 @@ $(function () {
                 url: "loginUser/" + useraccount + "/" + userpass + "/" + codetext,
                 dataType: "json",
                 success: function (data) {
-                    debugger;
                     data = data.toString();
                     switch (data) {
                         case "codeError":
@@ -42,18 +40,15 @@ $(function () {
                             break;
                         case "admin":
                             clean();
-                            alert("管理员");
-                            location.href="/pages/page/admin.html";
+                            location.href="/pages/page/admin";
                             break;
                         case "chef":
                             clean();
-                            alert("后厨");
-                            location.href="/pages/page/kitchen.html";
+                            location.href="/pages/page/kitchen";
                             break;
                         case "waiter":
                             clean();
-                            alert("点餐员");
-                            location.href="/pages/page/waiterpage.html";
+                            location.href="/pages/page/waiterpage";
                             break;
                         case "false":
                             alert("账号或密码错误!");
