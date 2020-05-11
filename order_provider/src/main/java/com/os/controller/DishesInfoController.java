@@ -41,11 +41,11 @@ public class DishesInfoController {
         PageHelper.startPage(pageIndex,pageSize);
         List<Dishesinfo> dishesinfoList=dishesinfoService.selectAll();
         if(dishesinfoList!=null && dishesinfoList.size()>0){
-            int maxPage=dishesinfoService.selectAll().size();
-            System.out.println("-----------------provider-- maxPage: "+maxPage);
+            int totalPage=dishesinfoService.selectAll().size();
+            System.out.println("-----------------provider-- totalPage: "+totalPage);
             List list=new ArrayList();
             list.add(dishesinfoList);
-            list.add(maxPage);
+            list.add(totalPage);
             System.out.println(dishesinfoList);
             return list;
         }
