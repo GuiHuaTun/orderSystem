@@ -36,12 +36,14 @@ public class DishesInfoController {
     public List dishesInfoFindAll(Integer pageIndex, Model model){
         System.out.println("-----------------consumer-- dishesInfoFindAll");
         System.out.println("-----------------consumer-- pageIndex: "+pageIndex);
-        Integer pageSize=10;
+        Integer pageSize=8;
         List list = restTemplate.getForObject(url + "dishesInfoFindAll/" + pageIndex + "/" + pageSize, List.class);
         List<Dishesinfo> dishesinfoList= (List<Dishesinfo>) list.get(0);
         if(dishesinfoList!=null && dishesinfoList.size()>0){
             int maxPage= (int) list.get(1);
             System.out.println("-----------------consumer-- maxPage: "+maxPage);
+            int totalPage=maxPage%pageSize==0?maxPage/pageSize:maxPage/pageSize+1;
+            System.out.println("-----------------consumer-- totalPage: "+totalPage);
             System.out.println(dishesinfoList);
             list.add(pageIndex);
             return list;
