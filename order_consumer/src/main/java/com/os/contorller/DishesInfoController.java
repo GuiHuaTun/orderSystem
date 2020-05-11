@@ -31,11 +31,11 @@ public class DishesInfoController {
      * @return
      */
     @RequestMapping("/dishesInfoFindAll")
-    public String dishesInfoFindAll(int pageIndex,HttpServletRequest request){
+    public String dishesInfoFindAll(Integer pageIndex,HttpServletRequest request){
         System.out.println("-----------------consumer-- dishesInfoFindAll");
         System.out.println("-----------------consumer-- pageIndex: "+pageIndex);
-        int pageSize=10;
-        List<Dishesinfo> dishesinfoList= (List<Dishesinfo>) restTemplate.getForObject(url+"dishesInfoFindAll",List.class);
+        Integer pageSize=10;
+        List<Dishesinfo> dishesinfoList= (List<Dishesinfo>) restTemplate.getForObject(url+"dishesInfoFindAll/"+pageIndex+"/"+pageSize,List.class);
         if(dishesinfoList!=null && dishesinfoList.size()>0){
             System.out.println(dishesinfoList);
             request.getSession().setAttribute("dishesinfoList",dishesinfoList);
