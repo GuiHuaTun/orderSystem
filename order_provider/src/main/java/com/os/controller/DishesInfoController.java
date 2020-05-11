@@ -13,6 +13,7 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.servlet.http.HttpServletRequest;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -31,7 +32,7 @@ public class DishesInfoController {
      * @return
      */
     @RequestMapping("/dishesInfoFindAll/{pageIndex}/{pageSize}")
-    public List<Dishesinfo> dishesInfoFindAll(@PathVariable("pageIndex") int pageIndex, @PathVariable("pageSize") int pageSize){
+    public List dishesInfoFindAll(@PathVariable("pageIndex") int pageIndex, @PathVariable("pageSize") int pageSize){
         System.out.println("-----------------provider-- dishesInfoFindAll");
         System.out.println("-----------------provider-- pageIndex: "+pageIndex);
         if(pageIndex==0 || pageIndex<1){
@@ -40,8 +41,13 @@ public class DishesInfoController {
         PageHelper.startPage(pageIndex,pageSize);
         List<Dishesinfo> dishesinfoList=dishesinfoService.selectAll();
         if(dishesinfoList!=null && dishesinfoList.size()>0){
+            int maxPage=dishesinfoService.selectAll().size();
+            System.out.println("-----------------provider-- maxPage: "+maxPage);
+            List list=new ArrayList();
+            list.add(dishesinfoList);
+            list.add(maxPage);
             System.out.println(dishesinfoList);
-            return dishesinfoList;
+            return list;
         }
         System.err.println("-----------------provider-- dishesInfoFindAll fail");
         return null;
