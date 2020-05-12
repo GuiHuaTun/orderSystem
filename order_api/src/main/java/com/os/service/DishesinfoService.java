@@ -20,4 +20,6 @@ public interface DishesinfoService {
     Dishesinfo selectByPrimaryKey(Integer dishesid);
 
     int updateByPrimaryKeySelective(Dishesinfo record);
+
+    List<Dishesinfo> selectDishesByRec();
 }
