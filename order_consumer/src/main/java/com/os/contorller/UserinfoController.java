@@ -3,10 +3,17 @@ package com.os.contorller;
 
 import com.os.entity.Userinfo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.FileSystemResource;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -78,13 +85,41 @@ public class UserinfoController {
     }
 
 
+    /**
+     * 页面跳转
+     * @param url 路径
+     * @return
+     */
     @RequestMapping("URL/{url}")
     public String gotoURL(@PathVariable("url") String url){
      return "/pages/page/"+url;
     }
 
-    @RequestMapping("uploadImg")
-    public String uploadimg(HttpSession session){
-        return "/pages/page/admin";
+
+    /**
+     * 修改信息
+     * @param userinfo
+     * @return
+     */
+    @RequestMapping(value = "modifyuser",method = RequestMethod.POST)
+    @ResponseBody
+    public String updateUserInfo(Userinfo userinfo){
+        System.out.println(userinfo);
+        String url=restTemplate.postForObject("http://order-provider/dishesGetDishesImg",userinfo.getFaceimg(),String.class);
+        return "true";
+    }
+
+
+
+    @RequestMapping(value = "uploadImg",method = RequestMethod.POST)
+    public String uploadimg(MultipartFile uploadFile){
+
+
+
+
+        System.out.println(uploadFile.getOriginalFilename());
+        String url=restTemplate.postForObject("http://order-provider/dishesGetDishesImg",uploadFile,String.class);
+        System.out.println(url);
+        return url;
     }
 }

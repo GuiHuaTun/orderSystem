@@ -42,8 +42,14 @@ public class UserinfoController {
      */
     @RequestMapping("getAllUser/{useraccount}/{roleid}")
     public List<Userinfo> getAllUser(@PathVariable("useraccount") String useraccount, @PathVariable("roleid") int roleid) {
+        System.out.println("----------------------------------------getAllUser");
+        if(useraccount.equals("null")){
+            useraccount=null;
+        }
+        System.out.println(useraccount + "\t" + roleid + "\t");
         List<Userinfo> userlist = userinfoService.selectAll(useraccount, roleid);
         userlist.forEach(System.out::println);
+        System.out.println(userlist.size());
         return userlist;
     }
 

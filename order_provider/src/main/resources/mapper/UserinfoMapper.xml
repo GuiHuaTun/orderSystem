@@ -17,11 +17,11 @@
   </sql>
   <select id="selectAll" resultMap="UserinfoResultMap">
     select u.*,r.* from userinfo u,roleinfo r where u.role=r.roleid
-      <if test="useraccount!=null ">
+      <if test="useraccount != null ">
         and u.useraccount like '%${useraccount}'
       </if>
-      <if test="roleid!=null">
-        and u.role=#{roleid}
+      <if test="roleid != 0">
+          and u.role=#{roleid}
       </if>
       order by u.userid
   </select>
