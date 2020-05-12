@@ -16,6 +16,7 @@
 
 
 <script type="text/javascript" src="/js/ajax.js"></script>
+<script type="text/javascript" src="/js/takeorder_backup.js"></script>
 
 
 </head>
@@ -45,12 +46,12 @@
 					<div class="panel-body" style="padding-bottom: 0px">
 						<div class="row placeholders" id="dishesbord">
 
-							<div class="col-xs-6 col-sm-3 placeholder">
+							<!--<div class="col-xs-6 col-sm-3 placeholder">
 								<a href="#"> <img class="img-thumbnail"
 									style="border-radius:20px" alt="Generic placeholder thumbnail"
-									src="../../../static/img/dishes/1.jpg"></a>
-								<h4>鱼香肉丝</h4>
-								<span class="text-muted">色香味俱全，顾客都喜欢</span>
+									src="${disheslist.dishesimg}"></a>
+								<h4>${disheslist.dishesname}</h4>
+								<span class="text-muted">${disheslist.dishesdiscript}</span>
 								<div class="form-group">
 									<form>
 										<div style="width:120px;margin: 0px auto">
@@ -67,7 +68,7 @@
 														onclick="add(this)">+</button>
 												</span>
 											</div>
-											<!-- /input-group -->
+											&lt;!&ndash; /input-group &ndash;&gt;
 										</div>
 										<p>
 											<input type="button" class="btn btn-danger"
@@ -75,14 +76,14 @@
 										</p>
 									</form>
 								</div>
-							</div>
+							</div>-->
 						</div>
 						<nav>
 						<ul class="pager">
-							<li><a href="javascript:getDishesList(1)">&larr;首页</a></li>
-							<li><a href="#" id="pre">上一页</a></li>
-							<li><a href="#" id="next">下一页</a></li>
-							<li><a href="#" id="last">末页&rarr;</a></li>
+							<li><a href="javascript:;" onclick="page(1)">&larr;首页</a></li>
+							<li><a href="javascript:;" id="pre" onclick="prev()">上一页</a></li>
+							<li><a href="javascript:;" id="next" onclick="next()">下一页</a></li>
+							<li><a href="javascript:;" id="last" onclick="last()">末页&rarr;</a></li>
 						</ul>
 						</nav>
 
