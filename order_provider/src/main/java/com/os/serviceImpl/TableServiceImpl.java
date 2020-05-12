@@ -14,6 +14,12 @@ import org.springframework.stereotype.Service;
 public class TableServiceImpl implements TableService {
     @Autowired
     private TableMapper tableMapper;
+
+    @Override
+    public Table selectTableByStatus(Integer tablestatus) {
+        return tableMapper.selectTableByStatus(tablestatus);
+    }
+
     @Override
     public int deleteByPrimaryKey(Integer tableid) {
         return tableMapper.deleteByPrimaryKey(tableid);

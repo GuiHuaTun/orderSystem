@@ -13,6 +13,7 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.servlet.http.HttpServletRequest;
 import java.io.File;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -121,16 +122,16 @@ public class DishesInfoController {
 
     /**
      * 上传菜品图片
-     * @param pic：图片文件
-     * @param request
+     * @param ：图片文件
+     * @param
      * @return
      */
     @RequestMapping("/dishesGetDishesImg")
-    public String getDishesImg(@RequestBody MultipartFile pic, HttpServletRequest request){
+    public String getDishesImg(@RequestBody String URL)throws UnsupportedEncodingException{
         System.out.println("-----------------provider-- dishesGetDishesImg");
         String imgname= UUID.randomUUID().toString();//生成随机数用于组成文件名
-        System.out.println("uuid: "+imgname);
-        String originalname=pic.getOriginalFilename();//获取pic的文件名
+        System.out.println("uuid: "+imgname+"\t"+URL);
+        /*String originalname=pic.getOriginalFilename();//获取pic的文件名
         System.out.println("originalname: "+originalname);
         String extraname=originalname.substring(originalname.lastIndexOf("."));//截取pic的后缀名
         System.out.println("extraname: "+extraname);
@@ -148,6 +149,7 @@ public class DishesInfoController {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return imgPath;
+        return imgPath;*/
+        return "";
     }
 }

@@ -5,6 +5,8 @@ import org.apache.ibatis.annotations.Mapper;
 
 @Mapper
 public interface TableMapper {
+    Table selectTableByStatus(Integer tablestatus);
+
     int deleteByPrimaryKey(Integer tableid);
 
 

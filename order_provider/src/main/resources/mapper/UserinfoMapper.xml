@@ -17,9 +17,13 @@
   </sql>
   <select id="selectAll" resultMap="UserinfoResultMap">
     select u.*,r.* from userinfo u,roleinfo r where u.role=r.roleid
-      <if test="useraccount!=null ">
+      <if test="useraccount != null ">
         and u.useraccount like '%${useraccount}'
       </if>
+      <if test="roleid != 0">
+          and u.role=#{roleid}
+      </if>
+      order by u.userid
   </select>
   <select id="loginUser" parameterType="Userinfo" resultMap="UserinfoResultMap">
     select u.*,r.* from userinfo u,roleinfo r where useraccount=#{useraccount} and userpass=#{userpass} and u.role=r.roleid

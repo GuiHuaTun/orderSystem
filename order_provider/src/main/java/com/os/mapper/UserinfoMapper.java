@@ -10,7 +10,7 @@ import java.util.List;
 @Mapper
 public interface UserinfoMapper {
 
-    List<Userinfo> selectAll(@Param("useraccount")String useraccount );
+    List<Userinfo> selectAll(@Param("useraccount")String useraccount, @Param("roleid") int roleid);
 
     Userinfo loginUser(Userinfo userinfo);
 
