@@ -1,10 +1,12 @@
 package com.os.serviceImpl;
 
-import com.os.entity.Table;
+import com.os.entity.Tables;
 import com.os.mapper.TableMapper;
 import com.os.service.TableService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  * @author R
@@ -16,7 +18,7 @@ public class TableServiceImpl implements TableService {
     private TableMapper tableMapper;
 
     @Override
-    public Table selectTableByStatus(Integer tablestatus) {
+    public List<Tables> selectTableByStatus(Integer tablestatus) {
         return tableMapper.selectTableByStatus(tablestatus);
     }
 
@@ -26,17 +28,17 @@ public class TableServiceImpl implements TableService {
     }
 
     @Override
-    public int insertSelective(Table record) {
+    public int insertSelective(Tables record) {
         return tableMapper.insertSelective(record);
     }
 
     @Override
-    public Table selectByPrimaryKey(Integer tableid) {
+    public Tables selectByPrimaryKey(Integer tableid) {
         return tableMapper.selectByPrimaryKey(tableid);
     }
 
     @Override
-    public int updateByPrimaryKeySelective(Table record) {
+    public int updateByPrimaryKeySelective(Tables record) {
         return tableMapper.updateByPrimaryKeySelective(record);
     }
 }

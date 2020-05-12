@@ -22,5 +22,5 @@ public class Orderinfo implements Serializable {
 
     private Integer orderstate;
 
-    private Table table;
+    private Tables tables;
 }
