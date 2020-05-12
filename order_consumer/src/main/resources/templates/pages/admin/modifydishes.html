@@ -155,8 +155,8 @@
 										<label for="firstname" class="col-sm-2 control-label">名&nbsp;&nbsp;&nbsp;&nbsp;称:</label>
 										<div class="col-sm-10">
 											<input type="text" class="form-control" id="dishesName"
-												value="${DISHES_INFO.dishesName }" size="20"
-												name="dishesName" placeholder="请输入菜品名称" required
+												value="${dishesinfo.dishesname }" size="20"
+												name="dishesname" placeholder="请输入菜品名称" required
 												onblur="checkname()">
 										</div>
 
@@ -167,14 +167,14 @@
 										<label for="lastname" class="col-sm-2 control-label">简&nbsp;&nbsp;&nbsp;&nbsp;介:</label>
 										<div class="col-sm-10">
 											<input type="text" class="form-control" id="dishesDiscript"
-												value=${DISHES_INFO.dishesDiscript } name="dishesDiscript"
+												value=${dishesinfo.dishesdiscript } name="dishesdiscript"
 												placeholder="请输入少于100字的简介">
 										</div>
 									</div>
 									<div class="form-group">
 										<label for="lastname" class="col-sm-2 control-label">说&nbsp;&nbsp;&nbsp;&nbsp;明:</label>
 										<div class="col-sm-10">
-											<textarea rows="8" class="form-control" name="dishesTxt">${DISHES_INFO.dishesTxt }</textarea>
+											<textarea rows="8" class="form-control" name="dishestxt">${dishesinfo.dishestxt }</textarea>
 										</div>
 
 										<div style="color: red;float: right;" id="passerror"></div>
@@ -183,8 +183,8 @@
 										<label for="lastname" class="col-sm-2 control-label">价&nbsp;&nbsp;&nbsp;&nbsp;格:</label>
 										<div class="col-sm-10">
 											<input type="text" class="form-control" id="dishesPrice"
-												name="dishesPrice" placeholder="请输入菜品价格"
-												value="${DISHES_INFO.dishesPrice }" onblur="checkprice()">
+												name="dishesprice" placeholder="请输入菜品价格"
+												value="${dishesinfo.dishesprice }" onblur="checkprice()">
 										</div>
 										<div style="color: red;float: right;" id="priceerror"></div>
 									</div>
@@ -193,16 +193,15 @@
 										<label for="lastname" class="col-sm-2 control-label"></label>
 										<div class="col-sm-10">
 											<input type="checkbox" name="recommend" id="recommend"
-												${DISHES_INFO.recommend==1?"checked=\"checked\"":"" }
 												value="1" /> <span style="font-size: 16px;font-weight: bold;">推荐菜品</span>
 										</div>
 										<div style="color: red;float: right;" id="priceerror"></div>
 									</div>
 
 
-									<input type="hidden" value="${DISHES_INFO.dishesId }" id="dishesId"
-										name="dishesId" /> <input type="hidden" value="1.jpg"
-										id="dishesImg" name="dishesImg" />
+									<input type="hidden" value="${dishesinfo.dishesid }" id="dishesId"
+										name="dishesid" /> <input type="hidden" value="1.jpg"
+										id="dishesImg" name="dishesimg" />
 
 									<div class="form-group">
 										<div class="col-sm-offset-2 col-sm-10">
@@ -225,7 +224,7 @@
 							<h2>设置图片：</h2>
 							<p style="margin-bottom: 10px">菜品图片上传成功后将在下面直接预览。</p>
 							<div style="text-align: center;">
-								<img src="img/dishes/${DISHES_INFO.dishesImg }" id="face"
+								<img src="img/upload/${dishesinfo.dishesimg }" id="face"
 									width="160px" height="160px" class="img-circle"
 									style="border:3px solid #CCC;" />
 								<p style="margin-top: 15px">当前菜品图像预览</p>
@@ -263,7 +262,7 @@
 				<div
 					style="height:1px;width: 100%;background: #CCC;margin-bottom: 10px"></div>
 				<footer>
-				<p>&copy; ${ORDER_SYS_NAME}-中软国际ETC 2015</p>
+				<p>&copy;-中软国际ETC 2015</p>
 				</footer>
 			</div>
 

@@ -19,7 +19,7 @@ function page(pIndex) {
                 str+="<tr><td>"+dish.dishesid+"</td><td>"+dish.dishesname+"</td><td>"+dish.dishesdiscript+"</td><td>"+dish.dishesprice+"</td><td>"+dish.recommend+"</td><td><i style='cursor: pointer; font-size: 14;'" +
                     "onmouseover='this.style.color=\"orange\"'\n" +
                     "onmouseout='this.style.color=\"black\"'\n" +
-                    "class='icon-cogs icon-large' title='编辑菜品信息' onclick='window.location=\"dishesInfoFindById?dishesid=\"+dish.dishesid'></i>&nbsp;&nbsp;<i\n" +
+                    "class='icon-cogs icon-large' title='编辑菜品信息' onclick='window.location=\"/dishesInfoFindById?dishesid="+dish.dishesid+"\"'></i>&nbsp;&nbsp;<i\n" +
                     "style='cursor: pointer; font-size: 14;'\n" +
                     "onmouseover='this.style.color=\"orange\"'\n" +
                     "onmouseout='this.style.color=\"black\"'\n" +

@@ -55,13 +55,16 @@ public class DishesInfoController {
      * @return
      */
     @RequestMapping("/dishesInfoFindById")
-    public String dishesInfoFindById(int dishesid){
+    public String dishesInfoFindById(int dishesid, Model model){
         System.out.println("-----------------consumer-- dishesInfoFindById");
         Dishesinfo dishesinfo=restTemplate.postForObject(url+"dishesInfoFindById",dishesid, Dishesinfo.class);
         if(dishesinfo!=null){
-            return "";
+            System.out.println(dishesinfo);
+            model.addAttribute("dishesinfo",dishesinfo);
+            System.out.println("********************************");
+            return "pages/admin/modifydishes";
         }
-        return "";
+        return "error";
     }
 
     /**
