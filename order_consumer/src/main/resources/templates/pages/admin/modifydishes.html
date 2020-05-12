@@ -192,8 +192,14 @@
 									<div class="form-group">
 										<label for="lastname" class="col-sm-2 control-label"></label>
 										<div class="col-sm-10">
+											<#if dishesinfo.recommend==1>
+											<input type="checkbox" checked="checked" name="recommend" id="recommend"
+												value="1" />
+											<#else>
 											<input type="checkbox" name="recommend" id="recommend"
-												value="1" /> <span style="font-size: 16px;font-weight: bold;">推荐菜品</span>
+												   value="0" />
+											</#if>
+											<span style="font-size: 16px;font-weight: bold;">推荐菜品</span>
 										</div>
 										<div style="color: red;float: right;" id="priceerror"></div>
 									</div>
