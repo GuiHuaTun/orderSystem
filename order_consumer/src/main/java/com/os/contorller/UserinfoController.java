@@ -108,12 +108,17 @@ public class UserinfoController {
     @ResponseBody
     public String updateUserInfo(Userinfo userinfo){
         System.out.println(userinfo);
-        String url=restTemplate.postForObject("http://order-provider/dishesGetDishesImg",userinfo.getFaceimg(),String.class);
+        int url=restTemplate.postForObject("http://order-provider/uptUser",userinfo,Integer.class);
         return "true";
     }
 
-
-
+    /**
+     * 图片上传
+     * @param uploadFile：上传的图片
+     * @param userid：用户编号
+     * @param request
+     * @return
+     */
     @RequestMapping(value = "uploadImg",method = RequestMethod.POST)
     @ResponseBody
     public String[] uploadimg(MultipartFile uploadFile, int userid, HttpServletRequest request){
