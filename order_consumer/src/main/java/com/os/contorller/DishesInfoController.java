@@ -42,8 +42,6 @@ public class DishesInfoController {
         if(dishesinfoList!=null && dishesinfoList.size()>0){
             int maxPage= (int) list.get(1);
             System.out.println("-----------------consumer-- maxPage: "+maxPage);
-            int totalPage=maxPage%pageSize==0?maxPage/pageSize:maxPage/pageSize+1;
-            System.out.println("-----------------consumer-- totalPage: "+totalPage);
             System.out.println(dishesinfoList);
             list.add(pageIndex);
             return list;
@@ -57,13 +55,16 @@ public class DishesInfoController {
      * @return
      */
     @RequestMapping("/dishesInfoFindById")
-    public String dishesInfoFindById(int dishesid){
+    public String dishesInfoFindById(int dishesid, Model model){
         System.out.println("-----------------consumer-- dishesInfoFindById");
         Dishesinfo dishesinfo=restTemplate.postForObject(url+"dishesInfoFindById",dishesid, Dishesinfo.class);
         if(dishesinfo!=null){
-            return "";
+            System.out.println(dishesinfo);
+            model.addAttribute("dishesinfo",dishesinfo);
+            System.out.println("********************************");
+            return "pages/admin/modifydishes";
         }
-        return "";
+        return "error";
     }
 
     /**
