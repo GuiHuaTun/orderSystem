@@ -1,20 +1,23 @@
 package com.os.mapper;
 
-import com.os.entity.Table;
+import com.os.entity.Tables;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
 
 @Mapper
 public interface TableMapper {
-    Table selectTableByStatus(Integer tablestatus);
+    List<Tables> selectTableByStatus(@Param("tablestatus") Integer tablestatus);
 
     int deleteByPrimaryKey(Integer tableid);
 
 
-    int insertSelective(Table record);
+    int insertSelective(Tables record);
 
-    Table selectByPrimaryKey(Integer tableid);
+    Tables selectByPrimaryKey(Integer tableid);
 
-    int updateByPrimaryKeySelective(Table record);
+    int updateByPrimaryKeySelective(Tables record);
 
 
 }

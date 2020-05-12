@@ -152,4 +152,28 @@ public class DishesInfoController {
         return imgPath;*/
         return "";
     }
+
+    @RequestMapping("/selectDishesByRec/{pageIndex}/{pageSize}")
+    public List selectDishesByRec(@PathVariable("pageIndex") int pageIndex, @PathVariable("pageSize") int pageSize){
+        System.out.println("-----------------provider-- selectDishesByRec");
+        System.out.println("-----------------provider-- pageIndex: "+pageIndex);
+        if(pageIndex==0 || pageIndex<1){
+            pageIndex=1;
+        }
+        PageHelper.startPage(pageIndex,pageSize);
+        List<Dishesinfo> dishesinfoList=dishesinfoService.selectDishesByRec();
+        if(dishesinfoList!=null && dishesinfoList.size()>0){
+            int totalPage=dishesinfoService.selectDishesByRec().size();
+            System.out.println("-----------------provider-- totalPage: "+totalPage);
+            int maxPage=totalPage%pageSize==0?totalPage/pageSize:totalPage/pageSize+1;
+            System.out.println("-----------------provider-- maxPage: "+maxPage);
+            List reclist=new ArrayList();
+            reclist.add(dishesinfoList);
+            reclist.add(maxPage);
+            System.out.println(dishesinfoList);
+            return reclist;
+        }
+        System.err.println("-----------------provider-- dishesInfoFindAll fail");
+        return null;
+    }
 }

@@ -22,4 +22,6 @@ public interface DishesinfoMapper {
 
     int updateByPrimaryKeySelective(Dishesinfo record);
 
+    List<Dishesinfo> selectDishesByRec();
+
 }

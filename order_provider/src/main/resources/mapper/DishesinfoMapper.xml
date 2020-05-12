@@ -99,4 +99,7 @@
     </set>
     where dishesid = #{dishesid,jdbcType=INTEGER}
   </update>
+  <select id="selectDishesByRec" resultMap="DishesinfoResultMap">
+    select <include refid="Base_Column_List" /> from dishesinfo where recommend=1
+  </select>
 </mapper>

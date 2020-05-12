@@ -125,4 +125,23 @@ public class DishesInfoController {
         String dishesimg = restTemplate.postForObject(url + "dishesGetDishesImg", pic, String.class);
         return dishesimg;
     }
+
+    @RequestMapping("/selectDishesByRec")
+    @ResponseBody
+    public List selectDishesByRec( Model model){
+        System.out.println("-----------------consumer-- selectDishesByRec");
+        Integer pageSize=4;
+        Integer pageIndex=1;
+        List reclist = restTemplate.getForObject(url + "selectDishesByRec/" + pageIndex + "/" + pageSize, List.class);
+        System.out.println("走了url");
+        List<Dishesinfo> dishesinfoList= (List<Dishesinfo>) reclist.get(0);
+        if(dishesinfoList!=null && dishesinfoList.size()>0){
+            int maxPage= (int) reclist.get(1);
+            System.out.println("-----------------consumer-- maxPage: "+maxPage);
+            System.out.println(dishesinfoList);
+            reclist.add(pageIndex);
+            return reclist;
+        }
+        return null;
+    }
 }

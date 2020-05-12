@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.TableService">
-  <resultMap id="TableResultMap" type="com.os.entity.Table">
+<mapper namespace="com.os.mapper.TableMapper">
+  <resultMap id="TableResultMap" type="com.os.entity.Tables">
     <id column="tableid" jdbcType="INTEGER" property="tableid" />
     <result column="tablename" jdbcType="VARCHAR" property="tablename" />
     <result column="tablestatus" jdbcType="INTEGER" property="tablestatus" />
@@ -12,21 +12,21 @@
   <select id="selectTableByStatus" resultMap="TableResultMap">
     select
     <include refid="Base_Column_List" />
-    from table
+    from tables
     where tablestatus = #{tablestatus}
   </select>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="TableResultMap">
     select 
     <include refid="Base_Column_List" />
-    from table
+    from tables
     where tableid = #{tableid,jdbcType=INTEGER}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from table
+    delete from tables
     where tableid = #{tableid,jdbcType=INTEGER}
   </delete>
-  <insert id="insertSelective" parameterType="com.os.entity.Table">
-    insert into table
+  <insert id="insertSelective" parameterType="com.os.entity.Tables">
+    insert into tables
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="tableid != null">
         tableid,
@@ -50,8 +50,8 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.os.entity.Table">
-    update table
+  <update id="updateByPrimaryKeySelective" parameterType="com.os.entity.Tables">
+    update tables
     <set>
       <if test="tablename != null">
         tablename = #{tablename,jdbcType=VARCHAR},
