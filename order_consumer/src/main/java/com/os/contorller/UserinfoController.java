@@ -18,9 +18,12 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.io.File;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 /**
  * @author R
@@ -112,14 +115,38 @@ public class UserinfoController {
 
 
     @RequestMapping(value = "uploadImg",method = RequestMethod.POST)
-    public String uploadimg(MultipartFile uploadFile){
-
-
-
-
-        System.out.println(uploadFile.getOriginalFilename());
-        String url=restTemplate.postForObject("http://order-provider/dishesGetDishesImg",uploadFile,String.class);
-        System.out.println(url);
-        return url;
+    @ResponseBody
+    public String[] uploadimg(MultipartFile uploadFile, int userid, HttpServletRequest request){
+        System.out.println("userid: "+userid);
+        String originalname=uploadFile.getOriginalFilename();//获取pic的文件名
+        System.out.println("originalname: "+originalname);
+        String imgname= UUID.randomUUID().toString();//生成随机数用于组成文件名
+        System.out.println("imgname_UUID"+imgname);
+        String extraname=originalname.substring(originalname.lastIndexOf("."));//截取pic的后缀名
+        System.out.println("extraname: "+extraname);
+        String dishesimg=imgname+extraname;//新组成的文件名
+        String path=request.getServletContext().getRealPath("/img/upload");//获取上传文件夹/img/upload的绝对路径
+        System.out.println("path: "+path);
+        String imgPath="/img/upload/"+dishesimg;//生成图片在项目中的相对路径
+        System.out.println("imgPath: "+imgPath);
+        File file=new File(path+"/"+dishesimg);//生成文件
+        if(!file.getParentFile().exists()){//判断上传文件夹upload是否存在
+            file.getParentFile().mkdirs();//创建上传文件夹upload文件夹
+        }
+        try {
+            uploadFile.transferTo(file);//将pic文件转到file文件
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        Userinfo userinfo=new Userinfo();
+        userinfo.setUserid(userid);
+        userinfo.setFaceimg(imgPath);
+        int num=restTemplate.postForObject("http://order-provider/uptUser",userinfo,Integer.class);
+        if(num>0){
+            String[] str=new String[]{"true"};
+            return str;
+        }
+        String[] str=new String[]{"false"};
+        return str;
     }
 }
