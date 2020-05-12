@@ -19,11 +19,12 @@
 
 
 <!-- jQuery文件。务必在bootstrap.min.js 之前引入 -->
-<script src="bootstrap/js/jquery-1.11.1.min.js"></script>
+<script src="/bootstrap/js/jquery-1.11.1.min.js"></script>
 
 <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
-<script src="bootstrap/js/bootstrap.min.js"></script>
-<script type="text/javascript" src="js/ajax.js"></script>
+<script src="/bootstrap/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="/js/ajax.js"></script>
+
 <script type="text/javascript">
 	function deleteDishes(id, name, obj) {
 
@@ -153,17 +154,16 @@
 		}
 	}
 	function detail(name, disc, txt, price, commend, img) {
-
 		var dishesName = document.getElementById("dishesName");
 		var dishesDiscript = document.getElementById("dishesDiscript");
 		var dishesTxt = document.getElementById("dishesTxt");
-		txt=txt.replace(/ordersysspace/g, "&nbsp;");
-		txt=txt.replace(/ordersysbreak/g, "<br>");
+		//txt=txt.replace(/ordersysspace/g, "&nbsp;");
+		//txt=txt.replace(/ordersysbreak/g, "<br>");
 		
 		var dishesPrice = document.getElementById("dishesPrice");
 		var recommend = document.getElementById("recommend");
 		var dishesImg = document.getElementById("dishesImg");
-		dishesImg.src = "img/dishes/" + img;
+		dishesImg.src = "/img/upload/" + img;
 		dishesName.innerHTML = name;
 		dishesDiscript.innerHTML = disc;
 		dishesTxt.innerHTML = txt;
@@ -176,6 +176,7 @@
 		$("#myModal").modal("show");
 	}
 </script>
+<script type="text/javascript" src="/js/dishesadmin.js"></script>
 </head>
 
 <body style="font-family: 微软雅黑" onload="getDishesList(1)">
@@ -220,10 +221,10 @@
 
 							<nav>
 							<ul class="pager">
-								<li><a href="javascript:getUserList(1)" id="firstpage">&larr;首页</a></li>
-								<li><a href="#" id="pre">上一页</a></li>
-								<li><a href="#" id="next">下一页</a></li>
-								<li><a href="#" id="last">末页&rarr;</a></li>
+								<li><a href="javascript:page(1)" id="firstpage">&larr;首页</a></li>
+								<li><a href="javascript:prev()" id="pre">上一页</a></li>
+								<li><a href="javascript:next()" id="next">下一页</a></li>
+								<li><a href="javascript:last()" id="last">末页&rarr;</a></li>
 							</ul>
 							</nav>
 
