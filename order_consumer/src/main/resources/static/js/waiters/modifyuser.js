@@ -28,6 +28,7 @@ $(function () {
             $("option[name=userRoleID]").html(data.roleinfo.rolename);
             $("#face").attr("src","/img/faces/"+data.faceimg);
             userid.val(data.userid);
+            $("[name=userid]").val(data.userid);
             facesSrc.val(data.faceimg);
         },
         error:function(){
@@ -95,6 +96,27 @@ $(function () {
         facesSrc.val($("#inputfile").val());
 
     })
+
+    $("#uptfaces").click(function () {
+        var formData=new FormData();
+        formData.append("uploadFile",$("#inputfile")[0].files[0]);
+        formData.append("userid",$("[name=userid]").val());
+        $.ajax({
+            type:"POST",
+            url:"/uploadImg",
+            data:formData,
+            dataType:"json",
+            processData: false,// 告诉jQuery不要去处理发送的数据
+            contentType: false,// 告诉jQuery不要去设置Content-Type请求头
+            success:function(data){
+                alert("修改头像成功");
+            },
+            error:function(){
+                alert("修改头像失败!");
+            },
+        });
+    });
+
     //建立一個可存取到該file的url
     function getObjectURL(file) {
         var url = null ;

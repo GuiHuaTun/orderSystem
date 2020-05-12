@@ -126,12 +126,13 @@
 					<div>
 
 						<form class="form-inline" role="form"
-							enctype="multipart/form-data" action="../../uploadImg" id="imgform"
+							enctype="multipart/form-data" action="uploadImg" id="imgform"
 							target="submitform" method="post">
 							<div class="form-group">
 								<label class="sr-only" for="inputfile">文件输入</label> <input
 									type="file" id="inputfile" name="uploadFile">
 							</div>
+							<input type="hidden" name="userid">
 							<input type="button" class="btn btn-danger" id="uptfaces" value="更新头像图片"/>
 						</form>
 					</div>
