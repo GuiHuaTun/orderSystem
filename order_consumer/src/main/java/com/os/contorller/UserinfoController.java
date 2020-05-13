@@ -112,9 +112,9 @@ public class UserinfoController {
      * @param request
      * @return
      */
-    @RequestMapping(value = "uploadImg",method = RequestMethod.POST)
+    @RequestMapping(value = "userModifyImg",method = RequestMethod.POST)
     @ResponseBody
-    public String[] uploadimg(MultipartFile uploadFile, int userid, HttpServletRequest request) throws Exception {
+    public String[] userModifyImg(MultipartFile uploadFile, int userid, HttpServletRequest request) throws Exception {
         System.out.println("------------------- uploadImg");
         System.out.println("userid: "+userid);
         ByteArrayResource uFile=new ByteArrayResource(uploadFile.getBytes()){
@@ -134,8 +134,8 @@ public class UserinfoController {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.MULTIPART_FORM_DATA);
         HttpEntity<MultiValueMap<String,Object>> requestEntity=new HttpEntity<>(mvm,headers);
-        ResponseEntity<String> imgPath=restTemplate.postForEntity("http://order-provider/dishesGetDishesImg",requestEntity,String.class);
-        System.out.println("imgPath: "+imgPath.toString());
+        ResponseEntity<Integer> num=restTemplate.postForEntity("http://order-provider/userGetDishesImg",requestEntity,Integer.class);
+        System.out.println("num: "+num);
         String[] str=new String[]{"true"};
         return str;
     }
