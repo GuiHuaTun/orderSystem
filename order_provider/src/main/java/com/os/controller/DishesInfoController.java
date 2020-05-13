@@ -4,10 +4,7 @@ import com.github.pagehelper.PageHelper;
 import com.os.entity.Dishesinfo;
 import com.os.service.DishesinfoService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
@@ -127,7 +124,7 @@ public class DishesInfoController {
      * @return
      */
     @RequestMapping("/dishesGetDishesImg")
-    public String getDishesImg(@RequestBody MultipartFile uploadFile,int userid){
+    public String getDishesImg(@RequestParam(value = "uploadFile",required = false) MultipartFile uploadFile,@RequestParam(value = "userid") String userid){
         System.out.println("-----------------provider-- dishesGetDishesImg");
         String originalname=uploadFile.getOriginalFilename();//获取pic的文件名
         System.out.println("originalname: "+originalname);

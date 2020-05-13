@@ -7,8 +7,11 @@
     <result column="orderenddate" jdbcType="VARCHAR" property="orderenddate" />
     <result column="orderstate" jdbcType="INTEGER" property="orderstate" />
     <association property="userinfo" javaType="Userinfo">
-      <id column="roleid" jdbcType="INTEGER" property="roleid" />
-      <result column="rolename" jdbcType="VARCHAR" property="rolename" />
+      <id column="userid" jdbcType="INTEGER" property="userid" />
+      <result column="useraccount" jdbcType="VARCHAR" property="useraccount" />
+      <result column="userpass" jdbcType="VARCHAR" property="userpass" />
+      <result column="locked" jdbcType="INTEGER" property="locked" />
+      <result column="faceimg" jdbcType="VARCHAR" property="faceimg" />
     </association>
     <association property="tables" javaType="Tables">
       <id column="tableid" jdbcType="INTEGER" property="tableid" />
@@ -20,13 +23,11 @@
     orderid, orderbegindate, orderenddate, waiterid, orderstate, tableid
   </sql>
   <select id="selectAll" resultMap="OrderinfoResultMap">
-    SELECT o.*,u.*,t.* FROM orderinfo o,userinfo u,`tables` t
+    SELECT o.*,u.*,t.* FROM orderinfo o,userinfo u,`tables` t where o.waiterid=u.userid and  o.tableid=t.tableid
   </select>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="OrderinfoResultMap">
     select 
-    <include refid="Base_Column_List" />
-    from orderinfo
-    where orderid = #{orderid,jdbcType=INTEGER}
+    o.*,u.*,t.* FROM orderinfo o,userinfo u,`tables` t where o.waiterid=u.userid and  o.tableid=t.tableid and orderid = #{orderid,jdbcType=INTEGER}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from orderinfo
