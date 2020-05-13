@@ -10,10 +10,10 @@
 <meta http-equiv="description" content="This is my page">
 	<link rel="stylesheet" href="/css/dashboard.css">
 	<!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
-	<script src="/bootstrap/js/bootstrap.min.js"></script>
+
 <!-- jQuery文件。务必在bootstrap.min.js 之前引入 -->
 <script src="/bootstrap/js/jquery-1.11.1.min.js"></script>
-
+	<script src="/bootstrap/js/bootstrap.min.js"></script>
 
 <script type="text/javascript" src="/js/ajax.js"></script>
 <script type="text/javascript" src="/js/takeorder_backup.js"></script>
@@ -21,7 +21,7 @@
 
 </head>
 
-<body style="font-family: 微软雅黑" onload="getDishesList(1)">	
+<body style="font-family: 微软雅黑">
 	<div class="container-fluid">
 			<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
 				<ol class="breadcrumb">
@@ -39,6 +39,7 @@
 						</h4>
 					</div>
 				</div>
+				<input type="hidden" id="tableid">
 				<div class="panel panel-danger">
 					<div class="panel-heading">
 						<h2 class="panel-title">菜品清单</h2>

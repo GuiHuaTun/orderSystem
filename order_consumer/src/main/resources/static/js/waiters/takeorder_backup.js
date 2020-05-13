@@ -1,7 +1,12 @@
 var pageIndex=1;
 var maxPage=1;
+var tableid=null;
 $(function () {
+    tableid=$("#tableid");
     page(1);
+
+    var table_id=location.search.split("=")[1];
+    tableid.val(table_id);
 })
 
 function prev() {
@@ -42,21 +47,21 @@ function page(pIndex) {
                     "\t\t\t\t\t\t\t\t\tstyle=\"border-radius:20px\"\n" +
                     "\t\t\t\t\t\t\t\t\tsrc=\"/img/dishes/1.jpg\"></a>\n" +
                     "\t\t\t\t\t\t\t\t<h4>"+dishes.dishesname+"</h4>\n" +
-                    "\t\t\t\t\t\t\t\t<span class=\"text-muted\">"+dishes.dishesdiscript+"</span>\n" +
+                    "\t\t\t\t\t\t\t\t<span class=\"text-muted\">"+dishes.dishesdiscript+"</span><input type='hidden' id=\"dishesid\" value="+dishes.dishesid+" />\n" +
                     "\t\t\t\t\t\t\t\t<div class=\"form-group\">\n" +
                     "\t\t\t\t\t\t\t\t\t<form>\n" +
                     "\t\t\t\t\t\t\t\t\t\t<div style=\"width:120px;margin: 0px auto\">\n" +
                     "\t\t\t\t\t\t\t\t\t\t\t<div class=\"input-group\">\n" +
                     "\t\t\t\t\t\t\t\t\t\t\t\t<span class=\"input-group-btn\">\n" +
                     "\t\t\t\t\t\t\t\t\t\t\t\t\t<button class=\"btn btn-default\" type=\"button\"\n" +
-                    "\t\t\t\t\t\t\t\t\t\t\t\t\t\tonclick=\"subtract(this)\">-</button>\n" +
+                    "\t\t\t\t\t\t\t\t\t\t\t\t\t\tonclick=\"operation($(this),'subtract')\">-</button>\n" +
                     "\t\t\t\t\t\t\t\t\t\t\t\t</span> <input type=\"text\" class=\"form-control\" value=\"1\"\n" +
                     "\t\t\t\t\t\t\t\t\t\t\t\t\tdisabled=\"disabled\" name=\"num\"\n" +
                     "\t\t\t\t\t\t\t\t\t\t\t\t\tstyle=\"text-align: center;padding: 0px;cursor: text;\"><input\n" +
                     "\t\t\t\t\t\t\t\t\t\t\t\t\ttype=\"hidden\" name=\"dishes\" value=\"6\" /> <span\n" +
                     "\t\t\t\t\t\t\t\t\t\t\t\t\tclass=\"input-group-btn\">\n" +
                     "\t\t\t\t\t\t\t\t\t\t\t\t\t<button class=\"btn btn-default\" type=\"button\"\n" +
-                    "\t\t\t\t\t\t\t\t\t\t\t\t\t\tonclick=\"add(this)\">+</button>\n" +
+                    "\t\t\t\t\t\t\t\t\t\t\t\t\t\tonclick=\"operation($(this),'add')\">+</button>\n" +
                     "\t\t\t\t\t\t\t\t\t\t\t\t</span>\n" +
                     "\t\t\t\t\t\t\t\t\t\t\t</div>\n" +
                     "\t\t\t\t\t\t\t\t\t\t</div>\n" +
@@ -72,3 +77,15 @@ function page(pIndex) {
         }
     })
 }
+function operation(obj,op) {
+    obj.parents(".placeholder").find("#dishesid").val();
+    var num=obj.parents(".placeholder").find("input[name=num]").val();
+    num=parseInt(num);
+    if (op=="subtract")
+        num=num-1==0?1:num-1;
+    else
+        num=num+1;
+    obj.parents(".placeholder").find("input[name=num]").val(num);
+}
+
+
