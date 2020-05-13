@@ -9,11 +9,199 @@
 		<meta http-equiv="description" content="This is my page">
 
 		<link rel="stylesheet" href="/css/dashboard.css">
-		<!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
-		<script src="/bootstrap/js/bootstrap.min.js"></script>
 		<!-- jQuery文件。务必在bootstrap.min.js 之前引入 -->
 		<script src="/bootstrap/js/jquery-1.11.1.min.js"></script>
 		<script src="/js/adminUser.js"></script>
+		<!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
+		<script src="/bootstrap/js/bootstrap.min.js"></script>
+		<style type="text/css">
+			.pagination>div>li{
+				display: inline;
+			}
+			.pagination>div{
+				display: inline;
+			}
+			#totals{
+				text-align: center;
+			}
+			.pagination>div>li>a{
+                bottom: 500px;
+				float: left;
+				padding: 6px 12px;
+				margin-left: -1px;
+				line-height: 1.42857143;
+				color: #337ab7;
+				text-decoration: none;
+				background-color: #fff;
+				border: 1px solid #ddd;
+			}
+			.pagination>div>li>a:hover{
+				background-color: rgb(238,238,238);
+			}
+
+			.wrapper-demo {
+
+				*zoom: 1;
+                font-weight: 400;
+                width: 600PX;
+                height: 3px;
+                text-align: left;
+
+
+			}
+
+			.wrapper-demo:after {
+				clear: both;
+				content: "";
+				display: table;
+			}
+
+			/* DEMO 3 */
+
+			.wrapper-dropdown-3 {
+				/* Size and position */
+				position: relative;
+				width: 200px;
+				margin: 0 auto;
+				padding: 10px;
+
+				/* Styles */
+				background: #fff;
+				border-radius: 7px;
+				border: 1px solid rgba(0,0,0,0.15);
+				box-shadow: 0 1px 1px rgba(50,50,50,0.1);
+				cursor: pointer;
+				outline: none;
+
+				/* Font settings */
+				font-weight: bold;
+				color: #8AA8BD;
+			}
+
+			.wrapper-dropdown-3:after {
+				content: "";
+				width: 0;
+				height: 0;
+				position: absolute;
+				right: 15px;
+				top: 50%;
+				margin-top: -3px;
+				border-width: 6px 6px 0 6px;
+				border-style: solid;
+				border-color: #8aa8bd transparent;
+			}
+
+			.wrapper-dropdown-3 .dropdown {
+				/* Size & position */
+				position: absolute;
+				top: 140%;
+				left: 0;
+				right: 0;
+				padding-left: 1px;
+				/* Styles */
+				background: white;
+				border-radius: inherit;
+				border: 1px solid rgba(0,0,0,0.17);
+				box-shadow: 0 0 5px rgba(0,0,0,0.1);
+				font-weight: normal;
+				-webkit-transition: all 0.5s ease-in;
+				-moz-transition: all 0.5s ease-in;
+				-ms-transition: all 0.5s ease-in;
+				-o-transition: all 0.5s ease-in;
+				transition: all 0.5s ease-in;
+				list-style: none;
+
+				/* Hiding */
+				opacity: 0;
+				pointer-events: none;
+			}
+
+			.wrapper-dropdown-3 .dropdown:after {
+				content: "";
+				width: 0;
+				height: 0;
+				position: absolute;
+				bottom: 100%;
+				right: 15px;
+				border-width: 0 6px 6px 6px;
+				border-style: solid;
+				border-color: #fff transparent;
+			}
+
+			.wrapper-dropdown-3 .dropdown:before {
+				content: "";
+				width: 0;
+				height: 0;
+				position: absolute;
+				bottom: 100%;
+				right: 13px;
+				border-width: 0 8px 8px 8px;
+				border-style: solid;
+				border-color: rgba(0,0,0,0.1) transparent;
+			}
+
+			.wrapper-dropdown-3 .dropdown li a {
+				display: block;
+				padding: 10px;
+				text-decoration: none;
+				color: #8aa8bd;
+				border-bottom: 1px solid #e6e8ea;
+				box-shadow: inset 0 1px 0 rgba(255,255,255,1);
+				-webkit-transition: all 0.3s ease-out;
+				-moz-transition: all 0.3s ease-out;
+				-ms-transition: all 0.3s ease-out;
+				-o-transition: all 0.3s ease-out;
+				transition: all 0.3s ease-out;
+			}
+
+			.wrapper-dropdown-3 .dropdown li i {
+				float: right;
+				color: inherit;
+			}
+
+			.wrapper-dropdown-3 .dropdown li:first-of-type a {
+				border-radius: 7px 7px 0 0;
+			}
+
+			.wrapper-dropdown-3 .dropdown li:last-of-type a {
+				border: none;
+				border-radius: 0 0 7px 7px;
+			}
+
+			/* Hover state */
+
+			.wrapper-dropdown-3 .dropdown li:hover a {
+				background: #f3f8f8;
+			}
+
+			/* Active state */
+
+			.wrapper-dropdown-3.active .dropdown {
+				opacity: 1;
+				pointer-events: auto;
+			}
+
+			/* No CSS3 support */
+
+			.no-opacity       .wrapper-dropdown-3 .dropdown,
+			.no-pointerevents .wrapper-dropdown-3 .dropdown {
+				display: none;
+				opacity: 1; /* If opacity support but no pointer-events support */
+				pointer-events: auto; /* If pointer-events support but no pointer-events support */
+			}
+
+			.no-opacity       .wrapper-dropdown-3.active .dropdown,
+			.no-pointerevents .wrapper-dropdown-3.active .dropdown {
+				display: block;
+			}
+
+            .paddingtop{
+                padding-top: 14px;
+            }
+            .form-control{
+                height:42px ;
+            }
+		</style>
 		<script type="text/javascript">
 
 			function deleteUser(id, name, obj) {
@@ -147,10 +335,31 @@
 						</div>
 
 						<div style="text-align: right;">
-							<form class="navbar-form navbar-left">
-								<input type="text" class="form-control search" placeholder="搜索点餐员">
-								<input type="button" value="搜索" class="btn btn-success">
+							<form class="navbar-form navbar-left paddingtop">
+								<input type="text" class="form-control searchbyname" placeholder="搜索点餐员">
 							</form>
+
+
+							<section class="main" style="text-align: left;">
+
+								<div class="wrapper-demo">
+
+									<div id="dd" class="wrapper-dropdown-3" tabindex="1">
+                                        <span class="xasd">请选择</span>
+										<ul class="dropdown">
+
+											<li><a href="#">Classic mail</a></li>
+
+											<li><a href="#">UPS Delivery</a></li>
+
+											<li><a href="#">Private jet</a></li>
+										</ul>
+									</div>
+
+									​</div>
+							</section>
+
+
 							<a href="adduser.html" class="btn btn-success" style="width:120px;margin-top: 10px;margin-right: 20px">添加员工</a>
 						</div>
 						<div class="panel-body">
@@ -158,21 +367,35 @@
 								<table class="table table-striped">
 									<thead>
 										<tr>
-											<th>员工编号</th>
-											<th>员工帐号</th>
-											<th>员工角色</th>
-											<th>操作</th>
+											<th class="textcetern">员工编号</th>
+											<th class="textcetern">员工帐号</th>
+											<th class="textcetern">员工角色</th>
+											<th class="textcetern">操作</th>
 										</tr>
 									</thead>
 									<tbody id="orderTable">
+
 									</tbody>
 								</table>
-								<nav>
-									<ul class="pager">
-										<li><a href="javascript:getUserList(1)" id="firstpage">&larr;首页</a></li>
-										<li><a href="#" id="pre">上一页</a></li>
-										<li><a href="#" id="next">下一页</a></li>
-										<li><a href="#" id="last">末页&rarr;</a></li>
+								<nav aria-label="Page navigation" id="totals">
+									<ul class="pagination">
+										<li>
+											<a href="#" aria-label="Previous" onclick="prev()">
+												<span aria-hidden="true" >&laquo;</span>
+											</a>
+										</li>
+										<div id="pageList">
+											<li><a href="#">1</a></li>
+											<li><a href="#">2</a></li>
+											<li><a href="#">3</a></li>
+											<li><a href="#">4</a></li>
+											<li><a href="#">5</a></li>
+										</div>
+										<li>
+											<a href="#" aria-label="Next" onclick="next()">
+												<span aria-hidden="true">&raquo;</span>
+											</a>
+										</li>
 									</ul>
 								</nav>
 							</div>
@@ -203,16 +426,14 @@
 							</div>
 							<div class="panel-body" style="text-align: center;">
 
-								<img src="../../../static/img/faces/default.jpg" id="faceimg" width="200px" height="200px" class="img-circle" style="border:1px solid #CCC;box-shadow:0 0 10px rgba(100, 100, 100, 1);" />
+								<img src="/img/faces/default.jpg" id="faceimg" width="200px" height="200px" class="img-circle" style="border:1px solid #CCC;box-shadow:0 0 10px rgba(100, 100, 100, 1);" />
 								<p>
 									<h2>员工帐号：
-
 										<span id="userAccount"></span>
 									</h2>
 								</p>
 								<p>
-									<h3>
-										员工角色：<span id="role"></span></h3>
+									<h3>员工角色：<span id="role"></span></h3>
 								</p>
 							</div>
 						</div>
@@ -224,5 +445,33 @@
 				</div>
 			</div>
 		</div>
+		<script type="text/javascript">
+			function DropDown(el) {
+                this.dd = el;
+                this.placeholder = this.dd.children('span');
+                this.opts = this.dd.find('ul.dropdown > li');
+                this.val = '';
+                this.index = -1;
+                this.initEvents();
+            }
+            DropDown.prototype = {
+				initEvents : function() {
+					var obj = this;
+					obj.dd.on('click', function(event){
+						$(this).toggleClass('active');
+						return false;
+					});
+
+				},
+				getValue : function() {
+					return this.val;
+				},
+				getIndex : function() {
+					return this.index;
+				}
+			}
+
+		</script>
+
 	</body>
 </html>
