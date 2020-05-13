@@ -127,10 +127,13 @@ public class DishesInfoController {
      * @return
      */
     @RequestMapping("/dishesGetDishesImg")
-    public String getDishesImg(@RequestBody String URL)throws UnsupportedEncodingException{
+    public String getDishesImg(@RequestBody MultipartFile uploadFile,int userid){
         System.out.println("-----------------provider-- dishesGetDishesImg");
-        String imgname= UUID.randomUUID().toString();//生成随机数用于组成文件名
-        System.out.println("uuid: "+imgname+"\t"+URL);
+        String originalname=uploadFile.getOriginalFilename();//获取pic的文件名
+        System.out.println("originalname: "+originalname);
+        System.out.println("uploadFile: "+userid);
+//        String imgname= UUID.randomUUID().toString();//生成随机数用于组成文件名
+//        System.out.println("uuid: "+imgname+"\t"+URL);
         /*String originalname=pic.getOriginalFilename();//获取pic的文件名
         System.out.println("originalname: "+originalname);
         String extraname=originalname.substring(originalname.lastIndexOf("."));//截取pic的后缀名
