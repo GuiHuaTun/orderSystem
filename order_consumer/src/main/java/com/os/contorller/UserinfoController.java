@@ -2,14 +2,13 @@ package com.os.contorller;
 
 
 import com.os.entity.Userinfo;
-import com.os.util.FileUpload;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.FileSystemResource;
+import org.springframework.core.io.ByteArrayResource;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.*;
@@ -17,14 +16,7 @@ import org.springframework.web.client.RestTemplate;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import java.io.File;
-import java.io.IOException;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.UUID;
 
 /**
  * @author R
@@ -120,21 +112,31 @@ public class UserinfoController {
      * @param request
      * @return
      */
-    @RequestMapping(value = "uploadImg",method = RequestMethod.POST)
+    @RequestMapping(value = "userModifyImg",method = RequestMethod.POST)
     @ResponseBody
-    public String[] uploadimg(MultipartFile uploadFile, int userid, HttpServletRequest request){
-        String path=request.getServletContext().getRealPath("/img/upload");//获取上传文件夹/img/upload的绝对路径
-        System.out.println("path: "+path);
-        String imgPath= FileUpload.upload(uploadFile, path);
-        Userinfo userinfo=new Userinfo();
-        userinfo.setUserid(userid);
-        userinfo.setFaceimg(imgPath);
-        int num=restTemplate.postForObject("http://order-provider/uptUser",userinfo,Integer.class);
-        if(num>0){
-            String[] str=new String[]{"true"};
-            return str;
-        }
-        String[] str=new String[]{"false"};
+    public String[] userModifyImg(MultipartFile uploadFile, int userid, HttpServletRequest request) throws Exception {
+        System.out.println("------------------- uploadImg");
+        System.out.println("userid: "+userid);
+        ByteArrayResource uFile=new ByteArrayResource(uploadFile.getBytes()){
+            @Override
+            public long contentLength() {
+                return uploadFile.getSize();
+            }
+
+            @Override
+            public String getFilename() {
+                return uploadFile.getOriginalFilename();
+            }
+        };
+        MultiValueMap<String,Object> mvm=new LinkedMultiValueMap<>();
+        mvm.add("uploadFile",uFile);
+        mvm.add("userid",userid);
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.MULTIPART_FORM_DATA);
+        HttpEntity<MultiValueMap<String,Object>> requestEntity=new HttpEntity<>(mvm,headers);
+        ResponseEntity<Integer> num=restTemplate.postForEntity("http://order-provider/userGetDishesImg",requestEntity,Integer.class);
+        System.out.println("num: "+num);
+        String[] str=new String[]{"true"};
         return str;
     }
 }

@@ -3,11 +3,14 @@ package com.os.controller;
 import com.github.pagehelper.PageHelper;
 import com.os.entity.Userinfo;
 import com.os.service.UserinfoService;
+import com.os.util.FileUpload;
 import jdk.nashorn.internal.ir.ReturnNode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -104,5 +107,24 @@ public class UserinfoController {
     @RequestMapping("deleteUser")
     public int deleteUser(@RequestBody int userid) {
         return userinfoService.deleteByPrimaryKey(userid);
+    }
+
+    /**
+     * 上传菜品图片
+     * @param ：图片文件
+     * @param
+     * @return
+     */
+    @RequestMapping("/userModifyImg")
+    public int userModifyImg(@RequestParam("uploadFile") MultipartFile uploadFile, @RequestParam("userid") int userid, HttpServletRequest request){
+        System.out.println("-----------------provider-- userModifyImg");
+        System.out.println("userid: "+userid);
+        String path=request.getServletContext().getRealPath("/img/upload");//获取上传文件夹/img/upload的绝对路径
+        System.out.println("path: "+path);
+        String imgPath= FileUpload.upload(uploadFile,path);
+        Userinfo userinfo=new Userinfo();
+        userinfo.setUserid(userid);
+        userinfo.setFaceimg(imgPath);
+        return userinfoService.updateByPrimaryKeySelective(userinfo);
     }
 }
