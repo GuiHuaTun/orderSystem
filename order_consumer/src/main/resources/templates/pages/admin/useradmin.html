@@ -336,7 +336,7 @@
 
 						<div style="text-align: right;">
 							<form class="navbar-form navbar-left paddingtop">
-								<input type="text" class="form-control searchbyname" placeholder="搜索点餐员">
+								<input type="text" class="form-control searchbyname" oninput="page(1)" placeholder="搜索点餐员">
 							</form>
 
 
@@ -345,7 +345,9 @@
 								<div class="wrapper-demo">
 
 									<div id="dd" class="wrapper-dropdown-3" tabindex="1">
+										<input style="display: none" value="0" class="initis">
                                         <span class="xasd">请选择</span>
+
 										<ul class="dropdown">
 
 											<li><a href="#">Classic mail</a></li>
@@ -425,7 +427,6 @@
 								<h3 class="panel-title">员工详情</h3>
 							</div>
 							<div class="panel-body" style="text-align: center;">
-
 								<img src="/img/faces/default.jpg" id="faceimg" width="200px" height="200px" class="img-circle" style="border:1px solid #CCC;box-shadow:0 0 10px rgba(100, 100, 100, 1);" />
 								<p>
 									<h2>员工帐号：
@@ -449,7 +450,6 @@
 			function DropDown(el) {
                 this.dd = el;
                 this.placeholder = this.dd.children('span');
-                this.opts = this.dd.find('ul.dropdown > li');
                 this.val = '';
                 this.index = -1;
                 this.initEvents();
@@ -461,7 +461,6 @@
 						$(this).toggleClass('active');
 						return false;
 					});
-
 				},
 				getValue : function() {
 					return this.val;
