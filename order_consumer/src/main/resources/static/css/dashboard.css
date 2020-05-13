@@ -4,19 +4,47 @@
 
 /* Move down content because we have a fixed navbar that is 50px tall */
 @import url("../bootstrap/css/bootstrap.min.css");
+@import url("icons.css");
 @import url("font-awesome.min.css");
-
-
-
 /*
  * Global add-ons
  */
+.textcetern{
+  text-align: center;
+}
+.green{
+  font-size: 20px;
+  padding: 2px;
+  cursor:pointer;
+}
+.red{
+  font-size: 20px;
+  padding: 2px;
+  cursor:pointer;
+}
+.orange{
+  font-size: 20px;
+  padding: 2px;
+  cursor:pointer;
+}
+.red:hover{
+  color: red;
+}
+.orange:hover{
+  color: darkorange;
+}
+.green:hover{
+  color: darkgreen;
+}
 
 .sub-header {
   padding-bottom: 10px;
   border-bottom: 1px solid #eee;
 }
 
+.maginleft{
+  margin-left: 393px;
+}
 /*
  * Top navigation
  * Hide default border to remove 1px line.
