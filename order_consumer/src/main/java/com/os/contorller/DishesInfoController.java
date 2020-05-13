@@ -130,7 +130,7 @@ public class DishesInfoController {
     @ResponseBody
     public List selectDishesByRec( Model model){
         System.out.println("-----------------consumer-- selectDishesByRec");
-        Integer pageSize=4;
+        Integer pageSize=20;
         Integer pageIndex=1;
         List reclist = restTemplate.getForObject(url + "selectDishesByRec/" + pageIndex + "/" + pageSize, List.class);
         System.out.println("走了url");
