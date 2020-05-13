@@ -3,6 +3,7 @@ package com.os.controller;
 import com.github.pagehelper.PageHelper;
 import com.os.entity.Dishesinfo;
 import com.os.service.DishesinfoService;
+import com.os.util.FileUpload;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -124,16 +125,13 @@ public class DishesInfoController {
      * @return
      */
     @RequestMapping("/dishesGetDishesImg")
-<<<<<<< HEAD
-    public String getDishesImg(@RequestParam("uploadFile") MultipartFile uploadFile,@RequestParam("userid") int userid, HttpServletRequest request){
-=======
-    public String getDishesImg(@RequestParam(value = "uploadFile",required = false) MultipartFile uploadFile,@RequestParam(value = "userid") String userid){
->>>>>>> origin/master
+    public String getDishesImg(@RequestParam("uploadFile") MultipartFile uploadFile,@RequestParam("int") int userid, HttpServletRequest request){
         System.out.println("-----------------provider-- dishesGetDishesImg");
         System.out.println("userid: "+userid);
         String path=request.getServletContext().getRealPath("/img/upload");//获取上传文件夹/img/upload的绝对路径
         System.out.println("path: "+path);
-        return "";
+        String imgPath= FileUpload.upload(uploadFile,path);
+        return imgPath;
     }
 
     @RequestMapping("/selectDishesByRec/{pageIndex}/{pageSize}")
