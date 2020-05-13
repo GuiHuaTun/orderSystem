@@ -10,7 +10,7 @@
       <id column="roleid" jdbcType="INTEGER" property="roleid" />
       <result column="rolename" jdbcType="VARCHAR" property="rolename" />
     </association>
-    <association property="table" javaType="Table">
+    <association property="tables" javaType="Tables">
       <id column="tableid" jdbcType="INTEGER" property="tableid" />
       <result column="tablename" jdbcType="VARCHAR" property="tablename" />
       <result column="tablestatus" jdbcType="INTEGER" property="tablestatus" />
@@ -20,7 +20,7 @@
     orderid, orderbegindate, orderenddate, waiterid, orderstate, tableid
   </sql>
   <select id="selectAll" resultMap="OrderinfoResultMap">
-    SELECT o.*,u.*,t.* FROM orderinfo o,userinfo u,`table` t
+    SELECT o.*,u.*,t.* FROM orderinfo o,userinfo u,`tables` t
   </select>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="OrderinfoResultMap">
     select 

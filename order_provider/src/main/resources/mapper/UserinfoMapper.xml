@@ -17,9 +17,13 @@
   </sql>
   <select id="selectAll" resultMap="UserinfoResultMap">
     select u.*,r.* from userinfo u,roleinfo r where u.role=r.roleid
-      <if test="useraccount!=null ">
+      <if test="useraccount != null ">
         and u.useraccount like '%${useraccount}'
       </if>
+      <if test="roleid != 0">
+          and u.role=#{roleid}
+      </if>
+      order by u.userid
   </select>
   <select id="loginUser" parameterType="Userinfo" resultMap="UserinfoResultMap">
     select u.*,r.* from userinfo u,roleinfo r where useraccount=#{useraccount} and userpass=#{userpass} and u.role=r.roleid
@@ -46,7 +50,7 @@
       <if test="userpass != null">
         userpass,
       </if>
-      <if test="role != null">
+      <if test="roleinfo.roleid != null">
         role,
       </if>
       <if test="locked != null">
@@ -66,8 +70,8 @@
       <if test="userpass != null">
         #{userpass,jdbcType=VARCHAR},
       </if>
-      <if test="role != null">
-        #{role,jdbcType=INTEGER},
+      <if test="roleinfo.roleid != null">
+        #{roleinfo.roleid,jdbcType=INTEGER},
       </if>
       <if test="locked != null">
         #{locked,jdbcType=INTEGER},
@@ -86,8 +90,10 @@
       <if test="userpass != null">
         userpass = #{userpass,jdbcType=VARCHAR},
       </if>
-      <if test="role != null">
-        role = #{role,jdbcType=INTEGER},
+      <if test="roleinfo!=null">
+        <if test="roleinfo.roleid != null">
+          role = #{roleinfo.roleid,jdbcType=INTEGER},
+        </if>
       </if>
       <if test="locked != null">
         locked = #{locked,jdbcType=INTEGER},

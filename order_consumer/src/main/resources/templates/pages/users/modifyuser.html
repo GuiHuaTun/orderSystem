@@ -2,7 +2,6 @@
 <head>
 	<meta charset="utf-8">
 <title>修改个人账户信息</title>
-
 <meta http-equiv="pragma" content="no-cache">
 <meta http-equiv="cache-control" content="no-cache">
 <meta http-equiv="expires" content="0">
@@ -11,17 +10,27 @@
 <!--
 	<link rel="stylesheet" type="text/css" href="styles.css">
 	-->
+<script src="/bootstrap/js/jquery-1.11.1.js"></script>
 <link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css">
 
 
 <!-- 可选的Bootstrap主题文件（一般不用引入） -->
-<link rel="stylesheet" href="/static/bootstrap/css/bootstrap-theme.min.css">
-<link rel="stylesheet" href="/static/css/font-awesome.min.css">
-
+<link rel="stylesheet" href="/bootstrap/css/bootstrap-theme.min.css">
+<link rel="stylesheet" href="/css/font-awesome.min.css">
+<script type="text/javascript" src="/js/waiters/modifyuser.js"></script>
 <!-- jQuery文件。务必在bootstrap.min.js 之前引入 -->
 
 </head>
-
+<style>
+    .ok{
+        background: url("/img/ok.png") 360px 6px no-repeat;
+        background-size:20px,20px;
+    }
+    .no{
+        background: url("/img/fail.png") 360px 6px no-repeat;
+        background-size:20px,20px;
+    }
+</style>
 <body style="font-family:微软雅黑;background-image: url('/img/body-bg.png')">
 	<div class="container">
 		<div class="row" style="padding: 45px 0px 0px 200px">
@@ -36,15 +45,15 @@
 						<div class="panel-body">两次输入的新密码必须一致，否则系统拒绝修改用户，如果不在左边的界面中修改自定义的头像，将继续使用用户原有的头像图片。</div>
 					</div>
 					<p>
-					<form class="form-horizontal" role="form" style="margin-top: 20px"
-						method="post" action="modifyuser.order">
-						<input type="hidden" name="userId" id="userId"
-							value="${USER_INFO.userId}" />
+					<form class="form-horizontal" id="form" role="form" style="margin-top: 20px"
+						method="post" action="modifyuser">
+						<input type="hidden" name="userid" id="userid"
+							value="" />
 						<div class="form-group">
 							<label for="firstname" class="col-sm-2 control-label">用户名:</label>
 							<div class="col-sm-10">
 								<input type="text" class="form-control" id="firstname"
-									name="userAccount" placeholder="请输入新员工的用户名" disabled="disabled"
+									name="userAccount" placeholder="${userInfo.useraccount}" disabled="disabled"
 									value="">
 							</div>
 
@@ -53,10 +62,11 @@
 
 						<div class="form-group">
 							<label for="userOldPass" class="col-sm-2 control-label">旧密码:</label>
+							<input type="hidden" id="userOldPassWord"/>
+							<input type="hidden" id="facesSrc" name="faceimg">
 							<div class="col-sm-10">
 								<input type="password" class="form-control" id="userOldPass"
-									name="userOldPass" placeholder="请输入新员工的密码"
-									onblur="checkoldpass()">
+									name="userOldPass" placeholder="请输入新员工的密码">
 							</div>
 							<div style="color: red;float: right;" id="usererror"></div>
 						</div>
@@ -64,14 +74,14 @@
 							<label for="userPass" class="col-sm-2 control-label">新密码:</label>
 							<div class="col-sm-10">
 								<input type="password" class="form-control" id="userPass"
-									name="userPass">
+									name="userpass">
 							</div>
 						</div>
 						<div class="form-group">
 							<label for="userPass1" class="col-sm-2 control-label">确&nbsp;&nbsp;&nbsp;&nbsp;认:</label>
 							<div class="col-sm-10">
 								<input type="password" class="form-control" id="userPass1"
-									name="userPass1"  onblur="checkpass()">
+									name="userPass1">
 							</div>
 							<div style="color: red;float: right;" id="passerror"></div>
 						</div>
@@ -79,18 +89,14 @@
 							<label for="lastname" class="col-sm-2 control-label">角&nbsp;&nbsp;&nbsp;&nbsp;色:</label>
 							<div class="col-sm-10">
 								<select class="form-control" name="roleId" disabled="disabled">
-									
+									<option name="userRoleID"></option>
 								</select>
 							</div>
 							<div style="color: red;float: right;" id="usererror">您的角色信息由系统管理员指定，不能修改</div>
 						</div>
-
-						<input type="hidden" value="${USER_INFO.faceimg}" id="faceimgname"
-							name="faceimg" />
-
 						<div class="form-group">
 							<div class="col-sm-offset-2 col-sm-10">
-								<input type="submit" class="btn btn-danger" disabled="disabled"
+								<input type="button" class="btn btn-danger"
 									id="addbtu" value="确认修改" />
 							</div>
 						</div>
@@ -120,14 +126,14 @@
 					<div>
 
 						<form class="form-inline" role="form"
-							enctype="multipart/form-data" action="upimg.order" name="imgform"
+							enctype="multipart/form-data" action="uploadImg" id="imgform"
 							target="submitform" method="post">
 							<div class="form-group">
 								<label class="sr-only" for="inputfile">文件输入</label> <input
 									type="file" id="inputfile" name="uploadFile">
 							</div>
-							<input type="button" class="btn btn-danger" value="更新头像图片"
-								onclick="begin()" />
+							<input type="hidden" name="userid">
+							<input type="button" class="btn btn-danger" id="uptfaces" value="更新头像图片"/>
 						</form>
 					</div>
 				</div>

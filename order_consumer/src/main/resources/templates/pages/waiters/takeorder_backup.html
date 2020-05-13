@@ -10,17 +10,18 @@
 <meta http-equiv="description" content="This is my page">
 	<link rel="stylesheet" href="/css/dashboard.css">
 	<!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
-	<script src="/bootstrap/js/bootstrap.min.js"></script>
+
 <!-- jQuery文件。务必在bootstrap.min.js 之前引入 -->
 <script src="/bootstrap/js/jquery-1.11.1.min.js"></script>
-
+	<script src="/bootstrap/js/bootstrap.min.js"></script>
 
 <script type="text/javascript" src="/js/ajax.js"></script>
+<script type="text/javascript" src="/js/takeorder_backup.js"></script>
 
 
 </head>
 
-<body style="font-family: 微软雅黑" onload="getDishesList(1)">	
+<body style="font-family: 微软雅黑">
 	<div class="container-fluid">
 			<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
 				<ol class="breadcrumb">
@@ -38,6 +39,7 @@
 						</h4>
 					</div>
 				</div>
+				<input type="hidden" id="tableid">
 				<div class="panel panel-danger">
 					<div class="panel-heading">
 						<h2 class="panel-title">菜品清单</h2>
@@ -45,12 +47,12 @@
 					<div class="panel-body" style="padding-bottom: 0px">
 						<div class="row placeholders" id="dishesbord">
 
-							<div class="col-xs-6 col-sm-3 placeholder">
+							<!--<div class="col-xs-6 col-sm-3 placeholder">
 								<a href="#"> <img class="img-thumbnail"
 									style="border-radius:20px" alt="Generic placeholder thumbnail"
-									src="../../../static/img/dishes/1.jpg"></a>
-								<h4>鱼香肉丝</h4>
-								<span class="text-muted">色香味俱全，顾客都喜欢</span>
+									src="${disheslist.dishesimg}"></a>
+								<h4>${disheslist.dishesname}</h4>
+								<span class="text-muted">${disheslist.dishesdiscript}</span>
 								<div class="form-group">
 									<form>
 										<div style="width:120px;margin: 0px auto">
@@ -67,7 +69,7 @@
 														onclick="add(this)">+</button>
 												</span>
 											</div>
-											<!-- /input-group -->
+											&lt;!&ndash; /input-group &ndash;&gt;
 										</div>
 										<p>
 											<input type="button" class="btn btn-danger"
@@ -75,14 +77,14 @@
 										</p>
 									</form>
 								</div>
-							</div>
+							</div>-->
 						</div>
 						<nav>
 						<ul class="pager">
-							<li><a href="javascript:getDishesList(1)">&larr;首页</a></li>
-							<li><a href="#" id="pre">上一页</a></li>
-							<li><a href="#" id="next">下一页</a></li>
-							<li><a href="#" id="last">末页&rarr;</a></li>
+							<li><a href="javascript:;" onclick="page(1)">&larr;首页</a></li>
+							<li><a href="javascript:;" id="pre" onclick="prev()">上一页</a></li>
+							<li><a href="javascript:;" id="next" onclick="next()">下一页</a></li>
+							<li><a href="javascript:;" id="last" onclick="last()">末页&rarr;</a></li>
 						</ul>
 						</nav>
 

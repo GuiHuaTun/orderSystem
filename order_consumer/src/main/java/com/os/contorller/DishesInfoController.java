@@ -3,6 +3,7 @@ package com.os.contorller;
 import com.os.entity.Dishesinfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.client.RestTemplate;
@@ -31,17 +32,21 @@ public class DishesInfoController {
      * @return
      */
     @RequestMapping("/dishesInfoFindAll")
-    public String dishesInfoFindAll(Integer pageIndex,HttpServletRequest request){
+    @ResponseBody
+    public List dishesInfoFindAll(Integer pageIndex, Model model){
         System.out.println("-----------------consumer-- dishesInfoFindAll");
         System.out.println("-----------------consumer-- pageIndex: "+pageIndex);
-        Integer pageSize=10;
-        List<Dishesinfo> dishesinfoList= (List<Dishesinfo>) restTemplate.getForObject(url+"dishesInfoFindAll/"+pageIndex+"/"+pageSize,List.class);
+        Integer pageSize=8;
+        List list = restTemplate.getForObject(url + "dishesInfoFindAll/" + pageIndex + "/" + pageSize, List.class);
+        List<Dishesinfo> dishesinfoList= (List<Dishesinfo>) list.get(0);
         if(dishesinfoList!=null && dishesinfoList.size()>0){
+            int maxPage= (int) list.get(1);
+            System.out.println("-----------------consumer-- maxPage: "+maxPage);
             System.out.println(dishesinfoList);
-            request.getSession().setAttribute("dishesinfoList",dishesinfoList);
-            return "";
+            list.add(pageIndex);
+            return list;
         }
-        return "";
+        return null;
     }
 
     /**
@@ -50,13 +55,16 @@ public class DishesInfoController {
      * @return
      */
     @RequestMapping("/dishesInfoFindById")
-    public String dishesInfoFindById(int dishesid){
+    public String dishesInfoFindById(int dishesid, Model model){
         System.out.println("-----------------consumer-- dishesInfoFindById");
         Dishesinfo dishesinfo=restTemplate.postForObject(url+"dishesInfoFindById",dishesid, Dishesinfo.class);
         if(dishesinfo!=null){
-            return "";
+            System.out.println(dishesinfo);
+            model.addAttribute("dishesinfo",dishesinfo);
+            System.out.println("********************************");
+            return "pages/admin/modifydishes";
         }
-        return "";
+        return "error";
     }
 
     /**
@@ -95,13 +103,14 @@ public class DishesInfoController {
      * @return
      */
     @RequestMapping("/dishesInfoDelete")
-    public String dishesInfoDelete(int dishesid){
+    @ResponseBody
+    public boolean dishesInfoDelete(int dishesid){
         System.out.println("-----------------consumer-- dishesInfoDelete");
         int num=restTemplate.postForObject(url+"dishesInfoDelete",dishesid,Integer.class);
         if(num>0){
-            return "";
+            return true;
         }
-        return "";
+        return false;
     }
 
     /**
@@ -115,5 +124,24 @@ public class DishesInfoController {
         System.out.println("-----------------consumer-- dishesGetDishesImg");
         String dishesimg = restTemplate.postForObject(url + "dishesGetDishesImg", pic, String.class);
         return dishesimg;
+    }
+
+    @RequestMapping("/selectDishesByRec")
+    @ResponseBody
+    public List selectDishesByRec( Model model){
+        System.out.println("-----------------consumer-- selectDishesByRec");
+        Integer pageSize=20;
+        Integer pageIndex=1;
+        List reclist = restTemplate.getForObject(url + "selectDishesByRec/" + pageIndex + "/" + pageSize, List.class);
+        System.out.println("走了url");
+        List<Dishesinfo> dishesinfoList= (List<Dishesinfo>) reclist.get(0);
+        if(dishesinfoList!=null && dishesinfoList.size()>0){
+            int maxPage= (int) reclist.get(1);
+            System.out.println("-----------------consumer-- maxPage: "+maxPage);
+            System.out.println(dishesinfoList);
+            reclist.add(pageIndex);
+            return reclist;
+        }
+        return null;
     }
 }

@@ -8,15 +8,16 @@
 <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
 		<script src="/bootstrap/js/bootstrap.min.js"></script>
 		<script type="text/javascript" src="/js/ajax.js"></script>
-		<script type="text/javascript">
+		<script type="text/javascript" src="/js/waiters/waiterpage.js"></script>
+		<!--<script type="text/javascript">
 			$(function(){
 				$(".click").click(function(){
 					$(this).addClass("active");
 					$(this).siblings().removeClass("active");
 				})
 			});
-		</script>
-		<script type="text/javascript">
+		</script>-->
+		<!--<script type="text/javascript">
 			function begin() {
 
 				var input = document.getElementById("inputfile");
@@ -92,7 +93,7 @@
 				}
 				testState();
 			}
-		</script>
+		</script>-->
 
 	</head>
 
@@ -111,7 +112,7 @@
 					<ul class="nav navbar-nav navbar-right">
 						<li><span class="navbar-brand">点单界面：当前桌号<span id="tableresult">【】</span></span></li>
 						<li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
-							 aria-expanded="false"><img src="" width="24" height="24" class="img-circle"
+							 aria-expanded="false"><img src="${userInfo.faceimg}" width="24" height="24" class="img-circle"
                                                         style="border:1px solid #FFF" />&nbsp;&nbsp;当前用户:【${userInfo.useraccount}】,身份为服务员
 								<span class="caret"></span></a>
 							<ul class="dropdown-menu">
@@ -139,12 +140,12 @@
 							<i class="icon-user icon-large"></i>&nbsp;服务员点餐功能
 						</li>
 						<li class="click">
-							<a href="/pages/waiters/takeorder_backup.html" target="mainwindow">
+							<a href="/pages/waiters/takeorder_backup.html" target="mainwindow" id="takeorder_backup">
 								<i class="icon-glass icon-large"></i>&nbsp;服务点餐界面 <span class="sr-only">(current)</span>
 							</a>
 						</li>
 						<li class="click">
-							<a href="/pages/waiters/paylist.html" target="mainwindow">
+							<a href="/pages/waiters/paylist.html" target="mainwindow" >
 								<i class="icon-credit-card icon-large"></i>&nbsp; 餐桌结账 <span class="sr-only">(current)</span>
 							</a>
 						</li>
@@ -153,7 +154,7 @@
 			</div>
 		</div>
 		<section>
-			<iframe src="" name="mainwindow" scrolling="no" width="100%" height="900px" frameborder="0px"></iframe>
+			<iframe src="" name="mainwindow" scrolling="no" width="100%" height="1950px" frameborder="0px"></iframe>
 		</section>
 	</body>
 

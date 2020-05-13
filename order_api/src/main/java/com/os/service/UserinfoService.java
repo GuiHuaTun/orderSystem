@@ -11,7 +11,7 @@ import java.util.List;
  */
 public interface UserinfoService {
 
-    List<Userinfo> selectAll(String useraccount);
+    List<Userinfo> selectAll(String useraccount,int roleid);
 
     Userinfo loginUser(Userinfo userinfo);
 

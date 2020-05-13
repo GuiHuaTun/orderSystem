@@ -43,4 +43,9 @@ public class DishesinfoServiceImpl implements DishesinfoService {
     public int updateByPrimaryKeySelective(Dishesinfo record) {
         return dishesinfoMapper.updateByPrimaryKeySelective(record);
     }
+
+    @Override
+    public List<Dishesinfo> selectDishesByRec() {
+        return dishesinfoMapper.selectDishesByRec();
+    }
 }

@@ -2,18 +2,29 @@ package com.os.contorller;
 
 
 import com.os.entity.Userinfo;
+import com.os.util.FileUpload;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.FileSystemResource;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.io.File;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 /**
  * @author R
@@ -69,14 +80,61 @@ public class UserinfoController {
         return data;
     }
 
+    @RequestMapping("userinfomation")
+    @ResponseBody
+    public Userinfo userinfoMation(HttpSession session){
+        Userinfo userinfo= (Userinfo) session.getAttribute("userInfo");
+        System.out.println(userinfo);
+        return userinfo;
+    }
 
+
+    /**
+     * 页面跳转
+     * @param url 路径
+     * @return
+     */
     @RequestMapping("URL/{url}")
     public String gotoURL(@PathVariable("url") String url){
      return "/pages/page/"+url;
     }
 
-    @RequestMapping("uploadImg")
-    public String uploadimg(HttpSession session){
-        return "/pages/page/admin";
+
+    /**
+     * 修改信息
+     * @param userinfo
+     * @return
+     */
+    @RequestMapping(value = "modifyuser",method = RequestMethod.POST)
+    @ResponseBody
+    public String updateUserInfo(Userinfo userinfo){
+        System.out.println(userinfo);
+        int url=restTemplate.postForObject("http://order-provider/uptUser",userinfo,Integer.class);
+        return "true";
+    }
+
+    /**
+     * 图片上传
+     * @param uploadFile：上传的图片
+     * @param userid：用户编号
+     * @param request
+     * @return
+     */
+    @RequestMapping(value = "uploadImg",method = RequestMethod.POST)
+    @ResponseBody
+    public String[] uploadimg(MultipartFile uploadFile, int userid, HttpServletRequest request){
+        String path=request.getServletContext().getRealPath("/img/upload");//获取上传文件夹/img/upload的绝对路径
+        System.out.println("path: "+path);
+        String imgPath= FileUpload.upload(uploadFile, path);
+        Userinfo userinfo=new Userinfo();
+        userinfo.setUserid(userid);
+        userinfo.setFaceimg(imgPath);
+        int num=restTemplate.postForObject("http://order-provider/uptUser",userinfo,Integer.class);
+        if(num>0){
+            String[] str=new String[]{"true"};
+            return str;
+        }
+        String[] str=new String[]{"false"};
+        return str;
     }
 }

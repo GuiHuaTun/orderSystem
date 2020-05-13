@@ -13,6 +13,8 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.servlet.http.HttpServletRequest;
 import java.io.File;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -31,7 +33,7 @@ public class DishesInfoController {
      * @return
      */
     @RequestMapping("/dishesInfoFindAll/{pageIndex}/{pageSize}")
-    public List<Dishesinfo> dishesInfoFindAll(@PathVariable("pageIndex") int pageIndex, @PathVariable("pageSize") int pageSize){
+    public List dishesInfoFindAll(@PathVariable("pageIndex") int pageIndex, @PathVariable("pageSize") int pageSize){
         System.out.println("-----------------provider-- dishesInfoFindAll");
         System.out.println("-----------------provider-- pageIndex: "+pageIndex);
         if(pageIndex==0 || pageIndex<1){
@@ -40,8 +42,15 @@ public class DishesInfoController {
         PageHelper.startPage(pageIndex,pageSize);
         List<Dishesinfo> dishesinfoList=dishesinfoService.selectAll();
         if(dishesinfoList!=null && dishesinfoList.size()>0){
+            int totalPage=dishesinfoService.selectAll().size();
+            System.out.println("-----------------provider-- totalPage: "+totalPage);
+            int maxPage=totalPage%pageSize==0?totalPage/pageSize:totalPage/pageSize+1;
+            System.out.println("-----------------provider-- maxPage: "+maxPage);
+            List list=new ArrayList();
+            list.add(dishesinfoList);
+            list.add(maxPage);
             System.out.println(dishesinfoList);
-            return dishesinfoList;
+            return list;
         }
         System.err.println("-----------------provider-- dishesInfoFindAll fail");
         return null;
@@ -113,16 +122,19 @@ public class DishesInfoController {
 
     /**
      * 上传菜品图片
-     * @param pic：图片文件
-     * @param request
+     * @param ：图片文件
+     * @param
      * @return
      */
     @RequestMapping("/dishesGetDishesImg")
-    public String getDishesImg(@RequestBody MultipartFile pic, HttpServletRequest request){
+    public String getDishesImg(@RequestBody MultipartFile uploadFile,int userid){
         System.out.println("-----------------provider-- dishesGetDishesImg");
-        String imgname= UUID.randomUUID().toString();//生成随机数用于组成文件名
-        System.out.println("uuid: "+imgname);
-        String originalname=pic.getOriginalFilename();//获取pic的文件名
+        String originalname=uploadFile.getOriginalFilename();//获取pic的文件名
+        System.out.println("originalname: "+originalname);
+        System.out.println("uploadFile: "+userid);
+//        String imgname= UUID.randomUUID().toString();//生成随机数用于组成文件名
+//        System.out.println("uuid: "+imgname+"\t"+URL);
+        /*String originalname=pic.getOriginalFilename();//获取pic的文件名
         System.out.println("originalname: "+originalname);
         String extraname=originalname.substring(originalname.lastIndexOf("."));//截取pic的后缀名
         System.out.println("extraname: "+extraname);
@@ -140,6 +152,31 @@ public class DishesInfoController {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return imgPath;
+        return imgPath;*/
+        return "";
+    }
+
+    @RequestMapping("/selectDishesByRec/{pageIndex}/{pageSize}")
+    public List selectDishesByRec(@PathVariable("pageIndex") int pageIndex, @PathVariable("pageSize") int pageSize){
+        System.out.println("-----------------provider-- selectDishesByRec");
+        System.out.println("-----------------provider-- pageIndex: "+pageIndex);
+        if(pageIndex==0 || pageIndex<1){
+            pageIndex=1;
+        }
+        PageHelper.startPage(pageIndex,pageSize);
+        List<Dishesinfo> dishesinfoList=dishesinfoService.selectDishesByRec();
+        if(dishesinfoList!=null && dishesinfoList.size()>0){
+            int totalPage=dishesinfoService.selectDishesByRec().size();
+            System.out.println("-----------------provider-- totalPage: "+totalPage);
+            int maxPage=totalPage%pageSize==0?totalPage/pageSize:totalPage/pageSize+1;
+            System.out.println("-----------------provider-- maxPage: "+maxPage);
+            List reclist=new ArrayList();
+            reclist.add(dishesinfoList);
+            reclist.add(maxPage);
+            System.out.println(dishesinfoList);
+            return reclist;
+        }
+        System.err.println("-----------------provider-- dishesInfoFindAll fail");
+        return null;
     }
 }

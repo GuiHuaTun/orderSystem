@@ -11,7 +11,7 @@ import java.io.Serializable;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
-public class Table implements Serializable {
+public class Tables implements Serializable {
     private Integer tableid;
 
     private String tablename;

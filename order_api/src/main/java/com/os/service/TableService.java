@@ -1,19 +1,23 @@
 package com.os.service;
 
 
-import com.os.entity.Table;
+import com.os.entity.Tables;
+
+import java.util.List;
 
 /**
  * @author R
  * @date 2020/5/7 - 10:13
  */
 public interface TableService {
+    List<Tables> selectTableByStatus(Integer tablestatus);
+
     int deleteByPrimaryKey(Integer tableid);
 
 
-    int insertSelective(Table record);
+    int insertSelective(Tables record);
 
-    Table selectByPrimaryKey(Integer tableid);
+    Tables selectByPrimaryKey(Integer tableid);
 
-    int updateByPrimaryKeySelective(Table record);
+    int updateByPrimaryKeySelective(Tables record);
 }

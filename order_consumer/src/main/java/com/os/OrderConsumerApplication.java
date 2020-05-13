@@ -8,7 +8,10 @@ import org.springframework.cloud.client.loadbalancer.LoadBalanced;
 import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 import org.springframework.cloud.netflix.ribbon.RibbonClient;
 import org.springframework.context.annotation.Bean;
+import org.springframework.http.converter.StringHttpMessageConverter;
 import org.springframework.web.client.RestTemplate;
+
+import java.nio.charset.StandardCharsets;
 
 @SpringBootApplication
 @EnableEurekaClient
@@ -29,7 +32,9 @@ net 包下的实现创建 HTTP 请求，
     @Bean
     @LoadBalanced //默认采用轮询方式
     public RestTemplate restTemplate() {
-        return new RestTemplate();
+        RestTemplate restTemplate=new RestTemplate();
+        restTemplate.getMessageConverters().set(1, new StringHttpMessageConverter(StandardCharsets.UTF_8));
+        return restTemplate;
     }
 
     public static void main(String[] args) {
