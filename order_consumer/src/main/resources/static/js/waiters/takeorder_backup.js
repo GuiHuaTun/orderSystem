@@ -91,10 +91,13 @@ function operation(obj,op) {
 
 function addOrder(obj) {
     placeholder=obj.parents(".placeholder");
+    var dishesid=placeholder.find("#dishesid").val();
+    var shoppcar=$(".shoppcar");
+    shoppcar
     var price=placeholder.find("#dishesprice").html();
     var num=parseInt(placeholder.find("input[name=num]").val());
     var dishesname=placeholder.find("#dishesname").html();
-    var dishesid=placeholder.find("#dishesid").val();
+
     var dishesimg=placeholder.find("#dishesimg").attr("src");
     price= parseInt(price.substr(1));
     price=price*num;
