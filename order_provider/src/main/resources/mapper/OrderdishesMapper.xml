@@ -4,12 +4,8 @@
   <resultMap id="OrderdishesResultMap" type="com.os.entity.Orderdishes">
     <id column="odid" jdbcType="INTEGER" property="odid" />
     <result column="num" jdbcType="INTEGER" property="num" />
-    <association property="orderinfo" javaType="Orderinfo">
-      <id column="orderid" jdbcType="INTEGER" property="orderid" />
-      <result column="orderbegindate" jdbcType="VARCHAR" property="orderbegindate" />
-      <result column="orderenddate" jdbcType="VARCHAR" property="orderenddate" />
-      <result column="orderstate" jdbcType="INTEGER" property="orderstate" />
-    </association>
+    <association property="orderinfo" javaType="Orderinfo" column="orderid" select="com.os.mapper.OrderinfoMapper.selectByPrimaryKey">
+  </association>
     <association property="dishesinfo" javaType="Dishesinfo">
       <id column="dishesid" jdbcType="INTEGER" property="dishesid" />
       <result column="dishesname" jdbcType="VARCHAR" property="dishesname" />
@@ -24,7 +20,7 @@
     odid, orderreference, dishes, num
   </sql>
   <select id="selectAll" resultMap="OrderdishesResultMap">
-    SELECT od.*,o.* ,d.* FROM orderdishes od,orderinfo o,dishesinfo d;
+    SELECT od.*,o.* ,d.* FROM orderdishes od,orderinfo o,dishesinfo d where od.odid=o.orderid and od.dishes=d.dishesid
   </select>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="OrderdishesResultMap">
     select 

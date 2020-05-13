@@ -21,7 +21,7 @@ function page2() {
                 "\t\t\t\t\t\t\t\t\t\taria-hidden=\"true\">&rarr;</span></a></li>\n" +
                 "\t\t\t\t\t\t\t</ul>\n" +
                 "\t\t\t\t\t\t\t</nav>";
-            for (var i=0;i<3;i++){
+            for (var i=0;i<4;i++){
                 var dishes=data[0][i];
                 str+="<div id=\"byrecommend\" class=\"row placeholders\">\n" +
                     "\n" +

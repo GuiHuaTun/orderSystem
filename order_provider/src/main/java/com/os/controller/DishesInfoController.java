@@ -124,7 +124,11 @@ public class DishesInfoController {
      * @return
      */
     @RequestMapping("/dishesGetDishesImg")
+<<<<<<< HEAD
     public String getDishesImg(@RequestParam("uploadFile") MultipartFile uploadFile,@RequestParam("userid") int userid, HttpServletRequest request){
+=======
+    public String getDishesImg(@RequestParam(value = "uploadFile",required = false) MultipartFile uploadFile,@RequestParam(value = "userid") String userid){
+>>>>>>> origin/master
         System.out.println("-----------------provider-- dishesGetDishesImg");
         System.out.println("userid: "+userid);
         String path=request.getServletContext().getRealPath("/img/upload");//获取上传文件夹/img/upload的绝对路径
