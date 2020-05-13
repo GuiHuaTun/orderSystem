@@ -2,6 +2,7 @@ package com.os.contorller;
 
 
 import com.os.entity.Userinfo;
+import com.os.util.FileUpload;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.http.HttpEntity;
@@ -122,27 +123,9 @@ public class UserinfoController {
     @RequestMapping(value = "uploadImg",method = RequestMethod.POST)
     @ResponseBody
     public String[] uploadimg(MultipartFile uploadFile, int userid, HttpServletRequest request){
-        System.out.println("userid: "+userid);
-        String originalname=uploadFile.getOriginalFilename();//获取pic的文件名
-        System.out.println("originalname: "+originalname);
-        String imgname= UUID.randomUUID().toString();//生成随机数用于组成文件名
-        System.out.println("imgname_UUID"+imgname);
-        String extraname=originalname.substring(originalname.lastIndexOf("."));//截取pic的后缀名
-        System.out.println("extraname: "+extraname);
-        String dishesimg=imgname+extraname;//新组成的文件名
         String path=request.getServletContext().getRealPath("/img/upload");//获取上传文件夹/img/upload的绝对路径
         System.out.println("path: "+path);
-        String imgPath="/img/upload/"+dishesimg;//生成图片在项目中的相对路径
-        System.out.println("imgPath: "+imgPath);
-        File file=new File(path+"/"+dishesimg);//生成文件
-        if(!file.getParentFile().exists()){//判断上传文件夹upload是否存在
-            file.getParentFile().mkdirs();//创建上传文件夹upload文件夹
-        }
-        try {
-            uploadFile.transferTo(file);//将pic文件转到file文件
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        String imgPath= FileUpload.upload(uploadFile, path);
         Userinfo userinfo=new Userinfo();
         userinfo.setUserid(userid);
         userinfo.setFaceimg(imgPath);
