@@ -17,11 +17,11 @@
 
 
 <!-- jQuery文件。务必在bootstrap.min.js 之前引入 -->
-<script src="bootstrap/js/jquery-1.11.1.min.js"></script>
+<script src="/bootstrap/js/jquery-1.11.1.min.js"></script>
 
 <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
-<script src="bootstrap/js/bootstrap.min.js"></script>
-<script type="text/javascript" src="js/ajax.js"></script>
+<script src="/bootstrap/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="/js/ajax.js"></script>
 <script type="text/javascript">
 	function begin() {
 
@@ -106,6 +106,7 @@
 		testState();
 	}
 </script>
+<script type="text/javascript" src="/js/dishes/adddishes.js"></script>
 
 </head>
 
@@ -188,8 +189,7 @@
 
 
 
-									<input type="hidden" value="1.jpg" id="dishesImg"
-										name="dishesImg" />
+									<input type="text" id="dishesImg" name="dishesimg" />
 
 									<div class="form-group">
 										<div class="col-sm-offset-2 col-sm-10">
@@ -230,11 +230,13 @@
 										<div class="form-group">
 											<label class="sr-only" for="inputfile">文件输入</label> <input
 												type="file" id="inputfile" name="uploadFile"
-												style="width:90px">
+												style="width:200px">
 										</div>
 
-										<input type="button" class="btn btn-danger" value="上传图片"
-											onclick="begin()" />
+										<div>
+											<input type="button" class="btn btn-danger" id="uploadImg" value="上传图片"
+												onclick="begin()" />
+										</div>
 									</form>
 								</div>
 
