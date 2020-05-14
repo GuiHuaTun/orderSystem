@@ -45,4 +45,18 @@ public class OrderDishesController {
         System.out.println("---------------------provider--orderDishesFindAll can't");
         return null;
     }
+
+    /**
+     * 根据订单id查询
+     * @return
+     */
+    @RequestMapping("/orderDishesFindById/{orderid}")
+    public Orderdishes orderDishesFindById(@PathVariable("orderid") int orderid){
+        System.out.println("-----------------provider-- orderDishesFindById");
+        Orderdishes orderdishes=orderdishesService.selectByPrimaryKey(orderid);
+        if(orderdishes!=null){
+            return orderdishes;
+        }
+        return null;
+    }
 }
