@@ -56,7 +56,7 @@ $(function () {
                 }
             },
             error:function(){
-                alert("添加失败");
+                alert("连接失败");
             },
         });
     });
