@@ -25,7 +25,7 @@ function page(pIndex) {
                     "onmouseout='this.style.color=\"black\"'\n" +
                     "class='icon-sitemap icon-large' title='查看菜品详情'\n" +
                     "onclick=\"detail('"+dish.dishesname+"','"+dish.dishesdiscript+"','"+dish.dishestxt+"',"+dish.dishesprice+","+dish.recommend+",'"+dish.dishesimg+"')\"></i> &nbsp;&nbsp;\n" +
-                    "<i style=\"cursor: pointer; font-size: 14px;\" onmouseover=\"this.style.color='orange'\" onmouseout=\"this.style.color='black'\" class=\" icon-remove-sign icon-large\" title=\"删除菜品\" onclick=\"deleteDishes("+dish.dishesid+",'"+dish.dishesname+"',this)\"></i></td></tr>";
+                    "<i style=\"cursor: pointer; font-size: 14px;\" onmouseover=\"this.style.color='orange'\" onmouseout=\"this.style.color='black'\" class=\" icon-remove-sign icon-large\" title=\"删除菜品\" onclick=\"deleteDishes("+dish.dishesid+",'"+dish.dishesname+"',$(this)\"></i></td></tr>";
             }
             $("#orderTable").append(str);
         },
@@ -51,6 +51,7 @@ function last() {
 }
 
 function deleteDishes(id, name, obj) {
+    alert("delete");
     if (confirm("您真的要删除菜品【" + name + "】吗？")) {
         $.ajax({
             type:"POST",
