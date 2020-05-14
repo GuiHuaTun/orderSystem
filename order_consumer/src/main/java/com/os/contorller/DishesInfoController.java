@@ -148,8 +148,8 @@ public class DishesInfoController {
         headers.setContentType(MediaType.MULTIPART_FORM_DATA);
         HttpEntity<MultiValueMap<String,Object>> requestEntity=new HttpEntity<>(mvm,headers);
         ResponseEntity<String> dishesimg=restTemplate.postForEntity(url+"dishesGetDishesImg",requestEntity,String.class);
-        System.out.println("dishesimg: "+dishesimg.toString());
-        String[] str=new String[]{dishesimg.toString()};
+        System.out.println("dishesimg: "+dishesimg.getBody());
+        String[] str=new String[]{dishesimg.getBody()};
         return str;
     }
 
