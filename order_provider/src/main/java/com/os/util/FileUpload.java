@@ -42,6 +42,6 @@ public class FileUpload {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return realPath;
+        return imgPath;
     }
 }

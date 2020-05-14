@@ -125,10 +125,8 @@ public class DishesInfoController {
      * @return
      */
     @RequestMapping("/dishesGetDishesImg")
-    public String getDishesImg(@RequestParam("uploadFile") MultipartFile uploadFile, HttpServletRequest request){
+    public String getDishesImg(@RequestParam("uploadFile") MultipartFile uploadFile, @RequestParam("path") String path, HttpServletRequest request){
         System.out.println("-----------------provider-- dishesGetDishesImg");
-        String path=request.getServletContext().getRealPath("/img/upload");//获取上传文件夹/img/upload的绝对路径
-        System.out.println("path: "+path);
         String imgPath= FileUpload.upload(uploadFile,path);
         return imgPath;
     }
