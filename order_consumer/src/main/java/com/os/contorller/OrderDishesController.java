@@ -33,7 +33,7 @@ public class OrderDishesController {
         List list = restTemplate.getForObject(url + "orderDishesFindAll/" + pageIndex + "/" + pageSize, List.class);
         List<Orderdishes> orderdishesList= (List<Orderdishes>) list.get(0);
         if(orderdishesList!=null && orderdishesList.size()>0){
-            int maxPage= (int) list.get(1);
+            int maxPage= (int) list.get(2);
             System.out.println("-----------------consumer-- maxPage: "+maxPage);
             System.out.println(orderdishesList.size());
             System.out.println(orderdishesList);
@@ -41,6 +41,22 @@ public class OrderDishesController {
             return list;
         }
         return null;
+    }
+
+    @RequestMapping("/orderDishesFindById")
+    @ResponseBody
+    public List orderDishesFindById(Integer orderid,Model modele){
+        System.out.println("-----------------consumer-- orderDishesFindById");
+        System.out.println("-----------------consumer-- orderid: "+orderid);
+        List list=restTemplate.getForObject(url+"orderDishesFindById/"+orderid,List.class);
+        List<Orderdishes> orderbyList= (List<Orderdishes>) list.get(0);
+        if(orderbyList!=null && orderbyList.size()>0){
+            System.out.println(orderbyList.size());
+            System.out.println(orderbyList);
+            return list;
+        }
+        return null;
+
     }
 
 
