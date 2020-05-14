@@ -26,6 +26,7 @@ $(function () {
             success:function(data){
                 alert("添加头像成功: "+data);
                 $("#dishesImg").val(data);
+                $("#face").attr("src",data);
             },
             error:function(){
                 alert("添加头像失败!");

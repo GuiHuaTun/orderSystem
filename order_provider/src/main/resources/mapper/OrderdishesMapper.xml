@@ -78,4 +78,8 @@
     </set>
     where odid = #{odid,jdbcType=INTEGER}
   </update>
+  <select id="selectById" resultMap="OrderdishesResultMap">
+   SELECT od.*,o.* ,d.* FROM orderdishes od,orderinfo o,dishesinfo d where od.orderreference=o.orderid and od.dishes=d.dishesid
+   and o.orderid=#{id,jdbcType=INTEGER}
+  </select>
 </mapper>
