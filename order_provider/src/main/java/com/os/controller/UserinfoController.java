@@ -27,6 +27,7 @@ public class UserinfoController {
 
     /**
      * 登陆
+     *
      * @param userinfo
      * @return
      */
@@ -39,6 +40,7 @@ public class UserinfoController {
 
     /**
      * 查询所有员工
+     *
      * @param useraccount
      * @param roleid
      * @return
@@ -46,8 +48,8 @@ public class UserinfoController {
     @RequestMapping("getAllUser/{useraccount}/{roleid}")
     public List<Userinfo> getAllUser(@PathVariable("useraccount") String useraccount, @PathVariable("roleid") int roleid) {
         System.out.println("----------------------------------------getAllUser");
-        if(useraccount.equals("null")){
-            useraccount=null;
+        if (useraccount.equals("null")) {
+            useraccount = null;
         }
         System.out.println(useraccount + "\t" + roleid + "\t");
         List<Userinfo> userlist = userinfoService.selectAll(useraccount, roleid);
@@ -57,11 +59,10 @@ public class UserinfoController {
     }
 
     /**
-     *
-     * @param pageIndex 页码
-     * @param pageSize 每页大小
+     * @param pageIndex   页码
+     * @param pageSize    每页大小
      * @param useraccount 姓名
-     * @param roleid 角色
+     * @param roleid      角色
      * @return
      */
     @RequestMapping("userinfoPageHelper/{pageIndex}/{pageSize}/{useraccount}/{roleid}")
@@ -80,7 +81,21 @@ public class UserinfoController {
     }
 
     /**
+     * 根据userid查询单个员工信息
+     *
+     * @param userid
+     * @return
+     */
+    @RequestMapping("selectUserByID/{userid}")
+    public Userinfo selectUserByID(@PathVariable("userid") int userid) {
+        System.out.println("selectUserByID");
+        return userinfoService.selectByPrimaryKey(userid);
+    }
+
+
+    /**
      * 添加员工
+     *
      * @param userinfo
      * @return
      */
@@ -91,6 +106,7 @@ public class UserinfoController {
 
     /**
      * 修改员工
+     *
      * @param userinfo
      * @return
      */
@@ -101,28 +117,32 @@ public class UserinfoController {
 
     /**
      * 删除员工
+     *
      * @param userid
      * @return
      */
-    @RequestMapping("deleteUser")
-    public int deleteUser(@RequestBody int userid) {
+    @RequestMapping("deleteUser/{userid}")
+    public int deleteUser(@PathVariable("userid") int userid) {
+
+        System.out.println("--------------进入删除");
         return userinfoService.deleteByPrimaryKey(userid);
     }
 
     /**
      * 上传菜品图片
+     *
      * @param ：图片文件
      * @param
      * @return
      */
     @RequestMapping("/userModifyImg")
-    public int userModifyImg(@RequestParam("uploadFile") MultipartFile uploadFile, @RequestParam("userid") int userid, HttpServletRequest request){
+    public int userModifyImg(@RequestParam("uploadFile") MultipartFile uploadFile, @RequestParam("userid") int userid, HttpServletRequest request) {
         System.out.println("-----------------provider-- userModifyImg");
-        System.out.println("userid: "+userid);
-        String path=request.getServletContext().getRealPath("/img/upload");//获取上传文件夹/img/upload的绝对路径
-        System.out.println("path: "+path);
-        String imgPath= FileUpload.upload(uploadFile,path);
-        Userinfo userinfo=new Userinfo();
+        System.out.println("userid: " + userid);
+        String path = request.getServletContext().getRealPath("/img/upload");//获取上传文件夹/img/upload的绝对路径
+        System.out.println("path: " + path);
+        String imgPath = FileUpload.upload(uploadFile, path);
+        Userinfo userinfo = new Userinfo();
         userinfo.setUserid(userid);
         userinfo.setFaceimg(imgPath);
         return userinfoService.updateByPrimaryKeySelective(userinfo);

@@ -25,7 +25,7 @@ function page(pIndex) {
                     "onmouseout='this.style.color=\"black\"'\n" +
                     "class='icon-sitemap icon-large' title='查看菜品详情'\n" +
                     "onclick=\"detail('"+dish.dishesname+"','"+dish.dishesdiscript+"','"+dish.dishestxt+"',"+dish.dishesprice+","+dish.recommend+",'"+dish.dishesimg+"')\"></i> &nbsp;&nbsp;\n" +
-                    "<i style=\"cursor: pointer; font-size: 14px;\" onmouseover=\"this.style.color='orange'\" onmouseout=\"this.style.color='black'\" class=\" icon-remove-sign icon-large\" title=\"删除菜品\" onclick=\"deleteDishes("+dish.dishesid+",'"+dish.dishesname+"',this)\"></i></td></tr>";
+                    "<i style=\"cursor: pointer; font-size: 14px;\" onmouseover=\"this.style.color='orange'\" onmouseout=\"this.style.color='black'\" class=\" icon-remove-sign icon-large\" title=\"删除菜品\" onclick=\"deleteDishes("+dish.dishesid+",'"+dish.dishesname+"',$(this)\"></i></td></tr>";
             }
             $("#orderTable").append(str);
         },
@@ -50,8 +50,25 @@ function last() {
     page(pageIndex);
 }
 
-function del(id) {
-    if(confirm("确定要删除吗？")){
-        alert("删除成功"+id);
+function deleteDishes(id, name, obj) {
+    alert("delete");
+    if (confirm("您真的要删除菜品【" + name + "】吗？")) {
+        $.ajax({
+            type:"POST",
+            url:"/dishesInfoDelete?dishesid="+id,
+            dataType:"json",
+            success:function (data) {
+                if(data){
+                    alert("删除成功")
+                    page(1);
+                }else{
+                    alert("删除失败");
+                }
+            },
+            error:function () {
+                alert("连接失败");
+            }
+        });
     }
+
 }

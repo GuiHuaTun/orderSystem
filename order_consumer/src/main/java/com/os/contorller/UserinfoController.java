@@ -54,7 +54,6 @@ public class UserinfoController {
         if (userinfo == null) {
             data[0] = "false";
         } else {
-            session.setAttribute("userInfo",userinfo);
             switch (userinfo.getRoleinfo().getRoleid()) {
                 case 1://后厨
                     data[0] = "chef";
@@ -68,6 +67,7 @@ public class UserinfoController {
                     data[0] = "waiter";
                     break;
             }
+            session.setAttribute(data[0],userinfo);
         }
         return data;
     }

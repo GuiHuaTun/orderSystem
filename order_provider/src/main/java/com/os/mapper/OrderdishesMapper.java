@@ -19,4 +19,6 @@ public interface OrderdishesMapper {
 
     int updateByPrimaryKeySelective(Orderdishes record);
 
+    List<Orderdishes> selectById(Integer id);
+
 }

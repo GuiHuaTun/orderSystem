@@ -16,10 +16,16 @@
     where tablestatus = #{tablestatus}
   </select>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="TableResultMap">
-    select 
+  select
+  <include refid="Base_Column_List" />
+  from tables
+  where tableid = #{tableid,jdbcType=INTEGER}
+</select>
+  <select id="selectTablesByStatusAndId" resultMap="TableResultMap">
+    select
     <include refid="Base_Column_List" />
     from tables
-    where tableid = #{tableid,jdbcType=INTEGER}
+    where tableid = #{tableid} and tablestatus=0
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from tables

@@ -18,6 +18,11 @@ public class TableServiceImpl implements TableService {
     private TableMapper tableMapper;
 
     @Override
+    public Tables selectTablesByStatusAndId(Integer tableid) {
+        return tableMapper.selectTablesByStatusAndId(tableid);
+    }
+
+    @Override
     public List<Tables> selectTableByStatus(Integer tablestatus) {
         return tableMapper.selectTableByStatus(tablestatus);
     }

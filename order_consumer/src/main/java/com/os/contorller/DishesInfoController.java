@@ -2,19 +2,23 @@ package com.os.contorller;
 
 import com.os.entity.Dishesinfo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.ByteArrayResource;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
-import java.io.File;
-import java.io.IOException;
 import java.util.List;
-import java.util.UUID;
 
 /**
  * @author haohui
@@ -42,7 +46,7 @@ public class DishesInfoController {
         if(dishesinfoList!=null && dishesinfoList.size()>0){
             int maxPage= (int) list.get(1);
             System.out.println("-----------------consumer-- maxPage: "+maxPage);
-            System.out.println(dishesinfoList);
+            //System.out.println(dishesinfoList);
             list.add(pageIndex);
             return list;
         }
@@ -73,13 +77,15 @@ public class DishesInfoController {
      * @return
      */
     @RequestMapping("/dishesInfoAdd")
+    @ResponseBody
     public String dishesInfoAdd(Dishesinfo dishesinfo){
         System.out.println("-----------------consumer-- dishesInfoAdd");
+        System.out.println("dishesinfo: "+dishesinfo);
         int num=restTemplate.postForObject(url+"dishesInfoAdd",dishesinfo,Integer.class);
         if(num>0){
-            return "";
+            return "true";
         }
-        return "";
+        return "false";
     }
 
     /**
@@ -88,13 +94,15 @@ public class DishesInfoController {
      * @return
      */
     @RequestMapping("/dishesInfoUpdate")
+    @ResponseBody
     public String dishesInfoUpdate(Dishesinfo dishesinfo){
         System.out.println("-----------------consumer-- dishesInfoUpdate");
+        System.out.println("dishesinfo: "+dishesinfo);
         int num=restTemplate.postForObject(url+"dishesInfoUpdate",dishesinfo,Integer.class);
         if(num>0){
-            return "";
+            return "true";
         }
-        return "";
+        return "false";
     }
 
     /**
@@ -104,26 +112,49 @@ public class DishesInfoController {
      */
     @RequestMapping("/dishesInfoDelete")
     @ResponseBody
-    public boolean dishesInfoDelete(int dishesid){
+    public String dishesInfoDelete(int dishesid){
         System.out.println("-----------------consumer-- dishesInfoDelete");
+        System.out.println("dishesid: "+dishesid);
         int num=restTemplate.postForObject(url+"dishesInfoDelete",dishesid,Integer.class);
         if(num>0){
-            return true;
+            return "true";
         }
-        return false;
+        return "false";
     }
 
     /**
-     * 上传菜品图片
-     * @param pic：图片文件
+     * 图片上传
+     * @param uploadFile：上传的图片
+     * @param request
      * @return
      */
-    @RequestMapping("/dishesGetDishesImg")
+    @RequestMapping(value = "dishesGetDishesImg",method = RequestMethod.POST)
     @ResponseBody
-    public String getDishesImg(MultipartFile pic){
-        System.out.println("-----------------consumer-- dishesGetDishesImg");
-        String dishesimg = restTemplate.postForObject(url + "dishesGetDishesImg", pic, String.class);
-        return dishesimg;
+    public String[] dishesGetDishesImg(MultipartFile uploadFile, HttpServletRequest request) throws Exception {
+        System.out.println("------------------- uploadImg");
+        ByteArrayResource uFile=new ByteArrayResource(uploadFile.getBytes()){
+            @Override
+            public long contentLength() {
+                return uploadFile.getSize();
+            }
+
+            @Override
+            public String getFilename() {
+                return uploadFile.getOriginalFilename();
+            }
+        };
+        MultiValueMap<String,Object> mvm=new LinkedMultiValueMap<>();
+        mvm.add("uploadFile",uFile);
+        String path=request.getServletContext().getRealPath("/img/upload");//获取上传文件夹/img/upload的绝对路径
+        System.out.println("path: "+path);
+        mvm.add("path",path);
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.MULTIPART_FORM_DATA);
+        HttpEntity<MultiValueMap<String,Object>> requestEntity=new HttpEntity<>(mvm,headers);
+        ResponseEntity<String> dishesimg=restTemplate.postForEntity(url+"dishesGetDishesImg",requestEntity,String.class);
+        System.out.println("dishesimg: "+dishesimg.getBody());
+        String[] str=new String[]{dishesimg.getBody()};
+        return str;
     }
 
     @RequestMapping("/selectDishesByRec")

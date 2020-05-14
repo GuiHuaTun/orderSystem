@@ -31,7 +31,9 @@ public class FileUpload {
         //System.out.println("path: "+path);
         String imgPath="/img/upload/"+dishesimg;//生成图片在项目中的相对路径
         System.out.println("imgPath: "+imgPath);
-        File file=new File(path+"/"+dishesimg);//在绝对路径下生成文件
+        String realPath=path+"/"+dishesimg;
+        System.out.println("realPath: "+realPath);
+        File file=new File(realPath);//在绝对路径下生成文件
         if(!file.getParentFile().exists()){//判断上传文件夹upload是否存在
             file.getParentFile().mkdirs();//创建上传文件夹upload文件夹
         }
