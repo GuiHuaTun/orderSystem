@@ -2,9 +2,17 @@ package com.os.contorller;
 
 import com.os.entity.Dishesinfo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.ByteArrayResource;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.multipart.MultipartFile;
@@ -114,16 +122,35 @@ public class DishesInfoController {
     }
 
     /**
-     * 上传菜品图片
-     * @param pic：图片文件
+     * 图片上传
+     * @param uploadFile：上传的图片
+     * @param request
      * @return
      */
-    @RequestMapping("/dishesGetDishesImg")
+    @RequestMapping(value = "dishesGetDishesImg",method = RequestMethod.POST)
     @ResponseBody
-    public String getDishesImg(MultipartFile pic){
-        System.out.println("-----------------consumer-- dishesGetDishesImg");
-        String dishesimg = restTemplate.postForObject(url + "dishesGetDishesImg", pic, String.class);
-        return dishesimg;
+    public String[] dishesGetDishesImg(MultipartFile uploadFile, HttpServletRequest request) throws Exception {
+        System.out.println("------------------- uploadImg");
+        ByteArrayResource uFile=new ByteArrayResource(uploadFile.getBytes()){
+            @Override
+            public long contentLength() {
+                return uploadFile.getSize();
+            }
+
+            @Override
+            public String getFilename() {
+                return uploadFile.getOriginalFilename();
+            }
+        };
+        MultiValueMap<String,Object> mvm=new LinkedMultiValueMap<>();
+        mvm.add("uploadFile",uFile);
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.MULTIPART_FORM_DATA);
+        HttpEntity<MultiValueMap<String,Object>> requestEntity=new HttpEntity<>(mvm,headers);
+        ResponseEntity<String> dishesimg=restTemplate.postForEntity(url+"dishesGetDishesImg",requestEntity,String.class);
+        System.out.println("dishesimg: "+dishesimg.toString());
+        String[] str=new String[]{dishesimg.toString()};
+        return str;
     }
 
     @RequestMapping("/selectDishesByRec")
