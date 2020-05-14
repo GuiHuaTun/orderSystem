@@ -1,52 +1,74 @@
-var tableId=null;
-var tableresult=null;
-var takeorder_backup=null;
+var tableId = null;
+var tableresult = null;
+var takeorder_backup = null;
 $(function () {
-    tableId=$("#tableId");
-    tableresult=$("#tableresult");
-    takeorder_backup=$("#takeorder_backup");
-$.ajax({
-    type:"POST",
-    url:"/allocationTable",
-    dataType:"json",
-    success:function(data){
-        data=eval(data[0]);
-        if(data!=null){
-            tableId.val(data.tableid);
-            tableresult.html("【"+data.tablename+"】");
-            takeorder_backup.attr("href","/pages/waiters/takeorder_backup.html?tableid="+data.tableid);
-        }else{
-            alert("已无空桌，请等待");
-            tableresult.html("【已无空桌，请等待】");
-        }
-    },
-    error:function(){
-        alert("系统错误!");
-        tableId.val("");
-    }
-});
+    tableId = $("#tableId");
+    tableresult = $("#tableresult");
+    takeorder_backup = $("#takeorder_backup");
+    var userid = location.search.split("=")[1];
 
-});
-function setTableId() {
+    /**
+     * 查询桌号
+     */
+    $.ajax({
+        type: "POST",
+        url: "/allocationTable",
+        dataType: "json",
+        success: function (data) {
+            data = eval(data[0]);
+            if (data != null) {
+                tableId.val(data.tableid);
+                tableresult.html("【" + data.tablename + "】");
+                takeorder_backup.attr("href", "/pages/waiters/takeorder_backup.html?tableid=" + data.tableid);
+            } else {
+                alert("已无空桌，请等待");
+                tableresult.html("【已无空桌，请等待】");
+            }
+        },
+        error: function () {
+            alert("系统错误!");
+            tableId.val("");
+        }
+    });
+    
     $.ajax({
         type:"POST",
-        url:"/setTableId/"+tableId.val(),
+        url:"/selectUserInfo/"+userid,
         dataType:"json",
         success:function(data){
-            data= eval(data);
-            if(data!=null){
+            data=eval(data);
+            $("#username").html(data.useraccount);
+            $("#userface").css("src",data.faceimg);
+            $("#userface1").css("src",data.faceimg);
+            $("#updatepass").attr("href","/pages/users/modifyuser.html?userid="+data.userid);
+        },
+        error:function(){
+            alert("系统错误!");
+        },
+    });
+
+});
+
+function setTableId() {
+    $.ajax({
+        type: "POST",
+        url: "/setTableId/" + tableId.val(),
+        dataType: "json",
+        success: function (data) {
+            data = eval(data);
+            if (data != null) {
                 tableId.val(data.tableid);
-                tableresult.html("【"+data.tablename+"】");
-                if(confirm("是否进入点餐页面")){
-                    top.mainwindow.location.href="/pages/waiters/takeorder_backup.html?tableid="+data.tableid;
-                }else{
-                    takeorder_backup.attr("href","/pages/waiters/takeorder_backup.html?tableid="+data.tableid);
+                tableresult.html("【" + data.tablename + "】");
+                if (confirm("是否进入点餐页面")) {
+                    top.mainwindow.location.href = "/pages/waiters/takeorder_backup.html?tableid=" + data.tableid;
+                } else {
+                    takeorder_backup.attr("href", "/pages/waiters/takeorder_backup.html?tableid=" + data.tableid);
                 }
-            }else{
+            } else {
                 alert("该桌已在用餐");
             }
         },
-        error:function(){
+        error: function () {
             alert("请重新设定餐桌!");
             tableId.val("");
         },

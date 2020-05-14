@@ -17,9 +17,11 @@ $(function () {
     form=$("#form");
     userid=$("#userid");
     imgform=$("#imgform");
+
+    var userid = location.search.split("=")[1];
     $.ajax({
-        type:"GET",
-        url:"/userinfomation",
+        type:"POST",
+        url:"/selectUserInfo/"+userid,
         dataType:"json",
         success:function(data){
             data=eval(data);

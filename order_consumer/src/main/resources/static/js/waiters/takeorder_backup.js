@@ -12,8 +12,6 @@ $(function () {
      */
     var table_id = location.search.split("=")[1];
     tableid.val(table_id);
-
-
     /**
      * 显示或隐藏餐车
      */
