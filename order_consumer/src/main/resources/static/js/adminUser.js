@@ -1,6 +1,6 @@
 
 var pageIndex=1;
-var maxPage=5;
+var totalpage;
 
 $(function(){
     page(1);
@@ -20,45 +20,49 @@ $(function(){
             $(".dropdown").html("");
             for(var i=0;i<rolelist.length;i++){
                 var roles = rolelist[i];
-                allRole+="<li><a href='#' onclick='bianli($(this))'>"+roles.rolename+"</a></li>";
+                allRole+="<li><input class='roleids' style='display: none' value="+roles.roleid+"><a href='#' onclick='bianli($(this))' onchange='change()'>"+roles.rolename+"</a></li>";
             }
             $(".dropdown").append(allRole);
         }
     })
-    $("#allRole").change(function () {
-        page(1);
-    })
+
 })
 function bianli(obj) {
-    alert(obj.html());
     var x = obj.html();
     $(".xasd").html(x);
-    alert($(".xasd").html());
-
+   var rid = obj.siblings(".roleids").val();
+   $(".initis").attr("value",rid);
+    page(1);
 }
+
 
 function prev() {
     if(pageIndex>1){
         pageIndex--;
         page(pageIndex);
+    }else{
+        alert("这是第一页");
     }
 }
 
 function next() {
-    if(pageIndex<maxPage){
+    if(pageIndex<totalpage){
         pageIndex++;
         page(pageIndex);
+    }
+    else{
+        alert("这是最后一页");
     }
 }
 
 function last() {
-    pageIndex=maxPage;
+    pageIndex=totalpage;
     page(pageIndex);
 }
 
 function page(pageIndex) {
     var userName = $(".searchbyname").val();
-    var userRole = $("#allRole").val();
+    var userRole = $(".initis").val();
     if(userName=="" || userName==null){
         userName=null;
     }
@@ -70,17 +74,16 @@ function page(pageIndex) {
         url:"/AllUsers/"+pageIndex+"/"+userName+"/"+userRole,
         dataType: "json",
         success: function (List) {
-            var totalpage = eval(List[0]);
+            totalpage = eval(List[0]);
             pageIndex = eval(List[1]);
             var userList = eval(List[2]);
-            alert(totalpage);
             $("#orderTable").html("");
             $("#pageList").html("");
             var empty = "";
             var pageList = "";
             for (var i = 0; i < userList.length; i++) {
                 var users = userList[i];
-                empty += "<tr><td class='textcetern'>" + users.userid + "</td><td class='textcetern'>" + users.useraccount + "</td><td class='textcetern'>" + users.roleinfo.rolename + "</td><td class='textcetern'><i class='iconfont green'>&#xe63e;</i><i class='iconfont orange'>&#xe60f;</i><i class='iconfont red'>&#xe608;</i></td></tr>";
+                empty += "<tr><td class='textcetern'>" + users.userid + "</td><td class='textcetern'>" + users.useraccount + "</td><td class='textcetern'>" + users.roleinfo.rolename + "</td><td class='textcetern'><i  onclick='detail()' class='iconfont green'>&#xe63e;</i><i class='iconfont orange'>&#xe60f;</i><i class='iconfont red'>&#xe608;</i></td></tr>";
             }
             for(var i = 1;i<=totalpage;i++){
                 pageList += "<li><a href='#' onclick='page("+i+")' id='yema'>"+i+"</a></li>";
