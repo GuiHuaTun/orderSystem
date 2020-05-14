@@ -18,7 +18,7 @@
 		<script src="/bootstrap/js/bootstrap.min.js"></script>
 
 		<script type="text/javascript" src="/js/ajax.js"></script>
-		<script type="text/javascript">
+<!--		<script type="text/javascript">
 			function begin() {
 				var input = document.getElementById("inputfile");
 				if (input.value != "") {
@@ -93,7 +93,7 @@
 				}
 				testState();
 			}
-		</script>
+		</script>-->
 	</head>
 
 	<body style="font-family:微软雅黑;background-image: url('../../../static/img/body-bg.png')">
@@ -145,7 +145,7 @@
 									</div>
 								</div>
 
-								<input type="hidden" value="default.jpg" id="faceimgname" name="faceimg" />
+								<input type="hidden" value="/img/faces/default.jpg" id="faceimgname" name="faceimg" />
 
 								<div class="form-group">
 									<div class="col-sm-offset-2 col-sm-10">
@@ -165,7 +165,7 @@
 					<h2>您可以为新员工设置头像：</h2>
 					<p style="margin-bottom: 10px">您选择的头像图片上传成功后将可以在下面直接预览。</p>
 					<div style="text-align: center;">
-						<img src="img/faces/default.jpg" id="face" width="200px" height="200px" class="img-circle" style="border:1px solid #CCC;box-shadow:0 0 10px rgba(100, 100, 100, 1);" />
+						<img src="/img/faces/default.jpg" id="face" width="200px" height="200px" class="img-circle" style="border:1px solid #CCC;box-shadow:0 0 10px rgba(100, 100, 100, 1);" />
 						<p style="margin-top: 15px">当前的头像预览</p>
 						<p style="margin-top: 15px">
 							为员工指定新的头像图片，请选择头像文件后，点击<span style="color: red;font-weight: bold;">上传员工新头像</span>按钮
