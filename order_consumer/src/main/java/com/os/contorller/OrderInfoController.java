@@ -37,7 +37,7 @@ public class OrderInfoController {
         List list = restTemplate.getForObject(url + "orderInfoFindAll/" + pageIndex + "/" + pageSize, List.class);
         List<Orderinfo> orderinfoList = (List<Orderinfo>) list.get(0);
         if (orderinfoList != null && orderinfoList.size() > 0) {
-            int maxPage = (int) list.get(1);
+            int maxPage = (int) list.get(2);
             System.out.println("-----------------consumer-- maxPage: " + maxPage);
             System.out.println(orderinfoList.size());
             System.out.println(orderinfoList);
