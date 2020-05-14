@@ -33,7 +33,7 @@ public class OrderDishesController {
         List list = restTemplate.getForObject(url + "orderDishesFindAll/" + pageIndex + "/" + pageSize, List.class);
         List<Orderdishes> orderdishesList= (List<Orderdishes>) list.get(0);
         if(orderdishesList!=null && orderdishesList.size()>0){
-            int maxPage= (int) list.get(2);
+            int maxPage= (int) list.get(1);
             System.out.println("-----------------consumer-- maxPage: "+maxPage);
             System.out.println(orderdishesList.size());
             System.out.println(orderdishesList);
