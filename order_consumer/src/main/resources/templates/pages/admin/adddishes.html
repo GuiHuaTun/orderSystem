@@ -141,12 +141,12 @@
 
 								<p>
 								<form class="form-horizontal" role="form"
-									style="margin-top: 20px" method="post" action="adddishes.order">
-									<div class="form-group">
+									style="margin-top: 20px" method="post">
+									<div class="form-group" id="addDish">
 										<label for="firstname" class="col-sm-2 control-label">名&nbsp;&nbsp;&nbsp;&nbsp;称:</label>
 										<div class="col-sm-10">
 											<input type="text" class="form-control" id="dishesName"
-												size="20" name="dishesName" placeholder="请输入菜品名称" required
+												size="20" name="dishesname" placeholder="请输入菜品名称" required
 												onblur="checkname()">
 										</div>
 
@@ -157,13 +157,13 @@
 										<label for="dishesDiscript" class="col-sm-2 control-label">简&nbsp;&nbsp;&nbsp;&nbsp;介:</label>
 										<div class="col-sm-10">
 											<input type="text" class="form-control" id="dishesDiscript"
-												name="dishesDiscript" placeholder="请输入少于100字的简介">
+												name="dishesdiscript" placeholder="请输入少于100字的简介">
 										</div>
 									</div>
 									<div class="form-group">
 										<label  class="col-sm-2 control-label">说&nbsp;&nbsp;&nbsp;&nbsp;明:</label>
 										<div class="col-sm-10">
-											<textarea rows="8" class="form-control" name="dishesTxt"></textarea>
+											<textarea rows="8" class="form-control" name="dishestxt"></textarea>
 										</div>
 										<div style="color: red;float: right;" id="passerror"></div>
 									</div>
@@ -171,7 +171,7 @@
 										<label for="dishesPrice" class="col-sm-2 control-label">价&nbsp;&nbsp;&nbsp;&nbsp;格:</label>
 										<div class="col-sm-10">
 											<input type="text" class="form-control" id="dishesPrice"
-												name="dishesPrice" placeholder="请输入菜品价格"
+												name="dishesprice" placeholder="请输入菜品价格"
 												onblur="checkprice()">
 										</div>
 										<div style="color: red;float: right;" id="priceerror"></div>
@@ -181,7 +181,7 @@
 										<label for="recommend" class="col-sm-2 control-label"></label>
 										<div class="col-sm-10">
 											<input type="checkbox" name="recommend" id="recommend"
-												value="1" /> <span style="font-size: 16px;font-weight: bold;">推荐菜品</span>
+												value="0" /> <span style="font-size: 16px;font-weight: bold;">推荐菜品</span>
 										</div>
 										<div style="color: red;float: right;" id="priceerror"></div>
 									</div>
@@ -189,11 +189,11 @@
 
 
 
-									<input type="text" id="dishesImg" name="dishesimg" />
+									<input type="hidden" id="dishesImg" name="dishesimg" value="/img/faces/default.jpg" />
 
 									<div class="form-group">
 										<div class="col-sm-offset-2 col-sm-10">
-											<input type="submit" class="btn btn-danger" id="addbtu"
+											<input type="button" class="btn btn-danger" id="addbtu"
 												disabled="disabled" value="添加菜品" />
 										</div>
 									</div>
@@ -224,7 +224,6 @@
 
 									<form class="form-inline" role="form"
 										enctype="multipart/form-data"
-										action="upimg.order?path=/img/dishes" name="imgform"
 										target="submitform" method="post">
 
 										<div class="form-group">
