@@ -20,7 +20,7 @@
     odid, orderreference, dishes, num
   </sql>
   <select id="selectAll" resultMap="OrderdishesResultMap">
-    SELECT od.*,o.* ,d.* FROM orderdishes od,orderinfo o,dishesinfo d where od.odid=o.orderid and od.dishes=d.dishesid
+    SELECT od.*,o.* ,d.* FROM orderdishes od,orderinfo o,dishesinfo d where od.orderreference=o.orderid and od.dishes=d.dishesid
   </select>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="OrderdishesResultMap">
     select 

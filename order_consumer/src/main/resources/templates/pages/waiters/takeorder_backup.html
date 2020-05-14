@@ -1,198 +1,227 @@
 <html>
 <head>
-	<meta charset="utf-8">
-<title>餐厅管理员</title>
+    <meta charset="utf-8">
+    <title>餐厅管理员</title>
 
-<meta http-equiv="pragma" content="no-cache">
-<meta http-equiv="cache-control" content="no-cache">
-<meta http-equiv="expires" content="0">
-<meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
-<meta http-equiv="description" content="This is my page">
-	<link rel="stylesheet" href="/css/dashboard.css">
-	<!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
+    <meta http-equiv="pragma" content="no-cache">
+    <meta http-equiv="cache-control" content="no-cache">
+    <meta http-equiv="expires" content="0">
+    <meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
+    <meta http-equiv="description" content="This is my page">
+    <link rel="stylesheet" href="/css/dashboard.css">
+    <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
 
-<!-- jQuery文件。务必在bootstrap.min.js 之前引入 -->
-<script src="/bootstrap/js/jquery-1.11.1.min.js"></script>
-	<script src="/bootstrap/js/bootstrap.min.js"></script>
+    <!-- jQuery文件。务必在bootstrap.min.js 之前引入 -->
+    <script src="/bootstrap/js/jquery-1.11.1.min.js"></script>
+    <script src="/bootstrap/js/bootstrap.min.js"></script>
 
-<script type="text/javascript" src="/js/ajax.js"></script>
-<script type="text/javascript" src="/js/waiters/takeorder_backup.js"></script>
+    <script type="text/javascript" src="/js/ajax.js"></script>
+    <script type="text/javascript" src="/js/waiters/takeorder_backup.js"></script>
 
-	<style type="text/css">
-		ul{
-			margin: 0;
-			padding: 0;
-			list-style: none;
-		}
-		.clearfix::after{
-			content: "";
-			display: block;
-			clear: both;
-		}
-		bottom{
-			outline: none;
-		}
+    <style type="text/css">
+        .shoppcar {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+            overflow: hidden;
+            height: 150px;
+            overflow-y: scroll;
+            width: 400px;
+            position: absolute;
+            top: 1450px;
+            left: 50px;
+            display: none;
+            background-color: rgba(245, 245, 245, 0.5);
+        }
 
-		#pictur>img{
-			display: inline-block;
-			width: 50px;
-			height: 50px;
-		}
-		.shoppcar>li>div{
-			float: left;
-		}
-		.shoppcar>li{
-			width: 300px;
-			height: 60px;
-		}
-		#numbers{
-			position: relative;
-			top: 30px;
-			float: right;
-		}
-		#numbers>#nums{
-			width: 24px;
-			height: 22px;
-			text-align: center;
-			color: #000;
-		}
-		#infors{
-			padding-left: 5px;
-		}
-		#prices{
-			color: red;
-		}
-		.inputNum {
-			vertical-align: middle;
-			height: 22px;
-			border: 1px solid #d0d0d0;
-			text-align: center;
-		}
+        .clearfix::after {
+            content: "";
+            display: block;
+            clear: both;
+        }
 
-		.btner {
-			display: inline-block;
-			vertical-align: middle;
-			background: #f0f0f0 no-repeat center;
-			border: 1px solid #d0d0d0;
-			width: 24px;
-			height: 24px;
-			border-radius: 2px;
-			box-shadow: 0 1px rgba(100, 100, 100, .1);
-			color: #666;
-			transition: color .2s, background-color .2s;
-		}
+        .status {
+            display: block;
+        }
 
-		.btn:active {
-			box-shadow: inset 0 1px rgba(100, 100, 100, .1);
-		}
+        bottom {
+            outline: none;
+        }
 
-		.btn:hover {
-			background-color: #e9e9e9;
-			color: #333;
-		}
+        #pictur > img {
+            display: inline-block;
+            width: 50px;
+            height: 50px;
+            border-radius: 10px;
+            box-shadow: 1px 1px 5px 2px #999;
+        }
 
-		.btn_plus {
-			background-image: linear-gradient(to top, currentColor, currentColor), linear-gradient(to top, currentColor, currentColor);
-			background-size: 10px 2px, 2px 10px;
-		}
+        #namers {
+            margin-left: 50px;
+            font-size: 20px;
+            font-weight: bolder;
+        }
 
-		.btn_minus {
-			background-image: linear-gradient(to top, currentColor, currentColor);
-			background-size: 10px 2px;
-		}
-	</style>
+        .shoppcar > li > div {
+            float: left;
+        }
+
+        .shoppcar > li {
+            width: 300px;
+            height: 60px;
+            margin-left: 20px;
+        }
+
+        #numbers {
+            position: relative;
+            top: 30px;
+            float: right;
+        }
+
+        #numbers > #nums {
+            width: 24px;
+            height: 22px;
+            text-align: center;
+            color: #000;
+        }
+
+        #infors {
+            padding-left: 5px;
+        }
+
+        #prices {
+            color: red;
+            margin-top: 5px;
+            font-size: 17px;
+            margin-left: 80px;
+        }
+
+        .inputNum {
+            vertical-align: middle;
+            height: 22px;
+            border: 1px solid #d0d0d0;
+            text-align: center;
+        }
+
+        .btner {
+            display: inline-block;
+            vertical-align: middle;
+            background: #f0f0f0 no-repeat center;
+            border: 1px solid #d0d0d0;
+            width: 24px;
+            height: 24px;
+            border-radius: 2px;
+            box-shadow: 0 1px rgba(100, 100, 100, .1);
+            color: #666;
+            transition: color .2s, background-color .2s;
+        }
+
+        .btn:active {
+            box-shadow: inset 0 1px rgba(100, 100, 100, .1);
+        }
+
+        .btn:hover {
+            background-color: #e9e9e9;
+            color: #333;
+        }
+
+        .btn_plus {
+            background-image: linear-gradient(to top, currentColor, currentColor), linear-gradient(to top, currentColor, currentColor);
+            background-size: 10px 2px, 2px 10px;
+        }
+
+        .btn_minus {
+            background-image: linear-gradient(to top, currentColor, currentColor);
+            background-size: 10px 2px;
+        }
+
+        .test-5::-webkit-scrollbar {
+            /*滚动条整体样式*/
+            width: 10px; /*高宽分别对应横竖滚动条的尺寸*/
+            height: 1px;
+        }
+
+        .test-5::-webkit-scrollbar-thumb {
+            /*滚动条里面小方块*/
+            border-radius: 10px;
+            background-color: skyblue;
+            background-image: -webkit-linear-gradient(
+                    45deg,
+                    rgba(255, 255, 255, 0.2) 25%,
+                    transparent 25%,
+                    transparent 50%,
+                    rgba(255, 255, 255, 0.2) 50%,
+                    rgba(255, 255, 255, 0.2) 75%,
+                    transparent 75%,
+                    transparent
+            );
+        }
+
+        .test-5::-webkit-scrollbar-track {
+            /*滚动条里面轨道*/
+            box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
+            background: #ededed;
+            border-radius: 10px;
+        }
+    </style>
 
 </head>
 
 <body style="font-family: 微软雅黑 ;">
-	<div class="container-fluid">
-			<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-				<ol class="breadcrumb">
-					<li><a href="/OrderSys/">首页</a></li>
-					<li>服务员</li>
-					<li class="active">服务员点餐界面</li>
-				</ol>
-				<div class="panel panel-danger">
-					<div class="panel-heading">
-						<h2 class="panel-title">最新公告消息</h2>
-					</div>
-					<div class="panel-body" style="padding-bottom: 10px">
-						<h4>
-							<i class=" icon-envelope icon-large" style="color:orange;"></i>&nbsp;6号桌菜品：川香回锅肉已经完成！
-						</h4>
-					</div>
-				</div>
-				<input type="hidden" id="tableid">
-				<div class="panel panel-danger">
-					<div class="panel-heading">
-						<h2 class="panel-title">菜品清单</h2>
-					</div>
-					<div class="panel-body" style="padding-bottom: 0px">
-						<div class="row placeholders" id="dishesbord">
-
-							<!--<div class="col-xs-6 col-sm-3 placeholder">
-								<a href="#"> <img class="img-thumbnail"
-									style="border-radius:20px" alt="Generic placeholder thumbnail"
-									src="${disheslist.dishesimg}"></a>
-								<h4>${disheslist.dishesname}</h4>
-								<span class="text-muted">${disheslist.dishesdiscript}</span>
-								<div class="form-group">
-									<form>
-										<div style="width:120px;margin: 0px auto">
-											<div class="input-group">
-												<span class="input-group-btn">
-													<button class="btn btn-default" type="button"
-														onclick="subtract(this)">-</button>
-												</span> <input type="text" class="form-control" value="1"
-													disabled="disabled" name="num"
-													style="text-align: center;padding: 0px;cursor: text;"><input
-													type="hidden" name="dishes" value="6" /> <span
-													class="input-group-btn">
-													<button class="btn btn-default" type="button"
-														onclick="add(this)">+</button>
-												</span>
-											</div>
-											&lt;!&ndash; /input-group &ndash;&gt;
-										</div>
-										<button class="button">
-										    <span>添加购物车</span>
-										    <div class="cart">
-										        <svg viewBox="0 0 36 26">
-										            <polyline points="1 2.5 6 2.5 10 18.5 25.5 18.5 28.5 7.5 7.5 7.5"></polyline>
-										            <polyline points="15 13.5 17 15.5 22 10.5"></polyline>
-										        </svg>
-										    </div>
-										<button>
-									</form>
-								</div>
-							</div>-->
-						</div>
-						<nav>
-						<ul class="pager">
-							<li><a href="javascript:;" onclick="page(1)">&larr;首页</a></li>
-							<li><a href="javascript:;" id="pre" onclick="prev()">上一页</a></li>
-							<li><a href="javascript:;" id="next" onclick="next()">下一页</a></li>
-							<li><a href="javascript:;" id="last" onclick="last()">末页&rarr;</a></li>
-						</ul>
-						</nav>
-						<div style="text-align: center;">
-							<a href="" class="btn btn-danger"
-								style="width: 40%;margin-bottom: 15px;font-size: 18px;font-weight: bold;">确认订单</a>
-						</div>
-						<div class="btn-success" style="z-index: 1000;left: 400px; width: 400px;height: 100px;" >
-							<ul class="shoppcar ">
-							</ul>
-						</div>
-					</div>
-				</div>
-				<div
-					style="height:1px;width: 100%;background: #CCC;margin-bottom: 10px"></div>
-				<footer>
-				<p>&copy; ${ORDER_SYS_NAME}-中软国际ETC 2015</p>
-				</footer>
-
-			</div>
-		</div>
-	</div>
+<div class="container-fluid">
+    <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+        <ol class="breadcrumb">
+            <li><a href="/OrderSys/">首页</a></li>
+            <li>服务员</li>
+            <li class="active">服务员点餐界面</li>
+        </ol>
+        <div class="panel panel-danger">
+            <div class="panel-heading">
+                <h2 class="panel-title">最新公告消息</h2>
+            </div>
+            <div class="panel-body" style="padding-bottom: 10px">
+                <h4>
+                    <i class=" icon-envelope icon-large" style="color:orange;"></i>&nbsp;6号桌菜品：川香回锅肉已经完成！
+                </h4>
+            </div>
+        </div>
+        <input type="hidden" id="tableid">
+        <div class="panel panel-danger">
+            <div class="panel-heading">
+                <h2 class="panel-title">菜品清单</h2>
+            </div>
+            <div class="panel-body" style="padding-bottom: 0px">
+                <div class="row placeholders" id="dishesbord">
+                </div>
+                <nav>
+                    <ul class="pager">
+                        <li><a href="javascript:;" onclick="page(1)">&larr;首页</a></li>
+                        <li><a href="javascript:;" id="pre" onclick="prev()">上一页</a></li>
+                        <li><a href="javascript:;" id="next" onclick="next()">下一页</a></li>
+                        <li><a href="javascript:;" id="last" onclick="last()">末页&rarr;</a></li>
+                    </ul>
+                </nav>
+                <div style="text-align: center;">
+                    <a href="#" class="btn btn-danger confirmOrder"
+                       style="width: 40%;margin-bottom: 15px;font-size: 18px;font-weight: bold;">确认订单</a>
+                </div>
+                <div class="order_shoppcar">
+                    <ul class="shoppcar  test test-5">
+                        <li id="hint">您的小口袋中还没有菜品!</li>
+                    </ul>
+                </div>
+                <button class="button glyphicon glyphicon-shopping-cart">餐车</button>
+                总金额:<input type="text" style="width: 50px; text-align: center;color: #ff4040" id="totalPrice"
+                           disabled="disabled" placeholder="0"/>元
+            </div>
+        </div>
+        <div
+                style="height:1px;width: 100%;background: #CCC;margin-bottom: 10px"></div>
+        <footer>
+            <p>&copy; ${ORDER_SYS_NAME}-中软国际ETC 2015</p>
+        </footer>
+    </div>
+</div>
+</div>
 </body>
 </html>
