@@ -1,7 +1,9 @@
 package com.os.controller;
 
 import com.github.pagehelper.PageHelper;
+import com.os.entity.Orderdishes;
 import com.os.entity.Orderinfo;
+import com.os.service.OrderdishesService;
 import com.os.service.OrderinfoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -16,6 +18,9 @@ public class OrderInfoController {
     @Autowired
     OrderinfoService orderinfoService;
 
+    @Autowired
+    OrderdishesService orderdishesService;
+
     /**
      * 查找所有订单
      */
@@ -29,13 +34,15 @@ public class OrderInfoController {
         }
         PageHelper.startPage(pageIndex,pageSize);
         List<Orderinfo> orderinfoList=orderinfoService.selectAll();
-        if(orderinfoList!=null && orderinfoList.size()>0){
+        List<Orderdishes> orderdishesList=orderdishesService.selectAll();
+        if(orderinfoList!=null && orderinfoList.size()>0 && orderdishesList!=null && orderdishesList.size()>0){
             int totalPage=orderinfoService.selectAll().size();
             System.out.println("-----------------provider-- totalPage: "+totalPage);
             int maxPage=totalPage%pageSize==0?totalPage/pageSize:totalPage/pageSize+1;
             System.out.println("-----------------provider-- maxPage: "+maxPage);
             List list=new ArrayList();
             list.add(orderinfoList);
+            list.add(orderdishesList);
             list.add(maxPage);
             System.out.println(orderinfoList);
             return list;
