@@ -61,8 +61,8 @@ public class OrderInfoController {
 
 
     @RequestMapping(value = "insertOrder",method = RequestMethod.POST)
-    @ResponseBody
     public int insertOrder(@RequestBody Orderinfo orderinfo){
-       return orderinfoService.insertSelective(orderinfo);
+        System.out.println("insertOrder方法");
+        return orderinfoService.insertSelective(orderinfo);
     }
 }

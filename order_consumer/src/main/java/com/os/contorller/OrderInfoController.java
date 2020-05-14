@@ -48,20 +48,27 @@ public class OrderInfoController {
     }
 
 
-
     @RequestMapping(value = "insertOrder/{tableid}", method = RequestMethod.POST)
     @ResponseBody
     public String insertOrder(@RequestBody List<Orderdishes> orderdishes, @PathVariable("tableid") int tableid, HttpSession session) {
         System.out.println(orderdishes);
-        System.out.println("tableid"+tableid);
-        Userinfo userinfo = (Userinfo) session.getAttribute("waiter");
+        Userinfo userinfo = (Userinfo) session.getAttribute("waiter");//获取服务员信息
+        Tables tables = new Tables(tableid,1);
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         String time = sdf.format(new Date());
-        Orderinfo orderinfo=new Orderinfo();
-        int num= restTemplate.postForObject(url + "insertSelective",orderinfo,Integer.class);
-
-        orderinfo = restTemplate.getForObject(url + "selectTablesById/" + tableid, Orderinfo.class);
+        Orderinfo orderinfo = new Orderinfo(time, userinfo, 0, tables);
         System.out.println(orderinfo);
+        int num = restTemplate.postForObject(url + "insertOrder", orderinfo, Integer.class);
+        System.out.println(num > 0 ? "添加成功" : "添加失败");
+        orderinfo = restTemplate.getForObject(url + "selectTablesById/" + tableid, Orderinfo.class);//查询订单信息
+        System.out.println(orderinfo);
+
+        restTemplate.postForObject(url + "updateTableStatus", tables, Integer.class);//修改餐桌状态
+        for (Orderdishes orderdish : orderdishes) {
+            orderdish.setOrderinfo(orderinfo);
+            num=restTemplate.postForObject(url+"insertOrderDishes",orderdish,Integer.class);
+            System.out.println(num > 0 ? "添加成功" : "添加失败");
+        }
         return "";
     }
 

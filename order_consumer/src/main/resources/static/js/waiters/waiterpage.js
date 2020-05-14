@@ -47,7 +47,7 @@ function setTableId() {
             }
         },
         error:function(){
-            alert("系统错误!");
+            alert("请重新设定餐桌!");
             tableId.val("");
         },
     });

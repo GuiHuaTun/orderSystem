@@ -42,13 +42,13 @@
             <if test="orderenddate != null">
                 orderenddate,
             </if>
-            <if test="waiterid != null">
+            <if test="userinfo.userid != null">
                 waiterid,
             </if>
             <if test="orderstate != null">
                 orderstate,
             </if>
-            <if test="tableid != null">
+            <if test="tables.tableid != null">
                 tableid,
             </if>
         </trim>
@@ -62,14 +62,14 @@
             <if test="orderenddate != null">
                 #{orderenddate,jdbcType=VARCHAR},
             </if>
-            <if test="waiterid != null">
-                #{waiterid,jdbcType=INTEGER},
+            <if test="userinfo.userid != null">
+                #{userinfo.userid,jdbcType=INTEGER},
             </if>
             <if test="orderstate != null">
                 #{orderstate,jdbcType=INTEGER},
             </if>
-            <if test="tableid != null">
-                #{tableid,jdbcType=INTEGER},
+            <if test="tables.tableid != null">
+                #{tables.tableid,jdbcType=INTEGER},
             </if>
         </trim>
     </insert>
@@ -82,14 +82,14 @@
             <if test="orderenddate != null">
                 orderenddate = #{orderenddate,jdbcType=VARCHAR},
             </if>
-            <if test="waiterid != null">
-                waiterid = #{waiterid,jdbcType=INTEGER},
+            <if test="userinfo.userid != null">
+                waiterid = #{userinfo.userid,jdbcType=INTEGER},
             </if>
             <if test="orderstate != null">
                 orderstate = #{orderstate,jdbcType=INTEGER},
             </if>
-            <if test="tableid != null">
-                tableid = #{tableid,jdbcType=INTEGER},
+            <if test="tables.tableid != null">
+                tableid = #{tables.tableid,jdbcType=INTEGER},
             </if>
         </set>
         where orderid = #{orderid,jdbcType=INTEGER}

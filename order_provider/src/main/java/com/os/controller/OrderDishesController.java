@@ -8,9 +8,7 @@ import com.os.service.OrderdishesService;
 import com.os.service.OrderinfoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -68,5 +66,10 @@ public class OrderDishesController {
         }
         System.out.println("---------------------provider--orderDishesFindById can't");
         return null;
+    }
+
+    @RequestMapping(value = "insertOrderDishes",method = RequestMethod.POST)
+    public int insertOrderDishes(@RequestBody Orderdishes orderdishes){
+        return orderdishesService.insertSelective(orderdishes);
     }
 }

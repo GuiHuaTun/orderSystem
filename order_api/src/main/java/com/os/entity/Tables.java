@@ -18,4 +18,8 @@ public class Tables implements Serializable {
 
     private Integer tablestatus;
 
+    public Tables(Integer tableid, Integer tablestatus) {
+        this.tableid = tableid;
+        this.tablestatus = tablestatus;
+    }
 }
