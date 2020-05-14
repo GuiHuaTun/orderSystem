@@ -12,6 +12,7 @@
 		<!-- jQuery文件。务必在bootstrap.min.js 之前引入 -->
 		<script src="/bootstrap/js/jquery-1.11.1.min.js"></script>
 		<script src="/js/adminUser.js"></script>
+		<script src="/js/ajax.js"></script>
 		<!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
 		<script src="/bootstrap/js/bootstrap.min.js"></script>
 		<style type="text/css">
@@ -207,10 +208,8 @@
 			function deleteUser(id, name, obj) {
 
 				if (confirm("您真的要删除员工【" + name + "】吗？")) {
-					xmlAjaxRequest("deleteuser.order?userId=" + id + "&time=" +
-						Math.random(), "get", true, null, deleteCallback, obj,
-						null);
 
+					xmlAjaxRequest("deletUser?userid=" + id ,"GET", true,null, deleteCallback, obj, null);
 				}
 
 			}
@@ -218,85 +217,13 @@
 			function deleteCallback(responseTxt, obj) {
 
 				alert("员工删除成功！");
-				obj.parentNode.parentNode.parentNode
-					.removeChild(obj.parentNode.parentNode);
+
 			}
 
 			function getUserList(page) {
 
 				xmlAjaxRequest("getuserbypage.order?page=" + page + "&time=" +
 					Math.random(), "get", true, null, showList, null, null);
-			}
-
-			function showList(responseXml, obj) {
-
-				var maxPage = responseXml.getElementsByTagName("maxPage");
-				maxPage = maxPage[0].childNodes;
-				//alert(maxPage[0].nodeValue);
-				var link = document.getElementById("last");
-				link.href = "javascript:getUserList(" + maxPage[0].nodeValue + ")";
-
-				var page = responseXml.getElementsByTagName("page");
-				page = page[0].childNodes;
-				link = document.getElementById("next");
-				link.href = "javascript:getUserList(" +
-					(parseInt(page[0].nodeValue) + 1) + ")";
-				link = document.getElementById("pre");
-				link.href = "javascript:getUserList(" +
-					(parseInt(page[0].nodeValue) - 1) + ")";
-				var table = document.getElementById("orderTable");
-				table.innerHTML = "";
-				var users = responseXml.getElementsByTagName("user");
-				for (var i = 0; i < users.length; i++) {
-					var user = users[i];
-					var attrs = user.childNodes;
-					var userId;
-					var userAccount;
-					var roleName;
-					var faceimg;
-					for (var j = 0; j < attrs.length; j++) {
-						var attr = attrs[j];
-						if (attr.nodeName == "userId") {
-							userId = attr.childNodes[0].nodeValue;
-						}
-						if (attr.nodeName == "userAccount") {
-							userAccount = attr.childNodes[0].nodeValue;
-						}
-						if (attr.nodeName == "roleName") {
-							roleName = attr.childNodes[0].nodeValue;
-						}
-						if (attr.nodeName == "faceimg") {
-							faceimg = attr.childNodes[0].nodeValue;
-						}
-					}
-
-					var newLine = "<tr><td>" + userId + "</td><td>" + userAccount +
-						"</td><td>" + roleName + "</td>";
-					newLine += "<td>";
-					newLine += "<i style='cursor: pointer; font-size: 14;'";
-					newLine += "onmouseover='this.style.color=\"orange\"'";
-					newLine += "onmouseout='this.style.color=\"black\"'";
-					newLine += "class='icon-cogs icon-large' title='修改员工信息' onclick='window.location=\"tomodifyuser.order?userId=" +
-						userId + "\"'></i>&nbsp;&nbsp;";
-
-					newLine += "<i style='cursor: pointer; font-size: 14;'";
-					newLine += "onmouseover='this.style.color=\"orange\"'";
-					newLine += "onmouseout='this.style.color=\"black\"'";
-					newLine += "class='icon-sitemap icon-large' title='查看员工详情' onclick='detail(\"" + userAccount + "\",\"" + roleName +
-						"\",\"" + faceimg + "\")'></i>&nbsp;&nbsp;";
-
-					newLine += "<i style='cursor: pointer; font-size: 14;'";
-					newLine += "onmouseover='this.style.color=\"orange\"'";
-					newLine += "onmouseout='this.style.color=\"black\"'";
-					newLine += "class='icon-remove-sign icon-large' title='删除该员工' onclick='deleteUser(" +
-						userId + ",\"" + userAccount + "\",this)'></i>";
-
-					newLine += "</td></tr>";
-
-					table.innerHTML += newLine;
-
-				}
-
 			}
 
 			function cancel(obj) {
@@ -317,6 +244,7 @@
 				userRole.innerHTML = role;
 				$("#myModal").modal("show");
 			}
+			;
 		</script>
 
 	</head>
@@ -333,7 +261,6 @@
 						<div class="panel-heading">
 							<h3 class="panel-title">员工列表</h3>
 						</div>
-
 						<div style="text-align: right;">
 							<form class="navbar-form navbar-left paddingtop">
 								<input type="text" class="form-control searchbyname" oninput="page(1)" placeholder="搜索点餐员">
@@ -404,15 +331,13 @@
 						</div>
 					</div>
 					<div style="height:1px;width: 100%;background: #CCC;margin-bottom: 10px"></div>
-					<footer>
-						<p>&copy; ${ORDER_SYS_NAME}-中软国际ETC 2015</p>
-					</footer>
+
 				</div>
 			</div>
 		</div>
 		<br>
 		<!-- Modal -->
-		<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+		<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" style="padding-top: 50px">
 			<div class="modal-dialog" role="document">
 				<div class="modal-content">
 					<div class="modal-header">
@@ -421,7 +346,7 @@
 						</button>
 						<h4 class="modal-title" id="myModalLabel">详细信息</h4>
 					</div>
-					<div class="modal-body" style="background-image: url('../../../static/img/body-bg.png')">
+					<div class="modal-body" style="background-image: url(/img/body-bg.pn)">
 						<div class="panel panel-danger" style="margin-top: 10px">
 							<div class="panel-heading">
 								<h3 class="panel-title">员工详情</h3>
