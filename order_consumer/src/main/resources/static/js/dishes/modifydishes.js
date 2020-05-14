@@ -24,11 +24,12 @@ $(function () {
             processData: false,// 告诉jQuery不要去处理发送的数据
             contentType: false,// 告诉jQuery不要去设置Content-Type请求头
             success:function(data){
+                alert("修改头像成功!");
                 $("#dishesImg").val(data);
                 $("#face").attr("src",data);
             },
             error:function(){
-                alert("添加头像失败!");
+                alert("连接失败!");
             },
         });
     });
@@ -44,15 +45,15 @@ $(function () {
     $("#addbtu").click(function () {
         $.ajax({
             type:"POST",
-            url:"/dishesInfoAdd",
-            data:$("#addDish").serialize(),
+            url:"/dishesInfoUpdate",
+            data:$("#modifyDish").serialize(),
             dataType:"json",
             success:function(data){
                 if(data){
-                    alert("添加成功");
+                    alert("修改成功");
                     window.location.reload();
                 }else{
-                    alert("添加失败");
+                    alert("修改失败");
                 }
             },
             error:function(){

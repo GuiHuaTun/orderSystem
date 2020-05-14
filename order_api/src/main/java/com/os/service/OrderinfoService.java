@@ -10,6 +10,8 @@ import java.util.List;
  * @date 2020/5/7 - 10:12
  */
 public interface OrderinfoService {
+    Orderinfo selectTablesByTableId(int tableid);
+
     List<Orderinfo> selectAll();
 
     int deleteByPrimaryKey(Integer orderid);

@@ -12,8 +12,6 @@ $(function () {
      */
     var table_id = location.search.split("=")[1];
     tableid.val(table_id);
-
-
     /**
      * 显示或隐藏餐车
      */
@@ -28,20 +26,27 @@ $(function () {
     
     $(".confirmOrder").on("click",function () {
         var arr = [];
-        var orderinfo=[];
+        var paramsArr =[];
         var dishes_id=null;
         var nums=null;
+        var obj1;
         arr = document.getElementsByClassName("shoppcarli");
         var shoppcarli = $(".shoppcarli");
         for (var i = 0; i < arr.length; i++) {
             dishes_id = shoppcarli.eq(i).find(".dishes_id").val();
             nums = shoppcarli.eq(i).find("#nums").val();
-            orderinfo[i]=[dishes_id,nums];
+            var obj={
+                dishesinfo:obj1={
+                    dishesid:dishes_id
+                },
+                num:nums
+            };
+            paramsArr.push(obj);
         }
         $.ajax({
             type:"POST",
-            url:"/insertOrder",
-            data:JSON.stringify({orderinfo:orderinfo, table:tableid.val()}),
+            url:"/insertOrder/"+tableid.val(),
+            data:JSON.stringify(paramsArr),
             contentType:'application/json;charset=UTF-8',// 核心
             dataType:"json",
             success:function(data){

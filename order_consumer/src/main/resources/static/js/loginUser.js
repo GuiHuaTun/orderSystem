@@ -31,8 +31,9 @@ $(function () {
                 url: "loginUser/" + useraccount + "/" + userpass + "/" + codetext,
                 dataType: "json",
                 success: function (data) {
-                    data = data.toString();
-                    switch (data) {
+                    var role = data[0].toString();
+                    var userid=data[1].toString();
+                    switch (role) {
                         case "codeError":
                             alert("验证码错误!");
                             imagers();
@@ -40,15 +41,15 @@ $(function () {
                             break;
                         case "admin":
                             clean();
-                            location.href="URL/admin";
+                            location.href="/pages/page/admin.html?userid="+userid;
                             break;
                         case "chef":
                             clean();
-                            location.href="URL/kitchen";
+                            location.href="/pages/page/kitchen.html?userid="+userid;
                             break;
                         case "waiter":
                             clean();
-                            location.href="URL/waiterpage";
+                            location.href="/pages/page/waiterpage.html?userid="+userid;
                             break;
                         case "false":
                             alert("账号或密码错误!");

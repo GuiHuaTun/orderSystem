@@ -121,8 +121,10 @@ public class UserinfoController {
      * @param userid
      * @return
      */
-    @RequestMapping("deleteUser")
-    public int deleteUser(@RequestBody int userid) {
+    @RequestMapping("deleteUser/{userid}")
+    public int deleteUser(@PathVariable("userid") int userid) {
+
+        System.out.println("--------------进入删除");
         return userinfoService.deleteByPrimaryKey(userid);
     }
 

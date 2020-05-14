@@ -26,16 +26,16 @@
 <script type="text/javascript" src="/js/ajax.js"></script>
 
 <script type="text/javascript">
-	function deleteDishes(id, name, obj) {
-
-		if (confirm("您真的要删除菜品【" + name + "】吗？")) {
-			xmlAjaxRequest("deletedishes.order?dishesId=" + id + "&time="
-					+ Math.random(), "get", true, null, deleteCallback, obj,
-					null);
-
-		}
-
-	}
+	// function deleteDishes(id, name, obj) {
+	//
+	// 	if (confirm("您真的要删除菜品【" + name + "】吗？")) {
+	// 		xmlAjaxRequest("deletedishes.order?dishesId=" + id + "&time="
+	// 				+ Math.random(), "get", true, null, deleteCallback, obj,
+	// 				null);
+	//
+	// 	}
+	//
+	// }
 	function deleteCallback(responseTxt, obj) {
 
 		alert("菜品删除成功！");
@@ -163,7 +163,7 @@
 		var dishesPrice = document.getElementById("dishesPrice");
 		var recommend = document.getElementById("recommend");
 		var dishesImg = document.getElementById("dishesImg");
-		dishesImg.src = "/img/upload/" + img;
+		dishesImg.src = img;
 		dishesName.innerHTML = name;
 		dishesDiscript.innerHTML = disc;
 		dishesTxt.innerHTML = txt;
