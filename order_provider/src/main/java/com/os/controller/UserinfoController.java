@@ -76,7 +76,6 @@ public class UserinfoController {
         }
         PageHelper.startPage(pageIndex, pageSize);
         List<Userinfo> userlist = userinfoService.selectAll(useraccount, roleid);
-        userlist.forEach(System.out::println);
         return userlist;
     }
 
@@ -88,7 +87,6 @@ public class UserinfoController {
      */
     @RequestMapping("selectUserByID/{userid}")
     public Userinfo selectUserByID(@PathVariable("userid") int userid) {
-        System.out.println("selectUserByID");
         return userinfoService.selectByPrimaryKey(userid);
     }
 
@@ -123,8 +121,6 @@ public class UserinfoController {
      */
     @RequestMapping("deleteUser/{userid}")
     public int deleteUser(@PathVariable("userid") int userid) {
-
-        System.out.println("--------------进入删除");
         return userinfoService.deleteByPrimaryKey(userid);
     }
 
@@ -135,7 +131,7 @@ public class UserinfoController {
      * @param
      * @return
      */
-    @RequestMapping("/userModifyImg")
+    @RequestMapping("/userGetDishesImg")
     public int userModifyImg(@RequestParam("uploadFile") MultipartFile uploadFile, @RequestParam("userid") int userid, HttpServletRequest request) {
         System.out.println("-----------------provider-- userModifyImg");
         System.out.println("userid: " + userid);

@@ -42,7 +42,6 @@ public class OrderInfoController {
             list.add(orderinfoList);
             list.add(orderdishesList);
             list.add(maxPage);
-            System.out.println(orderinfoList);
             return list;
         }
         System.out.println("---------------------provider--orderInfoFindAll can't");
