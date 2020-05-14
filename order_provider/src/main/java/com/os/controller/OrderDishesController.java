@@ -2,8 +2,10 @@ package com.os.controller;
 
 import com.github.pagehelper.PageHelper;
 import com.os.entity.Orderdishes;
+import com.os.entity.Orderinfo;
 import com.os.entity.Roleinfo;
 import com.os.service.OrderdishesService;
+import com.os.service.OrderinfoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -18,6 +20,9 @@ public class OrderDishesController {
     @Autowired
     OrderdishesService orderdishesService;
 
+    @Autowired
+    OrderinfoService orderinfoService;
+
     /**
      * 查找所有经营数据（详单）
      * @return
@@ -31,13 +36,15 @@ public class OrderDishesController {
         }
         PageHelper.startPage(pageIndex,pageSize);
         List<Orderdishes> orderdishesList=orderdishesService.selectAll();
-        if(orderdishesList!=null && orderdishesList.size()>0){
+        List<Orderinfo> orderinfoList=orderinfoService.selectAll();
+        if(orderdishesList!=null && orderdishesList.size()>0 && orderinfoList!=null && orderinfoList.size()>0){
             int totalPage=orderdishesService.selectAll().size();
             System.out.println("-----------------provider-- totalPage: "+totalPage);
             int maxPage=totalPage%pageSize==0?totalPage/pageSize:totalPage/pageSize+1;
             System.out.println("-----------------provider-- maxPage: "+maxPage);
             List list=new ArrayList();
             list.add(orderdishesList);
+            list.add(orderinfoList);
             list.add(maxPage);
             System.out.println(orderdishesList);
             return list;
@@ -54,7 +61,7 @@ public class OrderDishesController {
     public List orderDishesFindById(@PathVariable("orderid") int orderid){
         System.out.println("-----------------provider-- orderDishesFindById");
         List<Orderdishes> orderByList=orderdishesService.selectById(orderid);
-        if(orderByList!=null && orderByList.size()>0){
+        if(orderByList!=null && orderByList.size()>0 ){
             List list=new ArrayList();
             list.add(orderByList);
             return list;
