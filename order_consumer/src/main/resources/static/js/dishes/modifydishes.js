@@ -1,6 +1,5 @@
 $(function () {
     $("#inputfile").change(function () {
-        $("#addbtu").attr("disabled","false");
         if($.browser){
             $("#face").attr("src",$(this).val())
             //$("#info").text("当前选择的文件:"+$(this).val())
