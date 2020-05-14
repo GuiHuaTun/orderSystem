@@ -1,6 +1,7 @@
 var pageIndex=1;
 var maxPage=1;
 var tableid=null;
+var placeholder=null;
 $(function () {
     tableid=$("#tableid");
     page(1);
@@ -44,10 +45,10 @@ function page(pIndex) {
                 var dishes=data[0][i];
                 str+="<div class=\"col-xs-6 col-sm-3 placeholder\">\n" +
                     "\t\t\t\t\t\t\t\t<a href=\"#\"> <img class=\"img-thumbnail\"\n" +
-                    "\t\t\t\t\t\t\t\t\tstyle=\"border-radius:20px\"\n" +
+                    "\t\t\t\t\t\t\t\t\tstyle=\"border-radius:20px\" id='dishesimg' \n" +
                     "\t\t\t\t\t\t\t\t\tsrc=\"/img/dishes/1.jpg\"></a>\n" +
-                    "\t\t\t\t\t\t\t\t<h4>"+dishes.dishesname+"</h4>\n" +
-                    "\t\t\t\t\t\t\t\t<span class=\"text-muted\">"+dishes.dishesdiscript+"</span><input type='hidden' id=\"dishesid\" value="+dishes.dishesid+" />\n" +
+                    "\t\t\t\t\t\t\t\t<h4 id='dishesname'>"+dishes.dishesname+"</h4>\n" +
+                    "\t\t\t\t\t\t\t\t<span class=\"text-muted\" id='dishesprice'>￥"+dishes.dishesprice+"</span><input type='hidden' id=\"dishesid\" value="+dishes.dishesid+" />\n" +
                     "\t\t\t\t\t\t\t\t<div class=\"form-group\">\n" +
                     "\t\t\t\t\t\t\t\t\t<form>\n" +
                     "\t\t\t\t\t\t\t\t\t\t<div style=\"width:120px;margin: 0px auto\">\n" +
@@ -67,7 +68,7 @@ function page(pIndex) {
                     "\t\t\t\t\t\t\t\t\t\t</div>\n" +
                     "\t\t\t\t\t\t\t\t\t\t<p>\n" +
                     "\t\t\t\t\t\t\t\t\t\t\t<input type=\"button\" class=\"btn btn-danger\"\n" +
-                    "\t\t\t\t\t\t\t\t\t\t\t\tstyle=\"width:120px;margin-top: 5px\" value=\"加入点餐车\"></input>\n" +
+                    "\t\t\t\t\t\t\t\t\t\t\t\tstyle=\"width:120px;margin-top: 5px\" value=\"加入点餐车\" onclick='addOrder($(this))'></input>\n" +
                     "\t\t\t\t\t\t\t\t\t\t</p>\n" +
                     "\t\t\t\t\t\t\t\t\t</form>\n" +
                     "\t\t\t\t\t\t\t\t</div>\n" +
@@ -78,14 +79,47 @@ function page(pIndex) {
     })
 }
 function operation(obj,op) {
-    obj.parents(".placeholder").find("#dishesid").val();
-    var num=obj.parents(".placeholder").find("input[name=num]").val();
+    placeholder=obj.parents(".placeholder");
+    var num=placeholder.find("input[name=num]").val();
     num=parseInt(num);
     if (op=="subtract")
         num=num-1==0?1:num-1;
     else
         num=num+1;
-    obj.parents(".placeholder").find("input[name=num]").val(num);
+    placeholder.find("input[name=num]").val(num);
+}
+
+function addOrder(obj) {
+    placeholder=obj.parents(".placeholder");
+    var price=placeholder.find("#dishesprice").html();
+    var num=parseInt(placeholder.find("input[name=num]").val());
+    var dishesname=placeholder.find("#dishesname").html();
+    var dishesid=placeholder.find("#dishesid").val();
+    var dishesimg=placeholder.find("#dishesimg").attr("src");
+    price= parseInt(price.substr(1));
+    price=price*num;
+    var li="<li class=\"shoppcarli\">\n" +
+        "\t\t\t\t\t\t\t\t\t<div id=\"pictur\">\n" +
+        "\t\t\t\t\t\t\t\t\t\t<img src="+dishesimg+" >\n" +
+        "\t\t\t\t\t\t\t\t\t</div>\n" +
+        "\t\t\t\t\t\t\t\t\t<div id=\"infors\">\n" +
+        "\t\t\t\t\t\t\t\t\t\t<div id=\"namers\">\n" +
+        "\t\t\t\t\t\t\t\t\t\t\t"+dishesname+"\n" +
+        "\t\t\t\t\t\t\t\t\t\t</div>\n" +
+        "\n" +
+        "\t\t\t\t\t\t\t\t\t\t<div id=\"prices\">\n" +
+        "\t\t\t\t\t\t\t\t\t\t\t"+price+"\n" +
+        "\t\t\t\t\t\t\t\t\t\t</div>\n" +
+        "\n" +
+        "\t\t\t\t\t\t\t\t\t</div>\n" +
+        "\t\t\t\t\t\t\t\t\t<div id=\"numbers\">\n" +
+        "\t\t\t\t\t\t\t\t\t\t<input class=\"btner btn_minus\" type=\"button\"  onclick=\"shoppcarOperation($(this))\" value=\"\" />\n" +
+        "\t\t\t\t\t\t\t\t\t\t<input  class=\"inputNum\" type=\"text\"  id=\"nums\" disabled='disabled' value="+num+" />\n" +
+        "\t\t\t\t\t\t\t\t\t\t<input type=\"button\" class=\"btner btn_plus\"   onclick=\"shoppcarOperation($(this))\" value=\"\" />" +
+        "<input type=\"hidden\" id='dishes_id' value="+dishesid+" />\n" +
+        "\t\t\t\t\t\t\t\t\t</div>\n" +
+        "\t\t\t\t\t\t\t\t</li>";
+    $(".shoppcar").append(li);
 }
 
 
