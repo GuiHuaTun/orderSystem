@@ -4,9 +4,7 @@ import com.github.pagehelper.PageHelper;
 import com.os.entity.Tables;
 import com.os.service.TableService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -28,8 +26,18 @@ public class TableController {
        return tables;
     }
 
+    /**
+     * 查询餐桌
+     * @param tableid
+     * @return
+     */
     @RequestMapping("setTableId/{tableid}")
     public Tables setTableId(@PathVariable("tableid") int tableid){
-        return tableService.selectByPrimaryKey(tableid);
+        return tableService.selectTablesByStatusAndId(tableid);
+    }
+
+    @RequestMapping("updateTableStatus")
+    public int updateTableStatus(@RequestBody Tables tables){
+        return tableService.updateByPrimaryKeySelective(tables);
     }
 }

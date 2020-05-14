@@ -1,0 +1,223 @@
+		.shoppcar {
+			margin: 0;
+			padding: 0;
+			list-style: none;
+			overflow: hidden;
+			height: 150px;
+			overflow-y: scroll;
+			width: 400px;
+			position: absolute;
+			top: 1450px;
+			left: 50px;
+			display: none;
+			background-color: rgba(245, 245, 245, 0.5);
+		}
+		.clearfix::after {
+			content: "";
+			display: block;
+			clear: both;
+		}
+
+		button {
+			border: none;
+			outline: none;
+		}
+
+		#pictur>img {
+			display: inline-block;
+			width: 50px;
+			height: 50px;
+			border-radius: 10px;
+			box-shadow: 1px 1px 5px 2px #999;
+		}
+
+		#namers {
+			margin-left: 50px;
+			font-size: 20px;
+			font-weight: bolder;
+		}
+
+		.shoppcar>li>div {
+			float: left;
+		}
+
+		.shoppcar>li {
+			width: 300px;
+			height: 60px;
+			margin-left: 20px;
+		}
+
+		#numbers {
+			position: relative;
+			top: 30px;
+			float: right;
+		}
+
+		#numbers>#nums {
+			width: 24px;
+			height: 22px;
+			text-align: center;
+			color: #000;
+		}
+
+		#infors {
+			padding-left: 5px;
+		}
+
+		#prices {
+			color: red;
+			margin-top: 5px;
+			font-size: 17px;
+			margin-left: 80px;
+		}
+
+
+		.inputNum {
+			vertical-align: middle;
+			height: 22px;
+			border: 1px solid #d0d0d0;
+			text-align: center;
+		}
+
+		.btner {
+			display: inline-block;
+			vertical-align: middle;
+			background: #f0f0f0 no-repeat center;
+			border: 1px solid #d0d0d0;
+			width: 24px;
+			height: 24px;
+			border-radius: 2px;
+			box-shadow: 0 1px rgba(100, 100, 100, .1);
+			color: #666;
+			transition: color .2s, background-color .2s;
+		}
+
+		.btn_plus {
+			background-image: linear-gradient(to top, currentColor, currentColor), linear-gradient(to top, currentColor, currentColor);
+			background-size: 10px 2px, 2px 10px;
+		}
+
+		.btn_minus {
+			background-image: linear-gradient(to top, currentColor, currentColor);
+			background-size: 10px 2px;
+		}
+
+		.test-5::-webkit-scrollbar {
+			/*滚动条整体样式*/
+			width: 10px;
+			/*高宽分别对应横竖滚动条的尺寸*/
+			height: 1px;
+		}
+
+		.test-5::-webkit-scrollbar-thumb {
+			/*滚动条里面小方块*/
+			border-radius: 10px;
+			background-color: skyblue;
+			background-image: -webkit-linear-gradient(45deg,
+				rgba(255, 255, 255, 0.2) 25%,
+				transparent 25%,
+				transparent 50%,
+				rgba(255, 255, 255, 0.2) 50%,
+				rgba(255, 255, 255, 0.2) 75%,
+				transparent 75%,
+				transparent);
+		}
+
+		.test-5::-webkit-scrollbar-track {
+			/*滚动条里面轨道*/
+			box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
+			background: #ededed;
+			border-radius: 10px;
+		}
+#paybutton{
+	width: 300px;
+	height: 50px;
+}
+#payMoney{
+	display: inline-block;
+	width: 70px;
+	height: 50px;
+}
+	.money{
+		position: absolute;
+		padding-top: 35px;
+		
+	}	
+	.money>.span1{
+		color: #f40;
+	}
+		
+.social-btns .btn,
+.social-btns .btn:before,
+.social-btns .btn .fa {
+  transition: all 0.35s;
+  transition-timing-function: cubic-bezier(0.31, -0.105, 0.43, 1.59);
+}
+.social-btns {
+	text-align: center;
+	display: inline-block;
+}
+.social-btns .btn {
+	width: 50px;
+	height: 50px;
+	outline: none;
+}
+button{
+	outline: none;
+}
+.outline{
+	outline: none;
+}
+.social-btns .btn:before {
+  top: 90%;
+  left: -110%;
+}
+.social-btns .btn .fa {
+  -webkit-transform: scale(0.8);
+  transform: scale(0.8);
+}
+
+.social-btns .btn.twitter:before {
+  background-color: #00aff0;
+}
+.social-btns .btn.twitter .fa {
+  color: #00aff0;
+}
+
+.social-btns .btn:focus:before,
+.social-btns .btn:hover:before {
+  top: -10%;
+  left: -10%;
+
+}
+.social-btns .btn:focus .fa,
+.social-btns .btn:hover .fa {
+  color: #fff;
+  -webkit-transform: scale(1);
+  transform: scale(1);
+}
+
+.social-btns .btn {
+  display: inline-block;
+  background-color: #fff;
+  line-height: 30px;
+  margin: 0 10px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  border-radius: 28%;
+  box-shadow: 0 5px 15px -5px rgba(0, 0, 0, 0.1);
+  opacity: 0.99;
+}
+.social-btns .btn:before {
+  content: "";
+  width: 120%;
+  height: 120%;
+  position: absolute;
+  -webkit-transform: rotate(45deg);
+  transform: rotate(45deg);
+}
+.social-btns .btn .fa {
+  font-size: 20px;
+  vertical-align: middle;
+}

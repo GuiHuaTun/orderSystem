@@ -8,6 +8,8 @@ import java.util.List;
 
 @Mapper
 public interface TableMapper {
+    Tables selectTablesByStatusAndId(@Param("tableid") int tableid);
+
     List<Tables> selectTableByStatus(@Param("tablestatus") Integer tablestatus);
 
     int deleteByPrimaryKey(Integer tableid);

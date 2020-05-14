@@ -33,10 +33,10 @@
             <if test="odid != null">
                 odid,
             </if>
-            <if test="orderreference != null">
+            <if test="orderinfo.orderid != null">
                 orderreference,
             </if>
-            <if test="dishes != null">
+            <if test="dishesinfo.dishesid != null">
                 dishes,
             </if>
             <if test="num != null">
@@ -47,11 +47,11 @@
             <if test="odid != null">
                 #{odid,jdbcType=INTEGER},
             </if>
-            <if test="orderreference != null">
-                #{orderreference,jdbcType=INTEGER},
+            <if test="orderinfo.orderid != null">
+                #{orderinfo.orderid,jdbcType=INTEGER},
             </if>
-            <if test="dishes != null">
-                #{dishes,jdbcType=INTEGER},
+            <if test="dishesinfo.dishesid != null">
+                #{dishesinfo.dishesid,jdbcType=INTEGER},
             </if>
             <if test="num != null">
                 #{num,jdbcType=INTEGER},
@@ -61,11 +61,11 @@
     <update id="updateByPrimaryKeySelective" parameterType="com.os.entity.Orderdishes">
         update orderdishes
         <set>
-            <if test="orderreference != null">
-                orderreference = #{orderreference,jdbcType=INTEGER},
+            <if test="orderinfo.orderid != null">
+                orderreference = #{orderinfo.orderid,jdbcType=INTEGER},
             </if>
-            <if test="dishes != null">
-                dishes = #{dishes,jdbcType=INTEGER},
+            <if test="dishesinfo.dishesid != null">
+                dishes = #{dishesinfo.dishesid,jdbcType=INTEGER},
             </if>
             <if test="num != null">
                 num = #{num,jdbcType=INTEGER},

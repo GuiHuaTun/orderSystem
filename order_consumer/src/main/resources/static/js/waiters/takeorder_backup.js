@@ -45,7 +45,6 @@ $(function () {
             };
             paramsArr.push(obj);
         }
-        alert(paramsArr);
         $.ajax({
             type:"POST",
             url:"/insertOrder/"+tableid.val(),
