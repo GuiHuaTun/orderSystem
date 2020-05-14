@@ -48,9 +48,9 @@ $(function () {
             data:$("#addDish").serialize(),
             dataType:"json",
             success:function(data){
-                alert(data)
                 if(data){
                     alert("添加成功");
+                    window.location.reload();
                 }else{
                     alert("添加失败");
                 }
