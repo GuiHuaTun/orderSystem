@@ -94,13 +94,15 @@ public class DishesInfoController {
      * @return
      */
     @RequestMapping("/dishesInfoUpdate")
+    @ResponseBody
     public String dishesInfoUpdate(Dishesinfo dishesinfo){
         System.out.println("-----------------consumer-- dishesInfoUpdate");
+        System.out.println("dishesinfo: "+dishesinfo);
         int num=restTemplate.postForObject(url+"dishesInfoUpdate",dishesinfo,Integer.class);
         if(num>0){
-            return "";
+            return "true";
         }
-        return "";
+        return "false";
     }
 
     /**
