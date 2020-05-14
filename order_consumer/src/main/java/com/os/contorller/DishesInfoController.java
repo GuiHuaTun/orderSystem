@@ -1,6 +1,7 @@
 package com.os.contorller;
 
 import com.os.entity.Dishesinfo;
+import com.os.util.FileUpload;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.http.HttpEntity;
@@ -147,9 +148,14 @@ public class DishesInfoController {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.MULTIPART_FORM_DATA);
         HttpEntity<MultiValueMap<String,Object>> requestEntity=new HttpEntity<>(mvm,headers);
-        ResponseEntity<String> dishesimg=restTemplate.postForEntity(url+"dishesGetDishesImg",requestEntity,String.class);
-        System.out.println("dishesimg: "+dishesimg.getBody());
-        String[] str=new String[]{dishesimg.getBody()};
+//        ResponseEntity<String> dishesimg=restTemplate.postForEntity(url+"dishesGetDishesImg",requestEntity,String.class);
+//        System.out.println("dishesimg: "+dishesimg.getBody());
+//        String[] str=new String[]{dishesimg.getBody()};
+        ResponseEntity<MultipartFile> dishesimg=restTemplate.postForEntity(url+"dishesGetDishesImg",requestEntity,MultipartFile.class);
+        String path=request.getServletContext().getRealPath("/img/upload");//获取上传文件夹/img/upload的绝对路径
+        String imgPath= FileUpload.upload(dishesimg.getBody(),path);
+        System.out.println("imgPath: "+imgPath);
+        String[] str=new String[]{imgPath};
         return str;
     }
 
