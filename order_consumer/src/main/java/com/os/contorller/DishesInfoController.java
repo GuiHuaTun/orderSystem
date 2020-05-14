@@ -1,7 +1,6 @@
 package com.os.contorller;
 
 import com.os.entity.Dishesinfo;
-import com.os.util.FileUpload;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.http.HttpEntity;
@@ -19,11 +18,7 @@ import org.springframework.web.client.RestTemplate;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
-import java.io.File;
-import java.io.IOException;
 import java.util.List;
-import java.util.UUID;
 
 /**
  * @author haohui
@@ -145,17 +140,15 @@ public class DishesInfoController {
         };
         MultiValueMap<String,Object> mvm=new LinkedMultiValueMap<>();
         mvm.add("uploadFile",uFile);
+        String path=request.getServletContext().getRealPath("/img/upload");//获取上传文件夹/img/upload的绝对路径
+        System.out.println("path: "+path);
+        mvm.add("path",path);
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.MULTIPART_FORM_DATA);
         HttpEntity<MultiValueMap<String,Object>> requestEntity=new HttpEntity<>(mvm,headers);
-//        ResponseEntity<String> dishesimg=restTemplate.postForEntity(url+"dishesGetDishesImg",requestEntity,String.class);
-//        System.out.println("dishesimg: "+dishesimg.getBody());
-//        String[] str=new String[]{dishesimg.getBody()};
-        ResponseEntity<MultipartFile> dishesimg=restTemplate.postForEntity(url+"dishesGetDishesImg",requestEntity,MultipartFile.class);
-        String path=request.getServletContext().getRealPath("/img/upload");//获取上传文件夹/img/upload的绝对路径
-        String imgPath= FileUpload.upload(dishesimg.getBody(),path);
-        System.out.println("imgPath: "+imgPath);
-        String[] str=new String[]{imgPath};
+        ResponseEntity<String> dishesimg=restTemplate.postForEntity(url+"dishesGetDishesImg",requestEntity,String.class);
+        System.out.println("dishesimg: "+dishesimg.getBody());
+        String[] str=new String[]{dishesimg.getBody()};
         return str;
     }
 
