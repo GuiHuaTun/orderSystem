@@ -18,10 +18,10 @@ $(function () {
     userid=$("#userid");
     imgform=$("#imgform");
 
-    var userid = location.search.split("=")[1];
+    var userinfoid = location.search.split("=")[1];
     $.ajax({
         type:"POST",
-        url:"/selectUserInfo/"+userid,
+        url:"/selectUserInfo/"+userinfoid,
         dataType:"json",
         success:function(data){
             data=eval(data);
@@ -105,7 +105,7 @@ $(function () {
         formData.append("userid",$("[name=userid]").val());
         $.ajax({
             type:"POST",
-            url:"/uploadImg",
+            url:"/userModifyImg",
             data:formData,
             dataType:"json",
             processData: false,// 告诉jQuery不要去处理发送的数据

@@ -39,15 +39,12 @@ public class OrderDishesController {
             int totalPage=orderdishesService.selectAll().size();
             System.out.println("-----------------provider-- totalPage: "+totalPage);
             int maxPage=totalPage%pageSize==0?totalPage/pageSize:totalPage/pageSize+1;
-            System.out.println("-----------------provider-- maxPage: "+maxPage);
             List list=new ArrayList();
             list.add(orderdishesList);
             list.add(orderinfoList);
             list.add(maxPage);
-            System.out.println(orderdishesList);
             return list;
         }
-        System.out.println("---------------------provider--orderDishesFindAll can't");
         return null;
     }
 

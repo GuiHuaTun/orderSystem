@@ -148,10 +148,8 @@ public class DishesInfoController {
             List reclist=new ArrayList();
             reclist.add(dishesinfoList);
             reclist.add(maxPage);
-            System.out.println(dishesinfoList);
             return reclist;
         }
-        System.err.println("-----------------provider-- dishesInfoFindAll fail");
         return null;
     }
 }
