@@ -44,4 +44,9 @@ public class OrderdishesServiceImpl implements OrderdishesService {
     public int updateByPrimaryKeySelective(Orderdishes record) {
         return orderdishesMapper.updateByPrimaryKeySelective(record);
     }
+
+    @Override
+    public List<Orderdishes> selectById(Integer id) {
+        return orderdishesMapper.selectById(id);
+    }
 }

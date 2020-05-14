@@ -20,4 +20,6 @@ public interface OrderdishesService {
     Orderdishes selectByPrimaryKey(Integer odid);
 
     int updateByPrimaryKeySelective(Orderdishes record);
+
+    List<Orderdishes> selectById(Integer id);
 }
