@@ -10,7 +10,8 @@ $(function () {
      * 获得桌号
      * @type {string}
      */
-    var table_id = location.search.split("=")[1];
+    var str= location.search.split("=");
+    var table_id = str[1];
     tableid.val(table_id);
     /**
      * 显示或隐藏餐车
@@ -26,36 +27,47 @@ $(function () {
     
     $(".confirmOrder").on("click",function () {
         var arr = [];
-        var paramsArr =[];
-        var dishes_id=null;
-        var nums=null;
-        var obj1;
         arr = document.getElementsByClassName("shoppcarli");
-        var shoppcarli = $(".shoppcarli");
-        for (var i = 0; i < arr.length; i++) {
-            dishes_id = shoppcarli.eq(i).find(".dishes_id").val();
-            nums = shoppcarli.eq(i).find("#nums").val();
-            var obj={
-                dishesinfo:obj1={
-                    dishesid:dishes_id
+        if(arr.length==0){
+            alert("餐车中没有菜品，请添加后再提交!");
+        }else{
+            var paramsArr =[];
+            var dishes_id=null;
+            var nums=null;
+            var obj1;
+            var shoppcarli = $(".shoppcarli");
+            for (var i = 0; i < arr.length; i++) {
+                dishes_id = shoppcarli.eq(i).find(".dishes_id").val();
+                nums = shoppcarli.eq(i).find("#nums").val();
+                var obj={
+                    dishesinfo:obj1={
+                        dishesid:dishes_id
+                    },
+                    num:nums
+                };
+                paramsArr.push(obj);
+            }
+            $.ajax({
+                type:"POST",
+                url:"/insertOrder/"+tableid.val()+"/"+str[2],
+                data:JSON.stringify(paramsArr),
+                contentType:'application/json;charset=UTF-8',// 核心
+                dataType:"json",
+                success:function(data){
+                    data= eval(data);
+                    if(data){
+                        alert("添加订单成功!");
+                        top.mainwindow.location.href = "/pages/waiters/paylist.html";
+                    }else{
+                        alert("添加订单失败!");
+                    }
                 },
-                num:nums
-            };
-            paramsArr.push(obj);
+                error:function(){
+                    alert("系统错误!");
+                },
+            });
         }
-        $.ajax({
-            type:"POST",
-            url:"/insertOrder/"+tableid.val(),
-            data:JSON.stringify(paramsArr),
-            contentType:'application/json;charset=UTF-8',// 核心
-            dataType:"json",
-            success:function(data){
 
-            },
-            error:function(){
-                alert("系统错误!");
-            },
-        });
     })
 })
 

@@ -19,7 +19,7 @@ $(function () {
             if (data != null) {
                 tableId.val(data.tableid);
                 tableresult.html("【" + data.tablename + "】");
-                takeorder_backup.attr("href", "/pages/waiters/takeorder_backup.html?tableid=" + data.tableid);
+                takeorder_backup.attr("href", "/pages/waiters/takeorder_backup.html?tableid=" + data.tableid+"="+userid);
             } else {
                 alert("已无空桌，请等待");
                 tableresult.html("【已无空桌，请等待】");
@@ -40,7 +40,7 @@ $(function () {
             $("#username").html(data.useraccount);
             $("#userface").css("src",data.faceimg);
             $("#userface1").css("src",data.faceimg);
-            $("#updatepass").attr("href","/pages/users/modifyuser.html?userid="+data.userid);
+            $("#updatepass").attr("href","/pages/users/modifyuser.html?userid="+data.userid+"="+userid);
         },
         error:function(){
             alert("系统错误!");
