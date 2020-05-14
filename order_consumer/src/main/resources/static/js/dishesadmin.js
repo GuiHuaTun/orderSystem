@@ -50,8 +50,24 @@ function last() {
     page(pageIndex);
 }
 
-function del(id) {
-    if(confirm("确定要删除吗？")){
-        alert("删除成功"+id);
+function deleteDishes(id, name, obj) {
+    if (confirm("您真的要删除菜品【" + name + "】吗？")) {
+        $.ajax({
+            type:"POST",
+            url:"/dishesInfoDelete?dishesid="+id,
+            dataType:"json",
+            success:function (data) {
+                if(data){
+                    alert("删除成功")
+                    page(1);
+                }else{
+                    alert("删除失败");
+                }
+            },
+            error:function () {
+                alert("连接失败");
+            }
+        });
     }
+
 }

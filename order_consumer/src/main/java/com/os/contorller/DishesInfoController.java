@@ -112,13 +112,14 @@ public class DishesInfoController {
      */
     @RequestMapping("/dishesInfoDelete")
     @ResponseBody
-    public boolean dishesInfoDelete(int dishesid){
+    public String dishesInfoDelete(int dishesid){
         System.out.println("-----------------consumer-- dishesInfoDelete");
+        System.out.println("dishesid: "+dishesid);
         int num=restTemplate.postForObject(url+"dishesInfoDelete",dishesid,Integer.class);
         if(num>0){
-            return true;
+            return "true";
         }
-        return false;
+        return "false";
     }
 
     /**
