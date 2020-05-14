@@ -50,7 +50,7 @@ public class DishesInfoController {
         if(dishesinfoList!=null && dishesinfoList.size()>0){
             int maxPage= (int) list.get(1);
             System.out.println("-----------------consumer-- maxPage: "+maxPage);
-            System.out.println(dishesinfoList);
+            //System.out.println(dishesinfoList);
             list.add(pageIndex);
             return list;
         }

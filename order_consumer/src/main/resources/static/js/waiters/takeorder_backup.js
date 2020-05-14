@@ -27,20 +27,22 @@ $(function () {
     
     
     $(".confirmOrder").on("click",function () {
-        alert(tableid.val());
         var arr = [];
         var orderinfo=[];
+        var dishes_id=null;
+        var nums=null;
         arr = document.getElementsByClassName("shoppcarli");
+        var shoppcarli = $(".shoppcarli");
         for (var i = 0; i < arr.length; i++) {
-            price = shoppcarli.eq(i).find(".price_one").val();
+            dishes_id = shoppcarli.eq(i).find(".dishes_id").val();
             nums = shoppcarli.eq(i).find("#nums").val();
-            totalNum += parseInt(nums);
-            totalPrice += price * nums;
+            orderinfo[i]=[dishes_id,nums];
         }
         $.ajax({
             type:"POST",
-            url:"",
-            data:"",
+            url:"/insertOrder",
+            data:JSON.stringify({orderinfo:orderinfo, table:tableid.val()}),
+            contentType:'application/json;charset=UTF-8',// 核心
             dataType:"json",
             success:function(data){
 
@@ -190,14 +192,13 @@ function shoppcarOperation(obj, op) {
     var num = parseInt(obj.find("#nums").val());
     switch (op) {
         case "subtract":
-
             if ((num - 1) == 0) {
                 if (confirm("是否移除该菜品")) {
                     obj.remove();
                     if ($(".dishes_id").length == 0) {
                         $("#hint").show();
                     }
-                    return;
+                    break;
                 }
             } else {
                 num = --num;

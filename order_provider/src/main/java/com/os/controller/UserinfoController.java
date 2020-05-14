@@ -88,6 +88,7 @@ public class UserinfoController {
      */
     @RequestMapping("selectUserByID/{userid}")
     public Userinfo selectUserByID(@PathVariable("userid") int userid) {
+        System.out.println("selectUserByID");
         return userinfoService.selectByPrimaryKey(userid);
     }
 
