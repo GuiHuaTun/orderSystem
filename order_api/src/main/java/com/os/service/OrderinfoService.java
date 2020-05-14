@@ -20,4 +20,5 @@ public interface OrderinfoService {
     Orderinfo selectByPrimaryKey(Integer orderid);
 
     int updateByPrimaryKeySelective(Orderinfo record);
+
 }
