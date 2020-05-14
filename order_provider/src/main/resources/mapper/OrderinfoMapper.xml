@@ -1,100 +1,97 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.os.mapper.OrderinfoMapper">
-  <resultMap id="OrderinfoResultMap" type="com.os.entity.Orderinfo">
-    <id column="orderid" jdbcType="INTEGER" property="orderid" />
-    <result column="orderbegindate" jdbcType="VARCHAR" property="orderbegindate" />
-    <result column="orderenddate" jdbcType="VARCHAR" property="orderenddate" />
-    <result column="orderstate" jdbcType="INTEGER" property="orderstate" />
-    <association property="userinfo" javaType="Userinfo">
-      <id column="userid" jdbcType="INTEGER" property="userid" />
-      <result column="useraccount" jdbcType="VARCHAR" property="useraccount" />
-      <result column="userpass" jdbcType="VARCHAR" property="userpass" />
-      <result column="locked" jdbcType="INTEGER" property="locked" />
-      <result column="faceimg" jdbcType="VARCHAR" property="faceimg" />
-    </association>
-    <association property="tables" javaType="Tables">
-      <id column="tableid" jdbcType="INTEGER" property="tableid" />
-      <result column="tablename" jdbcType="VARCHAR" property="tablename" />
-      <result column="tablestatus" jdbcType="INTEGER" property="tablestatus" />
-    </association>
-  </resultMap>
-  <sql id="Base_Column_List">
+    <resultMap id="OrderinfoResultMap" type="com.os.entity.Orderinfo">
+        <id column="orderid" jdbcType="INTEGER" property="orderid"/>
+        <result column="orderbegindate" jdbcType="VARCHAR" property="orderbegindate"/>
+        <result column="orderenddate" jdbcType="VARCHAR" property="orderenddate"/>
+        <result column="orderstate" jdbcType="INTEGER" property="orderstate"/>
+        <association property="userinfo" javaType="Userinfo" column="userid"
+                     select="com.os.mapper.UserinfoMapper.selectByPrimaryKey">
+        </association>
+        <association property="tables" javaType="Tables" column="tableid"
+                     select="com.os.mapper.TableMapper.selectByPrimaryKey">
+        </association>
+    </resultMap>
+    <sql id="Base_Column_List">
     orderid, orderbegindate, orderenddate, waiterid, orderstate, tableid
   </sql>
-  <select id="selectAll" resultMap="OrderinfoResultMap">
+    <select id="selectTablesByTableId" resultMap="OrderinfoResultMap">
+    SELECT o.*,u.*,t.* FROM orderinfo o,userinfo u,`tables` t where o.waiterid=u.userid and  o.tableid=t.tableid and o.tableid=#{tableid} order by o.orderid desc limit 1
+    </select>
+    <select id="selectAll" resultMap="OrderinfoResultMap">
     SELECT o.*,u.*,t.* FROM orderinfo o,userinfo u,`tables` t where o.waiterid=u.userid and  o.tableid=t.tableid
   </select>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="OrderinfoResultMap">
+    <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="OrderinfoResultMap">
     select 
     o.*,u.*,t.* FROM orderinfo o,userinfo u,`tables` t where o.waiterid=u.userid and  o.tableid=t.tableid and orderid = #{orderid,jdbcType=INTEGER}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from orderinfo
     where orderid = #{orderid,jdbcType=INTEGER}
   </delete>
-  <insert id="insertSelective" parameterType="com.os.entity.Orderinfo">
-    insert into orderinfo
-    <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="orderid != null">
-        orderid,
-      </if>
-      <if test="orderbegindate != null">
-        orderbegindate,
-      </if>
-      <if test="orderenddate != null">
-        orderenddate,
-      </if>
-      <if test="waiterid != null">
-        waiterid,
-      </if>
-      <if test="orderstate != null">
-        orderstate,
-      </if>
-      <if test="tableid != null">
-        tableid,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="orderid != null">
-        #{orderid,jdbcType=INTEGER},
-      </if>
-      <if test="orderbegindate != null">
-        #{orderbegindate,jdbcType=VARCHAR},
-      </if>
-      <if test="orderenddate != null">
-        #{orderenddate,jdbcType=VARCHAR},
-      </if>
-      <if test="waiterid != null">
-        #{waiterid,jdbcType=INTEGER},
-      </if>
-      <if test="orderstate != null">
-        #{orderstate,jdbcType=INTEGER},
-      </if>
-      <if test="tableid != null">
-        #{tableid,jdbcType=INTEGER},
-      </if>
-    </trim>
-  </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.os.entity.Orderinfo">
-    update orderinfo
-    <set>
-      <if test="orderbegindate != null">
-        orderbegindate = #{orderbegindate,jdbcType=VARCHAR},
-      </if>
-      <if test="orderenddate != null">
-        orderenddate = #{orderenddate,jdbcType=VARCHAR},
-      </if>
-      <if test="waiterid != null">
-        waiterid = #{waiterid,jdbcType=INTEGER},
-      </if>
-      <if test="orderstate != null">
-        orderstate = #{orderstate,jdbcType=INTEGER},
-      </if>
-      <if test="tableid != null">
-        tableid = #{tableid,jdbcType=INTEGER},
-      </if>
-    </set>
-    where orderid = #{orderid,jdbcType=INTEGER}
-  </update>
+    <insert id="insertSelective" parameterType="com.os.entity.Orderinfo">
+        insert into orderinfo
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="orderid != null">
+                orderid,
+            </if>
+            <if test="orderbegindate != null">
+                orderbegindate,
+            </if>
+            <if test="orderenddate != null">
+                orderenddate,
+            </if>
+            <if test="waiterid != null">
+                waiterid,
+            </if>
+            <if test="orderstate != null">
+                orderstate,
+            </if>
+            <if test="tableid != null">
+                tableid,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="orderid != null">
+                #{orderid,jdbcType=INTEGER},
+            </if>
+            <if test="orderbegindate != null">
+                #{orderbegindate,jdbcType=VARCHAR},
+            </if>
+            <if test="orderenddate != null">
+                #{orderenddate,jdbcType=VARCHAR},
+            </if>
+            <if test="waiterid != null">
+                #{waiterid,jdbcType=INTEGER},
+            </if>
+            <if test="orderstate != null">
+                #{orderstate,jdbcType=INTEGER},
+            </if>
+            <if test="tableid != null">
+                #{tableid,jdbcType=INTEGER},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.os.entity.Orderinfo">
+        update orderinfo
+        <set>
+            <if test="orderbegindate != null">
+                orderbegindate = #{orderbegindate,jdbcType=VARCHAR},
+            </if>
+            <if test="orderenddate != null">
+                orderenddate = #{orderenddate,jdbcType=VARCHAR},
+            </if>
+            <if test="waiterid != null">
+                waiterid = #{waiterid,jdbcType=INTEGER},
+            </if>
+            <if test="orderstate != null">
+                orderstate = #{orderstate,jdbcType=INTEGER},
+            </if>
+            <if test="tableid != null">
+                tableid = #{tableid,jdbcType=INTEGER},
+            </if>
+        </set>
+        where orderid = #{orderid,jdbcType=INTEGER}
+    </update>
 </mapper>

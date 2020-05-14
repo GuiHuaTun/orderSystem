@@ -4,9 +4,7 @@ import com.github.pagehelper.PageHelper;
 import com.os.entity.Orderinfo;
 import com.os.service.OrderinfoService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -42,5 +40,22 @@ public class OrderInfoController {
         }
         System.out.println("---------------------provider--orderInfoFindAll can't");
         return null;
+    }
+
+    /**
+     * 根据桌号查订单ID
+     * @param tableid
+     * @return
+     */
+    @RequestMapping("selectTablesById/{tableid}")
+    public Orderinfo selectTablesById(@PathVariable("tableid") int tableid){
+        return orderinfoService.selectTablesByTableId(tableid);
+    }
+
+
+    @RequestMapping(value = "insertOrder",method = RequestMethod.POST)
+    @ResponseBody
+    public int insertOrder(@RequestBody Orderinfo orderinfo){
+       return    orderinfoService.insertSelective(orderinfo);
     }
 }

@@ -20,6 +20,11 @@ public class OrderinfoServiceImpl implements OrderinfoService {
     private OrderinfoMapper orderinfoMapper;
 
     @Override
+    public Orderinfo selectTablesByTableId(int tableid) {
+        return orderinfoMapper.selectTablesByTableId(tableid);
+    }
+
+    @Override
     public List<Orderinfo> selectAll() {
         return orderinfoMapper.selectAll();
     }

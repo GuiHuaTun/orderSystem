@@ -1,84 +1,79 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.os.mapper.OrderdishesMapper">
-  <resultMap id="OrderdishesResultMap" type="com.os.entity.Orderdishes">
-    <id column="odid" jdbcType="INTEGER" property="odid" />
-    <result column="num" jdbcType="INTEGER" property="num" />
-    <association property="orderinfo" javaType="Orderinfo" column="orderid" select="com.os.mapper.OrderinfoMapper.selectByPrimaryKey">
-  </association>
-    <association property="dishesinfo" javaType="Dishesinfo">
-      <id column="dishesid" jdbcType="INTEGER" property="dishesid" />
-      <result column="dishesname" jdbcType="VARCHAR" property="dishesname" />
-      <result column="dishesdiscript" jdbcType="VARCHAR" property="dishesdiscript" />
-      <result column="dishesimg" jdbcType="VARCHAR" property="dishesimg" />
-      <result column="dishestxt" jdbcType="VARCHAR" property="dishestxt" />
-      <result column="recommend" jdbcType="INTEGER" property="recommend" />
-      <result column="dishesprice" jdbcType="VARCHAR" property="dishesprice" />
-    </association>
-  </resultMap>
-  <sql id="Base_Column_List">
+    <resultMap id="OrderdishesResultMap" type="com.os.entity.Orderdishes">
+        <id column="odid" jdbcType="INTEGER" property="odid"/>
+        <result column="num" jdbcType="INTEGER" property="num"/>
+        <association property="orderinfo" javaType="Orderinfo" column="orderid"
+                     select="com.os.mapper.OrderinfoMapper.selectByPrimaryKey">
+        </association>
+        <association property="dishesinfo" javaType="Dishesinfo" column="dishesid"
+                     select="com.os.mapper.DishesinfoMapper.selectByPrimaryKey">
+        </association>
+    </resultMap>
+    <sql id="Base_Column_List">
     odid, orderreference, dishes, num
   </sql>
-  <select id="selectAll" resultMap="OrderdishesResultMap">
+    <select id="selectAll" resultMap="OrderdishesResultMap">
     SELECT od.*,o.* ,d.* FROM orderdishes od,orderinfo o,dishesinfo d where od.orderreference=o.orderid and od.dishes=d.dishesid
   </select>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="OrderdishesResultMap">
-    select 
-    <include refid="Base_Column_List" />
-    from orderdishes
-    where odid = #{odid,jdbcType=INTEGER}
-  </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="OrderdishesResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from orderdishes
+        where odid = #{odid,jdbcType=INTEGER}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from orderdishes
     where odid = #{odid,jdbcType=INTEGER}
   </delete>
-  <insert id="insertSelective" parameterType="com.os.entity.Orderdishes">
-    insert into orderdishes
-    <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="odid != null">
-        odid,
-      </if>
-      <if test="orderreference != null">
-        orderreference,
-      </if>
-      <if test="dishes != null">
-        dishes,
-      </if>
-      <if test="num != null">
-        num,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="odid != null">
-        #{odid,jdbcType=INTEGER},
-      </if>
-      <if test="orderreference != null">
-        #{orderreference,jdbcType=INTEGER},
-      </if>
-      <if test="dishes != null">
-        #{dishes,jdbcType=INTEGER},
-      </if>
-      <if test="num != null">
-        #{num,jdbcType=INTEGER},
-      </if>
-    </trim>
-  </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.os.entity.Orderdishes">
-    update orderdishes
-    <set>
-      <if test="orderreference != null">
-        orderreference = #{orderreference,jdbcType=INTEGER},
-      </if>
-      <if test="dishes != null">
-        dishes = #{dishes,jdbcType=INTEGER},
-      </if>
-      <if test="num != null">
-        num = #{num,jdbcType=INTEGER},
-      </if>
-    </set>
-    where odid = #{odid,jdbcType=INTEGER}
-  </update>
-  <select id="selectById" resultMap="OrderdishesResultMap">
+    <insert id="insertSelective" parameterType="com.os.entity.Orderdishes">
+        insert into orderdishes
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="odid != null">
+                odid,
+            </if>
+            <if test="orderreference != null">
+                orderreference,
+            </if>
+            <if test="dishes != null">
+                dishes,
+            </if>
+            <if test="num != null">
+                num,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="odid != null">
+                #{odid,jdbcType=INTEGER},
+            </if>
+            <if test="orderreference != null">
+                #{orderreference,jdbcType=INTEGER},
+            </if>
+            <if test="dishes != null">
+                #{dishes,jdbcType=INTEGER},
+            </if>
+            <if test="num != null">
+                #{num,jdbcType=INTEGER},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.os.entity.Orderdishes">
+        update orderdishes
+        <set>
+            <if test="orderreference != null">
+                orderreference = #{orderreference,jdbcType=INTEGER},
+            </if>
+            <if test="dishes != null">
+                dishes = #{dishes,jdbcType=INTEGER},
+            </if>
+            <if test="num != null">
+                num = #{num,jdbcType=INTEGER},
+            </if>
+        </set>
+        where odid = #{odid,jdbcType=INTEGER}
+    </update>
+    <select id="selectById" resultMap="OrderdishesResultMap">
    SELECT od.*,o.* ,d.* FROM orderdishes od,orderinfo o,dishesinfo d where od.orderreference=o.orderid and od.dishes=d.dishesid
    and o.orderid=#{id,jdbcType=INTEGER}
   </select>
