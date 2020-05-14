@@ -1,107 +1,104 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.os.mapper.UserinfoMapper">
-  <resultMap id="UserinfoResultMap" type="com.os.entity.Userinfo">
-    <id column="userid" jdbcType="INTEGER" property="userid" />
-    <result column="useraccount" jdbcType="VARCHAR" property="useraccount" />
-    <result column="userpass" jdbcType="VARCHAR" property="userpass" />
-    <result column="locked" jdbcType="INTEGER" property="locked" />
-    <result column="faceimg" jdbcType="VARCHAR" property="faceimg" />
-    <association property="roleinfo" javaType="Roleinfo">
-      <id column="roleid" jdbcType="INTEGER" property="roleid" />
-      <result column="rolename" jdbcType="VARCHAR" property="rolename" />
-    </association>
-  </resultMap>
-  <sql id="Base_Column_List">
+    <resultMap id="UserinfoResultMap" type="com.os.entity.Userinfo">
+        <id column="userid" jdbcType="INTEGER" property="userid"/>
+        <result column="useraccount" jdbcType="VARCHAR" property="useraccount"/>
+        <result column="userpass" jdbcType="VARCHAR" property="userpass"/>
+        <result column="locked" jdbcType="INTEGER" property="locked"/>
+        <result column="faceimg" jdbcType="VARCHAR" property="faceimg"/>
+        <association property="roleinfo" javaType="Roleinfo">
+            <id column="roleid" jdbcType="INTEGER" property="roleid"/>
+            <result column="rolename" jdbcType="VARCHAR" property="rolename"/>
+        </association>
+    </resultMap>
+    <sql id="Base_Column_List">
     userid, useraccount, userpass, locked, faceimg
   </sql>
-  <select id="selectAll" resultMap="UserinfoResultMap">
-    select u.*,r.* from userinfo u,roleinfo r where u.role=r.roleid
-      <if test="useraccount != null ">
-        and u.useraccount like '%${useraccount}'
-      </if>
-      <if test="roleid != 0">
-          and u.role=#{roleid}
-      </if>
-      order by u.userid
-  </select>
-  <select id="loginUser" parameterType="Userinfo" resultMap="UserinfoResultMap">
+    <select id="selectAll" resultMap="UserinfoResultMap">
+        select u.*,r.* from userinfo u,roleinfo r where u.role=r.roleid
+        <if test="useraccount != null ">
+            and u.useraccount like '%${useraccount}'
+        </if>
+        <if test="roleid != 0">
+            and u.role=#{roleid}
+        </if>
+        order by u.userid
+    </select>
+    <select id="loginUser" parameterType="Userinfo" resultMap="UserinfoResultMap">
     select u.*,r.* from userinfo u,roleinfo r where useraccount=#{useraccount} and userpass=#{userpass} and u.role=r.roleid
   </select>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="UserinfoResultMap">
-    select 
-    <include refid="Base_Column_List" />
-    from userinfo
-    where userid = #{userid,jdbcType=INTEGER}
+    <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="UserinfoResultMap">
+    select u.*,r.* from userinfo u,roleinfo r where  u.role=r.roleid and userid = #{userid,jdbcType=INTEGER}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from userinfo
     where userid = #{userid,jdbcType=INTEGER}
   </delete>
-  <insert id="insertSelective" parameterType="com.os.entity.Userinfo">
-    insert into userinfo
-    <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="userid != null">
-        userid,
-      </if>
-      <if test="useraccount != null">
-        useraccount,
-      </if>
-      <if test="userpass != null">
-        userpass,
-      </if>
-      <if test="roleinfo.roleid != null">
-        role,
-      </if>
-      <if test="locked != null">
-        locked,
-      </if>
-      <if test="faceimg != null">
-        faceimg,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="userid != null">
-        #{userid,jdbcType=INTEGER},
-      </if>
-      <if test="useraccount != null">
-        #{useraccount,jdbcType=VARCHAR},
-      </if>
-      <if test="userpass != null">
-        #{userpass,jdbcType=VARCHAR},
-      </if>
-      <if test="roleinfo.roleid != null">
-        #{roleinfo.roleid,jdbcType=INTEGER},
-      </if>
-      <if test="locked != null">
-        #{locked,jdbcType=INTEGER},
-      </if>
-      <if test="faceimg != null">
-        #{faceimg,jdbcType=VARCHAR},
-      </if>
-    </trim>
-  </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.os.entity.Userinfo">
-    update userinfo
-    <set>
-      <if test="useraccount != null">
-        useraccount = #{useraccount,jdbcType=VARCHAR},
-      </if>
-      <if test="userpass != null">
-        userpass = #{userpass,jdbcType=VARCHAR},
-      </if>
-      <if test="roleinfo!=null">
-        <if test="roleinfo.roleid != null">
-          role = #{roleinfo.roleid,jdbcType=INTEGER},
-        </if>
-      </if>
-      <if test="locked != null">
-        locked = #{locked,jdbcType=INTEGER},
-      </if>
-      <if test="faceimg != null">
-        faceimg = #{faceimg,jdbcType=VARCHAR},
-      </if>
-    </set>
-    where userid = #{userid,jdbcType=INTEGER}
-  </update>
+    <insert id="insertSelective" parameterType="com.os.entity.Userinfo">
+        insert into userinfo
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="userid != null">
+                userid,
+            </if>
+            <if test="useraccount != null">
+                useraccount,
+            </if>
+            <if test="userpass != null">
+                userpass,
+            </if>
+            <if test="roleinfo.roleid != null">
+                role,
+            </if>
+            <if test="locked != null">
+                locked,
+            </if>
+            <if test="faceimg != null">
+                faceimg,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="userid != null">
+                #{userid,jdbcType=INTEGER},
+            </if>
+            <if test="useraccount != null">
+                #{useraccount,jdbcType=VARCHAR},
+            </if>
+            <if test="userpass != null">
+                #{userpass,jdbcType=VARCHAR},
+            </if>
+            <if test="roleinfo.roleid != null">
+                #{roleinfo.roleid,jdbcType=INTEGER},
+            </if>
+            <if test="locked != null">
+                #{locked,jdbcType=INTEGER},
+            </if>
+            <if test="faceimg != null">
+                #{faceimg,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.os.entity.Userinfo">
+        update userinfo
+        <set>
+            <if test="useraccount != null">
+                useraccount = #{useraccount,jdbcType=VARCHAR},
+            </if>
+            <if test="userpass != null">
+                userpass = #{userpass,jdbcType=VARCHAR},
+            </if>
+            <if test="roleinfo!=null">
+                <if test="roleinfo.roleid != null">
+                    role = #{roleinfo.roleid,jdbcType=INTEGER},
+                </if>
+            </if>
+            <if test="locked != null">
+                locked = #{locked,jdbcType=INTEGER},
+            </if>
+            <if test="faceimg != null">
+                faceimg = #{faceimg,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where userid = #{userid,jdbcType=INTEGER}
+    </update>
 </mapper>
