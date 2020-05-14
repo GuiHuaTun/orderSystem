@@ -1,7 +1,6 @@
 package com.os.contorller;
 
-import com.os.entity.Orderdishes;
-import com.os.entity.Roleinfo;
+import com.os.entity.Orderinfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -11,37 +10,34 @@ import org.springframework.web.client.RestTemplate;
 
 import java.util.List;
 
-/**
- * 详单控制器
- */
 @Controller
-public class OrderDishesController {
+public class OrderInfoController {
     String url="http://order-provider/";
+
     @Autowired
     private RestTemplate restTemplate;
 
     /**
-     * 查找所有经营数据（详单）
+     * 查找所有经营数据（订单）
      *
      */
-    @RequestMapping("/orderDishesFindAll")
+
+    @RequestMapping("/orderInfoFindAll")
     @ResponseBody
-    public List orderDishesFindAll(Integer pageIndex, Model model){
-        System.out.println("-----------------consumer-- orderDishesFindAll");
+    public List orderInfoFindAll(Integer pageIndex, Model model){
+        System.out.println("-----------------consumer-- orderInfoFindAll");
         System.out.println("-----------------consumer-- pageIndex: "+pageIndex);
         Integer pageSize=10;
-        List list = restTemplate.getForObject(url + "orderDishesFindAll/" + pageIndex + "/" + pageSize, List.class);
-        List<Orderdishes> orderdishesList= (List<Orderdishes>) list.get(0);
-        if(orderdishesList!=null && orderdishesList.size()>0){
+        List list = restTemplate.getForObject(url + "orderInfoFindAll/" + pageIndex + "/" + pageSize, List.class);
+        List<Orderinfo> orderinfoList= (List<Orderinfo>) list.get(0);
+        if(orderinfoList!=null && orderinfoList.size()>0){
             int maxPage= (int) list.get(1);
             System.out.println("-----------------consumer-- maxPage: "+maxPage);
-            System.out.println(orderdishesList.size());
-            System.out.println(orderdishesList);
+            System.out.println(orderinfoList.size());
+            System.out.println(orderinfoList);
             list.add(pageIndex);
             return list;
         }
         return null;
     }
-
-
 }
