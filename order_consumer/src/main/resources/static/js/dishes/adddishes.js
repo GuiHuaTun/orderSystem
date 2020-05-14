@@ -24,12 +24,39 @@ $(function () {
             processData: false,// 告诉jQuery不要去处理发送的数据
             contentType: false,// 告诉jQuery不要去设置Content-Type请求头
             success:function(data){
-                alert("添加头像成功: "+data);
                 $("#dishesImg").val(data);
                 $("#face").attr("src",data);
             },
             error:function(){
                 alert("添加头像失败!");
+            },
+        });
+    });
+
+    $("#recommend").click(function () {
+        if($(this).is(":checked")){
+            $(this).val(1);
+        }else{
+            $(this).val(0);
+        }
+    });
+
+    $("#addbtu").click(function () {
+        $.ajax({
+            type:"POST",
+            url:"/dishesInfoAdd",
+            data:$("#addDish").serialize(),
+            dataType:"json",
+            success:function(data){
+                alert(data)
+                if(data){
+                    alert("添加成功");
+                }else{
+                    alert("添加失败");
+                }
+            },
+            error:function(){
+                alert("添加失败");
             },
         });
     });
