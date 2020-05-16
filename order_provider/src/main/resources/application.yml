@@ -8,6 +8,10 @@ spring:
     password: 19970510
   application:
     name: order-provider
+  servlet:
+    multipart:
+      max-file-size: 100MB
+      max-request-size: 1000MB
 eureka:
   client:
     service-url:

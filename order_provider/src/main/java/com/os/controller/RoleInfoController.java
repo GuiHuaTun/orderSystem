@@ -19,7 +19,6 @@ public class RoleInfoController {
 
     @RequestMapping("selectAllRoleinfo")
     public List<Roleinfo> selectAllRoleinfo(){
-        System.out.println("查询所有roleinfo");
         return roleinfoService.selectAll();
     }
 }

@@ -60,6 +60,25 @@ function last() {
     page(pageIndex);
 }
 
+function delUser(uid) {
+    alert(uid);
+    if (confirm("您真的要删除吗？")) {
+        $.ajax({
+            type: "GET",
+            url: "/deleteUser?userid="+uid,
+            type: "JSON",
+            success: function (flag) {
+                if (flag == "true") {
+                    alert("删除成功");
+                    page(1);
+                } else {
+                    alert("删除失败");
+                }
+            }
+        })
+    }
+}
+
 function page(pageIndex) {
     var userName = $(".searchbyname").val();
     var userRole = $(".initis").val();
@@ -83,7 +102,7 @@ function page(pageIndex) {
             var pageList = "";
             for (var i = 0; i < userList.length; i++) {
                 var users = userList[i];
-                empty += "<tr><td class='textcetern'>" + users.userid + "</td><td class='textcetern'>" + users.useraccount + "</td><td class='textcetern'>" + users.roleinfo.rolename + "</td><td class='textcetern'><i  onclick='detail()' class='iconfont green'>&#xe63e;</i><i class='iconfont orange'>&#xe60f;</i><i class='iconfont red'>&#xe608;</i></td></tr>";
+                empty += "<tr><td class='textcetern'>" + users.userid + "</td><td class='textcetern'>" + users.useraccount + "</td><td class='textcetern'>" + users.roleinfo.rolename + "</td><td class='textcetern'><i  class=\"iconfont green\" onclick=detail('"+users.useraccount+"','"+users.roleinfo.rolename+"','"+users.faceimg+"')>&#xe63e;</i><i class='iconfont orange' onclick=''>&#xe60f;</i><i class=\"iconfont red\" onclick='delUser("+users.userid+")'>&#xe608;</i></td></tr>";
             }
             for(var i = 1;i<=totalpage;i++){
                 pageList += "<li><a href='#' onclick='page("+i+")' id='yema'>"+i+"</a></li>";

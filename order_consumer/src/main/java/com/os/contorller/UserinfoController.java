@@ -24,6 +24,7 @@ import javax.servlet.http.HttpSession;
  */
 @Controller
 public class UserinfoController {
+    private String url="http://order-provider/";
 
     @Autowired
     RestTemplate restTemplate;
@@ -39,7 +40,7 @@ public class UserinfoController {
     public String[] login(@PathVariable("useraccount") String useraccount, @PathVariable("userpass") String userpass,
                           @PathVariable("codetext") String codetext, HttpSession session,HttpServletRequest request) {
         String checkCodes = (String) session.getAttribute("checkCodes");
-        String[] data = new String[1];
+        String[] data = new String[2];
         System.out.println(checkCodes);
         System.out.println(codetext + "\t" + useraccount + "\t" + userpass);
         if (!(checkCodes.toLowerCase().equals(codetext.toLowerCase()))) {
@@ -48,7 +49,7 @@ public class UserinfoController {
             return data;
         }
         Userinfo userinfo = new Userinfo(useraccount, userpass);
-        userinfo = restTemplate.postForObject("http://order-provider/login", userinfo, Userinfo.class);
+        userinfo = restTemplate.postForObject(url+"login", userinfo, Userinfo.class);
 
         System.out.println(userinfo);
         if (userinfo == null) {
@@ -67,28 +68,18 @@ public class UserinfoController {
                     data[0] = "waiter";
                     break;
             }
-            session.setAttribute(data[0],userinfo);
+            //session.setAttribute(data[0],userinfo);
+            data[1]=userinfo.getUserid().toString();
         }
         return data;
     }
 
-    @RequestMapping("userinfomation")
+    @RequestMapping("selectUserInfo/{userid}")
     @ResponseBody
-    public Userinfo userinfoMation(HttpSession session){
-        Userinfo userinfo= (Userinfo) session.getAttribute("userInfo");
+    public Userinfo userinfoMation(@PathVariable("userid") int userid){
+        Userinfo userinfo=restTemplate.getForObject(url+"selectUserByID/"+userid,Userinfo.class);
         System.out.println(userinfo);
         return userinfo;
-    }
-
-
-    /**
-     * 页面跳转
-     * @param url 路径
-     * @return
-     */
-    @RequestMapping("URL/{url}")
-    public String gotoURL(@PathVariable("url") String url){
-     return "/pages/page/"+url;
     }
 
 
@@ -101,7 +92,7 @@ public class UserinfoController {
     @ResponseBody
     public String updateUserInfo(Userinfo userinfo){
         System.out.println(userinfo);
-        int url=restTemplate.postForObject("http://order-provider/uptUser",userinfo,Integer.class);
+        int flag=restTemplate.postForObject(url+"uptUser",userinfo,Integer.class);
         return "true";
     }
 
@@ -134,9 +125,15 @@ public class UserinfoController {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.MULTIPART_FORM_DATA);
         HttpEntity<MultiValueMap<String,Object>> requestEntity=new HttpEntity<>(mvm,headers);
-        ResponseEntity<Integer> num=restTemplate.postForEntity("http://order-provider/userGetDishesImg",requestEntity,Integer.class);
+        ResponseEntity<Integer> num=restTemplate.postForEntity(url+"userGetDishesImg",requestEntity,Integer.class);
         System.out.println("num: "+num);
         String[] str=new String[]{"true"};
         return str;
+    }
+
+    @RequestMapping("loginout")
+     public String loginout(HttpSession session){
+        session.invalidate();
+        return "login";
     }
 }

@@ -23,6 +23,7 @@
 <script src="/bootstrap/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="/js/ajax.js"></script>
 <script type="text/javascript" src="/js/rome.js"></script>
+<script type="text/javascript" src="/js/operatedata.js"></script>
 <script type="text/javascript">
 	function createXmlDom(str) {
 		if (document.all) {
@@ -104,6 +105,7 @@
 		xmlAjaxRequest("getorderdetail.order?orderId=" + id + "&time="
 				+ Math.random(), "get", true, null, showOrderDetail, null, null);
 	}
+
 
 	function showOrderDetail(responseXml, obj) {
 
@@ -206,7 +208,11 @@
 								</thead>
 								<tbody id="orderTable">
 									<!--<tr>
-										<td>1,001</td>
+									<#if dishes.orderenddate??>
+										<td>未结账</td>
+										<#else>
+										<td>dishes.orderenddate</td>
+										</#if>
 										<td>Lorem</td>
 										<td>ipsum</td>
 										<td>dolor</td>
@@ -259,7 +265,7 @@
 								<div
 									style="background-color: #66A;padding: 15px;margin: 1px;height:202px;color:white;">
 									<h2 style="color: white;font-weight: bold;font-family: 微软雅黑">桌号</h2>
-									<p id="tableId">101</p>
+									<p id="tableId">${dishes.orderinfo.tables.tableid}</p>
 
 									<p style="text-align: center;font-size: 24px;margin-top: 11px ">
 										<i class="icon-warning-sign icon-large"></i>
@@ -298,7 +304,7 @@
 										<div
 											style="background-color: #DAD;padding: 15px;margin: 1px;height:100px;">
 											<h3>总价（元）</h3>
-											<p>
+											<p id="totalprice">
 												<span style="color:red;font-weight: bold" id="sumPrice">1000.00</span>
 											</p>
 										</div>
