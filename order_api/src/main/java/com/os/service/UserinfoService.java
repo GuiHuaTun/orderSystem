@@ -15,6 +15,8 @@ public interface UserinfoService {
 
     Userinfo loginUser(Userinfo userinfo);
 
+    Userinfo selectAccount(String account);
+
     int deleteByPrimaryKey(Integer userid);
 
 

@@ -132,3 +132,11 @@
   display: inline-block;
   border-radius: 50%;
 }
+.ok{
+  background: url("/img/ok.png") 360px 6px no-repeat;
+  background-size:20px,20px;
+}
+.no{
+  background: url("/img/fail.png") 360px 6px no-repeat;
+  background-size:20px,20px;
+}

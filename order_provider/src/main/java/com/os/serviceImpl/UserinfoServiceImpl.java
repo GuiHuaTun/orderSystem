@@ -29,6 +29,11 @@ public class UserinfoServiceImpl implements UserinfoService {
     }
 
     @Override
+    public Userinfo selectAccount(String account) {
+        return userinfoMapper.selectAccount(account);
+    }
+
+    @Override
     public int deleteByPrimaryKey(Integer userid) {
         return userinfoMapper.deleteByPrimaryKey(userid);
     }

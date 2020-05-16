@@ -38,6 +38,7 @@ $(function () {
         }
     });
 
+    //判断旧密码是否正确
     userOldPass.on("input", function () {
         if (userOldPass.val() == userOldPassWord.val()) {
             flag(userOldPass, true);
@@ -45,6 +46,7 @@ $(function () {
             flag(userOldPass, false);
         }
     });
+    //判断密码是否符合格式
     userPass.on("input", function () {
         var reg = /^[a-zA-Z]\w{5,17}$/;
         if (reg.test(userPass.val())) {

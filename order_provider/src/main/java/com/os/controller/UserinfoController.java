@@ -143,4 +143,10 @@ public class UserinfoController {
         userinfo.setFaceimg(imgPath);
         return userinfoService.updateByPrimaryKeySelective(userinfo);
     }
+
+    @RequestMapping("selectAccount/{account}")
+    public Userinfo selectAccount(@PathVariable("account") String account){
+        System.out.println("-----------------provider-- selectAccount");
+        return userinfoService.selectAccount(account);
+    }
 }

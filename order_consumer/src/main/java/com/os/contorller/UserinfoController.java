@@ -74,6 +74,11 @@ public class UserinfoController {
         return data;
     }
 
+    /**
+     * 根据id查询员工
+     * @param userid
+     * @return
+     */
     @RequestMapping("selectUserInfo/{userid}")
     @ResponseBody
     public Userinfo userinfoMation(@PathVariable("userid") int userid){
@@ -82,6 +87,19 @@ public class UserinfoController {
         return userinfo;
     }
 
+
+    /**
+     * 查询员工是否存在
+     * @param account
+     * @return
+     */
+    @RequestMapping(value = "selectAccount/{account}",method = RequestMethod.POST)
+    @ResponseBody
+    public String selectAccount(@PathVariable("account") String account){
+        System.out.println(account);
+        Userinfo userinfo= restTemplate.getForObject(url+"selectAccount/"+account,Userinfo.class);
+        return userinfo==null?"true":"false";
+    }
 
     /**
      * 修改信息
@@ -131,9 +149,25 @@ public class UserinfoController {
         return str;
     }
 
+    /**
+     * 登出
+     * @param session
+     * @return
+     */
     @RequestMapping("loginout")
      public String loginout(HttpSession session){
         session.invalidate();
         return "login";
+    }
+
+    /**
+     * 添加员工
+     */
+    @RequestMapping(value = "insertUser",method = RequestMethod.POST)
+    @ResponseBody
+    public String insertUser( Userinfo userinfo){
+        System.out.println(userinfo);
+        int num= restTemplate.postForObject(url+"insertUser",userinfo,Integer.class);
+        return num>0?"true":"false";
     }
 }
