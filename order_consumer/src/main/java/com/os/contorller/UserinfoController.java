@@ -140,6 +140,9 @@ public class UserinfoController {
         MultiValueMap<String,Object> mvm=new LinkedMultiValueMap<>();
         mvm.add("uploadFile",uFile);
         mvm.add("userid",userid);
+        String path=request.getServletContext().getRealPath("/img/upload");//获取上传文件夹/img/upload的绝对路径
+        System.out.println("path: "+path);
+        mvm.add("path",path);
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.MULTIPART_FORM_DATA);
         HttpEntity<MultiValueMap<String,Object>> requestEntity=new HttpEntity<>(mvm,headers);
