@@ -132,11 +132,10 @@ public class UserinfoController {
      * @return
      */
     @RequestMapping("/userGetDishesImg")
-    public int userModifyImg(@RequestParam("uploadFile") MultipartFile uploadFile, @RequestParam("userid") int userid, HttpServletRequest request) {
+    public int userModifyImg(@RequestParam("uploadFile") MultipartFile uploadFile, @RequestParam("userid") int userid, @RequestParam("path") String path, HttpServletRequest request) {
         System.out.println("-----------------provider-- userModifyImg");
         System.out.println("userid: " + userid);
-        String path = request.getServletContext().getRealPath("/img/upload");//获取上传文件夹/img/upload的绝对路径
-        System.out.println("path: " + path);
+        System.out.println("path: "+path);
         String imgPath = FileUpload.upload(uploadFile, path);
         Userinfo userinfo = new Userinfo();
         userinfo.setUserid(userid);
