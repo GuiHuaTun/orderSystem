@@ -28,4 +28,9 @@ public class Userinfo implements Serializable {
         this.useraccount = useraccount;
         this.userpass = userpass;
     }
+
+    public Userinfo(Integer userid, Integer locked) {
+        this.userid = userid;
+        this.locked = locked;
+    }
 }

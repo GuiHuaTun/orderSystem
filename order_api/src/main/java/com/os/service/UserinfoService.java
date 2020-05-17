@@ -25,4 +25,5 @@ public interface UserinfoService {
     Userinfo selectByPrimaryKey(Integer userid);
 
     int updateByPrimaryKeySelective(Userinfo record);
+
 }

@@ -24,7 +24,7 @@ import javax.servlet.http.HttpSession;
  */
 @Controller
 public class UserinfoController {
-    private String url="http://order-provider/";
+    private String url = "http://order-provider/";
 
     @Autowired
     RestTemplate restTemplate;
@@ -38,7 +38,7 @@ public class UserinfoController {
     @RequestMapping(value = "loginUser/{useraccount}/{userpass}/{codetext}", method = RequestMethod.POST)
     @ResponseBody
     public String[] login(@PathVariable("useraccount") String useraccount, @PathVariable("userpass") String userpass,
-                          @PathVariable("codetext") String codetext, HttpSession session,HttpServletRequest request) {
+                          @PathVariable("codetext") String codetext, HttpSession session, HttpServletRequest request) {
         String checkCodes = (String) session.getAttribute("checkCodes");
         String[] data = new String[2];
         System.out.println(checkCodes);
@@ -49,7 +49,7 @@ public class UserinfoController {
             return data;
         }
         Userinfo userinfo = new Userinfo(useraccount, userpass);
-        userinfo = restTemplate.postForObject(url+"login", userinfo, Userinfo.class);
+        userinfo = restTemplate.postForObject(url + "login", userinfo, Userinfo.class);
 
         System.out.println(userinfo);
         if (userinfo == null) {
@@ -58,6 +58,8 @@ public class UserinfoController {
             switch (userinfo.getRoleinfo().getRoleid()) {
                 case 1://后厨
                     data[0] = "chef";
+                    int chef = request.getServletContext().getAttribute("chef") == null ? 0 : (int) request.getServletContext().getAttribute("chef");
+                    request.getServletContext().setAttribute("chef", (chef + 1));
                     break;
                 case 2://管理员
                     System.out.println("admin");
@@ -66,23 +68,27 @@ public class UserinfoController {
                 case 3://点餐员
                     System.out.println("waiter");
                     data[0] = "waiter";
+                    int waiter = request.getServletContext().getAttribute("waiter") == null ? 0 : (int) request.getServletContext().getAttribute("waiter");
+                    request.getServletContext().setAttribute("waiter", (waiter + 1));
                     break;
             }
             //session.setAttribute(data[0],userinfo);
-            data[1]=userinfo.getUserid().toString();
+            restTemplate.getForObject(url + "updateLocked/" + userinfo.getUserid() + "/" + 0, Integer.class);
+            data[1] = userinfo.getUserid().toString();
         }
         return data;
     }
 
     /**
      * 根据id查询员工
+     *
      * @param userid
      * @return
      */
     @RequestMapping("selectUserInfo/{userid}")
     @ResponseBody
-    public Userinfo userinfoMation(@PathVariable("userid") int userid){
-        Userinfo userinfo=restTemplate.getForObject(url+"selectUserByID/"+userid,Userinfo.class);
+    public Userinfo userinfoMation(@PathVariable("userid") int userid) {
+        Userinfo userinfo = restTemplate.getForObject(url + "selectUserByID/" + userid, Userinfo.class);
         System.out.println(userinfo);
         return userinfo;
     }
@@ -90,43 +96,46 @@ public class UserinfoController {
 
     /**
      * 查询员工是否存在
+     *
      * @param account
      * @return
      */
-    @RequestMapping(value = "selectAccount/{account}",method = RequestMethod.POST)
+    @RequestMapping(value = "selectAccount/{account}", method = RequestMethod.POST)
     @ResponseBody
-    public String selectAccount(@PathVariable("account") String account){
+    public String selectAccount(@PathVariable("account") String account) {
         System.out.println(account);
-        Userinfo userinfo= restTemplate.getForObject(url+"selectAccount/"+account,Userinfo.class);
-        return userinfo==null?"true":"false";
+        Userinfo userinfo = restTemplate.getForObject(url + "selectAccount/" + account, Userinfo.class);
+        return userinfo == null ? "true" : "false";
     }
 
     /**
      * 修改信息
+     *
      * @param userinfo
      * @return
      */
-    @RequestMapping(value = "modifyuser",method = RequestMethod.POST)
+    @RequestMapping(value = "modifyuser", method = RequestMethod.POST)
     @ResponseBody
-    public String updateUserInfo(Userinfo userinfo){
+    public String updateUserInfo(Userinfo userinfo) {
         System.out.println(userinfo);
-        int flag=restTemplate.postForObject(url+"uptUser",userinfo,Integer.class);
+        int flag = restTemplate.postForObject(url + "uptUser", userinfo, Integer.class);
         return "true";
     }
 
     /**
      * 图片上传
+     *
      * @param uploadFile：上传的图片
      * @param userid：用户编号
      * @param request
      * @return
      */
-    @RequestMapping(value = "userModifyImg",method = RequestMethod.POST)
+    @RequestMapping(value = "userModifyImg", method = RequestMethod.POST)
     @ResponseBody
     public String[] userModifyImg(MultipartFile uploadFile, int userid, HttpServletRequest request) throws Exception {
         System.out.println("------------------- uploadImg");
-        System.out.println("userid: "+userid);
-        ByteArrayResource uFile=new ByteArrayResource(uploadFile.getBytes()){
+        System.out.println("userid: " + userid);
+        ByteArrayResource uFile = new ByteArrayResource(uploadFile.getBytes()) {
             @Override
             public long contentLength() {
                 return uploadFile.getSize();
@@ -137,40 +146,62 @@ public class UserinfoController {
                 return uploadFile.getOriginalFilename();
             }
         };
-        MultiValueMap<String,Object> mvm=new LinkedMultiValueMap<>();
-        mvm.add("uploadFile",uFile);
-        mvm.add("userid",userid);
-        String path=request.getServletContext().getRealPath("/img/upload");//获取上传文件夹/img/upload的绝对路径
-        System.out.println("path: "+path);
-        mvm.add("path",path);
+        MultiValueMap<String, Object> mvm = new LinkedMultiValueMap<>();
+        mvm.add("uploadFile", uFile);
+        mvm.add("userid", userid);
+        String path = request.getServletContext().getRealPath("/img/upload");//获取上传文件夹/img/upload的绝对路径
+        System.out.println("path: " + path);
+        mvm.add("path", path);
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.MULTIPART_FORM_DATA);
-        HttpEntity<MultiValueMap<String,Object>> requestEntity=new HttpEntity<>(mvm,headers);
-        ResponseEntity<Integer> num=restTemplate.postForEntity(url+"userGetDishesImg",requestEntity,Integer.class);
-        System.out.println("num: "+num);
-        String[] str=new String[]{"true"};
+        HttpEntity<MultiValueMap<String, Object>> requestEntity = new HttpEntity<>(mvm, headers);
+        ResponseEntity<Integer> num = restTemplate.postForEntity(url + "userGetDishesImg", requestEntity, Integer.class);
+        System.out.println("num: " + num);
+        String[] str = new String[]{"true"};
         return str;
     }
 
+
     /**
      * 登出
-     * @param session
+     *
+     * @param userid
+     * @param role
+     * @param request
      * @return
      */
-    @RequestMapping("loginout")
-     public String loginout(HttpSession session){
-        session.invalidate();
-        return "login";
+    @RequestMapping("loginout/{userid}/{role}")
+    public String loginout(@PathVariable("userid") int userid, @PathVariable("role") int role, HttpServletRequest request) {
+        request.getSession().invalidate();
+        restTemplate.getForObject(url + "updateLocked/" + userid + "/" + 1, Integer.class);
+        if (role == 1) {
+            int chef = request.getServletContext().getAttribute("chef") == null ? 0 : (int) request.getServletContext().getAttribute("chef");
+            request.getServletContext().setAttribute("chef", chef - 1 < 0 ? 0 : chef - 1);
+        } else if (role == 3) {
+            int waiter = request.getServletContext().getAttribute("waiter") == null ? 0 : (int) request.getServletContext().getAttribute("waiter");
+            request.getServletContext().setAttribute("waiter", waiter - 1 < 0 ? 0 : waiter - 1);
+        }
+        return "redirect:../../login.html";
+    }
+
+    @RequestMapping("getServletContext")
+    @ResponseBody
+    public int[] getServletContext(HttpServletRequest request) {
+        int chef = request.getServletContext().getAttribute("chef") == null ? 0 : (int) request.getServletContext().getAttribute("chef");
+        int waiter = request.getServletContext().getAttribute("waiter") == null ? 0 : (int) request.getServletContext().getAttribute("waiter");
+        int[] people = {chef, waiter};
+        System.out.println(people[0] + "\t" + people[1]);
+        return people;
     }
 
     /**
      * 添加员工
      */
-    @RequestMapping(value = "insertUser",method = RequestMethod.POST)
+    @RequestMapping(value = "insertUser", method = RequestMethod.POST)
     @ResponseBody
-    public String insertUser( Userinfo userinfo){
+    public String insertUser(Userinfo userinfo) {
         System.out.println(userinfo);
-        int num= restTemplate.postForObject(url+"insertUser",userinfo,Integer.class);
-        return num>0?"true":"false";
+        int num = restTemplate.postForObject(url + "insertUser", userinfo, Integer.class);
+        return num > 0 ? "true" : "false";
     }
 }

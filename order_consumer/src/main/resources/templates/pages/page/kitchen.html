@@ -2,16 +2,16 @@
 <html>
 	<head>
 		<meta charset="utf-8">
+        <script src="/bootstrap/js/jquery-1.11.1.min.js"></script>
 		<link rel="stylesheet" href="/css/dashboard.css">
-		<script src="/bootstrap/js/jquery-1.11.1.min.js"></script>
-		
+
 		<!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
 		<script src="/bootstrap/js/bootstrap.min.js"></script>
-		
-		<script type="text/javascript" src="/js/ajax.js"></script>
+		<script type="text/javascript" src="/js/kitchen/kitchen.js"></script>
+		<!--<script type="text/javascript" src="/js/ajax.js"></script>
 		<script type="text/javascript">
 			function begin() {
-		
+
 				var input = document.getElementById("inputfile");
 				if (input.value != "") {
 					var preview = document.getElementById("face");
@@ -19,16 +19,16 @@
 					imgform.submit();
 					request();
 				}
-		
+
 			}
-		
+
 			function request() {
 				txtAjaxRequest(
 						"state.order?messageTitle=upstate&time=" + Math.random(),
 						"get", true, null, showPreview, null, null);
 			}
 			function showPreview(responseTxt, obj) {
-		
+
 				var preview = document.getElementById("face");
 				preview.src = "img/faces/" + responseTxt;
 				var path = document.getElementById("faceimgname");
@@ -36,7 +36,7 @@
 			}
 			var formstate = 0;
 			function testState() {
-		
+
 				var btu = document.getElementById("addbtu");
 				if ((formstate & 3) == 3) {
 					btu.disabled = false;
@@ -44,7 +44,7 @@
 					btu.disabled = "disabled";
 				}
 			}
-		
+
 			function checkpass() {
 				var pass = document.getElementById("userPass");
 				var pass1 = document.getElementById("userPass1");
@@ -58,12 +58,12 @@
 					}
 					error.innerHTML = "两次密码不匹配！";
 				}
-		
+
 				testState();
 			}
-		
+
 			function checkoldpass() {
-		
+
 				var id = document.getElementById("userId");
 				var oldPass = document.getElementById("userOldPass");
 				txtAjaxRequest("checkpass.order?userId=" + id.value + "&userPass="
@@ -76,18 +76,18 @@
 					formstate = formstate | 1;
 					error.innerHTML = "";
 				} else {
-		
+
 					if (formstate & 1 != 0) {
 						formstate = formstate ^ 1;
 					}
 					error.innerHTML = "您输入的原密码错误，请重新输入！";
-		
+
 				}
 				testState();
 			}
-		</script>
-		
-		
+		</script>-->
+
+
 		<title></title>
 	</head>
 	<body>
@@ -107,22 +107,22 @@
 			<div id="navbar" class="navbar-collapse collapse">
 				<ul class="nav navbar-nav navbar-right">
 					<li><span class="navbar-brand">餐厅管理界面</span></li>
-		
+
 					<li class="dropdown"><a href="#" class="dropdown-toggle"
 						data-toggle="dropdown" role="button" aria-haspopup="true"
-						aria-expanded="false"><img src="../../img/faces/"
-							width="24" height="24" class="img-circle"
-							style="border:1px solid #FFF" />&nbsp;&nbsp;当前用户:【${USER_INFO.userAccount}】,身份为后厨人员
+						aria-expanded="false"><img src="/img/faces/default.jpg"
+							width="24" height="24" id="kitchenImgFace" class="img-circle"
+												   style="border:1px solid #FFF" />&nbsp;&nbsp;当前用户:【<span id="kitchenname">后厨</span>】,身份为后厨人员
 							<span class="caret"></span></a>
 						<ul class="dropdown-menu">
 							<li style="text-align: center;padding-top: 15px"><img
-								src="/img/faces/" width="128" height="128"
-								class="img-circle"
+								src="/img/faces/default.jpg" width="128" height="128"
+                                id="kitchenImgFace1" class="img-circle"
 								style="border:1px solid #CCC;box-shadow:0 0 10px rgba(100, 100, 100, 1);margin-bottom: 20px" /></li>
-							<li><a href="/pages/users/modifyuser.html" target="mainwindow">修改我的密码</a></li>
+							<li><a href="/pages/users/modifyuser.html" id="modifyuser" target="mainwindow">修改我的密码</a></li>
 							<li role="separator" class="divider"></li>
 						</ul></li>
-					<li><a href="/loginout">退出登录</a></li>
+					<li><a href="/loginout" id="loginOut">退出登录</a></li>
 				</ul>
 			</div>
 		</div>

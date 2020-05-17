@@ -143,9 +143,28 @@ public class UserinfoController {
         return userinfoService.updateByPrimaryKeySelective(userinfo);
     }
 
+
+    /**
+     * 根据用户名称查询
+     * @param account
+     * @return
+     */
     @RequestMapping("selectAccount/{account}")
     public Userinfo selectAccount(@PathVariable("account") String account){
         System.out.println("-----------------provider-- selectAccount");
         return userinfoService.selectAccount(account);
+    }
+
+    /**
+     * 更改登录状态
+     * @param userid
+     * @param locked
+     * @return
+     */
+    @RequestMapping("updateLocked/{userid}/{locked}")
+    public int updateLocked(@PathVariable("userid") int userid,@PathVariable("locked") int locked){
+        System.out.println("更改登录状态");
+        Userinfo userinfo=new Userinfo(userid,locked);
+        return userinfoService.updateByPrimaryKeySelective(userinfo);
     }
 }

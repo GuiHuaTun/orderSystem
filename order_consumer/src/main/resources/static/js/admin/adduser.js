@@ -6,6 +6,7 @@ var roleId=null;
 var faceimgname=null;
 var addbtu=null;
 var form=null;
+var faceimgname=null;
 $(function () {
     face = $("#face");
     firstname=$("#firstname");
@@ -15,7 +16,7 @@ $(function () {
     faceimgname=$("#faceimgname");
     addbtu=$("#addbtu");
     form=$("#form");
-
+    faceimgname=$("#faceimgname");
 
 
     firstname.on("blur",function () {
@@ -62,7 +63,7 @@ $(function () {
         } else {
             flag(userPass1, false);
         }
-    })
+    });
 
     addbtu.on("click", function () {
         if (firstname.attr("flag") != "true") {
@@ -93,7 +94,7 @@ $(function () {
                 });
             }
         }
-    })
+    });
 
 
 
@@ -101,7 +102,24 @@ $(function () {
 
 
 
-
+    $("#uptfaces").click(function () {
+        var formData = new FormData();
+        formData.append("uploadFile", $("#inputfile")[0].files[0]);
+        $.ajax({
+            type: "POST",
+            url: "/uploadImg",
+            data: formData,
+            dataType: "json",
+            processData: false,// 告诉jQuery不要去处理发送的数据
+            contentType: false,// 告诉jQuery不要去设置Content-Type请求头
+            success: function (data) {
+                faceimgname.val(data);
+            },
+            error: function () {
+                alert("修改头像失败!");
+            },
+        });
+    });
 
 
 
@@ -124,8 +142,7 @@ $(function () {
                 $("#face").attr("src", objUrl);
             }
         }
-        facesSrc.val($("#inputfile").val());
-    })
+    });
 
     //建立一個可存取到該file的url
     function getObjectURL(file) {
@@ -138,8 +155,8 @@ $(function () {
             url = window.webkitURL.createObjectURL(file);
         }
         return url;
-    }
-})
+    };
+});
 function flag(obj, boolean) {
     obj.attr("flag", boolean);
     if (boolean == true) {
@@ -147,4 +164,4 @@ function flag(obj, boolean) {
     } else {
         obj.addClass("no").removeClass("ok");
     }
-}
+};

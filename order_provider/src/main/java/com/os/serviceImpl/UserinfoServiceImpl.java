@@ -52,4 +52,5 @@ public class UserinfoServiceImpl implements UserinfoService {
     public int updateByPrimaryKeySelective(Userinfo record) {
         return userinfoMapper.updateByPrimaryKeySelective(record);
     }
+
 }

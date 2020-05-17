@@ -7,8 +7,8 @@
 		<script src="/bootstrap/js/jquery-1.11.1.min.js"></script>
 		<!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
 		<script src="/bootstrap/js/bootstrap.min.js"></script>
-		<script src="/js/ajax.js"></script>
-
+		<!--<script src="/js/ajax.js"></script>-->
+		<script src="/js/admin/admin.js"></script>
 		<script type="text/javascript">
 			$(function(){
 				$(".click").click(function(){
@@ -39,18 +39,18 @@
 						<li><span class="navbar-brand">餐厅管理界面</span></li>
 
 						<li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
-							 aria-expanded="false"><img src="/img/faces/default.jpg" width="24" height="24" class="img-circle" style="border:1px solid #FFF" />&nbsp;&nbsp;当前用户:【${admin.useraccount}】,身份为管理员
+												aria-expanded="false"><img src="/img/faces/default.jpg" id="adminFace" width="24" height="24" class="img-circle" style="border:1px solid #FFF" />&nbsp;&nbsp;当前用户:【<span id="adminName">管理员</span>】,身份为管理员
 								<span class="caret"></span></a>
 							<ul class="dropdown-menu">
-								<li style="text-align: center;padding-top: 15px"><img src="/img/faces/default.jpg" width="128" height="128"
+								<li style="text-align: center;padding-top: 15px"><img src="/img/faces/default.jpg" id="adminFace1" width="128" height="128"
                                                                                       class="img-circle" style="border:1px solid #CCC;box-shadow:0 0 10px rgba(100, 100, 100, 1);margin-bottom: 20px" /></li>
 								<li><a href="/pages/users/modifyuser.html" target="mainwindow">修改我的密码</a></li>
 								<li role="separator" class="divider"></li>
-								<li><a href="/pages/admin/onlinekitchens.html" target="mainwindow">查看当前在线的厨师 <span class="badge" style="background-color: orange;">4</span></a></li>
-								<li><a href="/pages/admin/onlinewaiters.html" target="mainwindow">查看当前在线的点餐员 <span class="badge" style="background-color: orange;">4</span></a></li>
+								<li><a href="/pages/admin/onlinekitchens.html" target="mainwindow">查看当前在线的厨师 <span class="badge" style="background-color: orange;" id="chef">0</span></a></li>
+								<li><a href="/pages/admin/onlinewaiters.html" target="mainwindow">查看当前在线的点餐员 <span class="badge" style="background-color: orange;" id="waiter">0</span></a></li>
 							</ul>
 						</li>
-						<li><a href="/loginout">退出登录</a></li>
+						<li><a href="/loginout" id="loginOut">退出登录</a></li>
 					</ul>
 				</div>
 			</div>

@@ -1,10 +1,12 @@
 var tableId = null;
 var tableresult = null;
 var takeorder_backup = null;
+var loginOut=null;
 $(function () {
     tableId = $("#tableId");
     tableresult = $("#tableresult");
     takeorder_backup = $("#takeorder_backup");
+    loginOut=$("#loginOut");
     var userid = location.search.split("=")[1];
 
     /**
@@ -38,8 +40,9 @@ $(function () {
         success:function(data){
             data=eval(data);
             $("#username").html(data.useraccount);
-            $("#userface").css("src",data.faceimg);
-            $("#userface1").css("src",data.faceimg);
+            $("#userface").attr("src",data.faceimg);
+            $("#userface1").attr("src",data.faceimg);
+            loginOut.attr("href","/loginout/"+data.userid+"/"+3);
             $("#updatepass").attr("href","/pages/users/modifyuser.html?userid="+data.userid+"="+userid);
         },
         error:function(){

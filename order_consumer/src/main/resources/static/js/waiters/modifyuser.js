@@ -28,7 +28,7 @@ $(function () {
             $("#firstname").attr("placeholder", data.useraccount);
             userOldPassWord.val(data.userpass);
             $("option[name=userRoleID]").html(data.roleinfo.rolename);
-            $("#face").attr("src", "/img/faces/" + data.faceimg);
+            $("#face").attr("src",data.faceimg);
             userid.val(data.userid);
             $("[name=userid]").val(data.userid);
             facesSrc.val(data.faceimg);
