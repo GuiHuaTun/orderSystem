@@ -79,15 +79,21 @@ function page(pIndex1){
             for(var i=0;i<data[0].length;i++){
                 var dishes=data[0][i];
                 var dishes1=data[1][i];
+                var orderenddate="";
                 for (var j=0;j<data[1].length;j++){
                     if(data[1][j].orderinfo.orderid==dishes.orderid){
                         totalprice+=data[1][j].num*data[1][j].dishesinfo.dishesprice;
+                        if(dishes.orderenddate!=null && dishes.orderenddate!=""){
+                            orderenddate=dishes.orderenddate;
+                        }else{
+                            orderenddate="未结账";
+                        }
                     }
                 }
                 str+="<tr>\n" +
                     "\t\t\t\t\t\t\t\t\t\t<td>"+dishes.tables.tableid+"</td>\n" +
                     "\t\t\t\t\t\t\t\t\t\t<td>"+dishes.orderbegindate+"</td>\n" +
-                    "\t\t\t\t\t\t\t\t\t\t<td>"+dishes.orderenddate+"</td>\n" +
+                    "\t\t\t\t\t\t\t\t\t\t<td>"+orderenddate+"</td>\n" +
                     "\t\t\t\t\t\t\t\t\t\t<td>"+totalprice+".0</td>\n" +
                     "\t\t\t\t\t\t\t\t\t\t<td><i style=\"cursor: pointer; font-size: 14px;\"\n" +
                     "\t\t\t\t\t\t\t\t\t\t\tonmouseover=\"this.style.color='orange'\"\n" +
