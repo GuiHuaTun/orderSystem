@@ -23,4 +23,6 @@ public interface OrderinfoService {
 
     int updateByPrimaryKeySelective(Orderinfo record);
 
+    List<Orderinfo> selectOrderByTime(Orderinfo record);
+
 }

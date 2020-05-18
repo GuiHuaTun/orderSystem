@@ -190,7 +190,6 @@ public class UserinfoController {
         int chef = request.getServletContext().getAttribute("chef") == null ? 0 : (int) request.getServletContext().getAttribute("chef");
         int waiter = request.getServletContext().getAttribute("waiter") == null ? 0 : (int) request.getServletContext().getAttribute("waiter");
         int[] people = {chef, waiter};
-        System.out.println(people[0] + "\t" + people[1]);
         return people;
     }
 

@@ -48,4 +48,9 @@ public class OrderinfoServiceImpl implements OrderinfoService {
     public int updateByPrimaryKeySelective(Orderinfo record) {
         return orderinfoMapper.updateByPrimaryKeySelective(record);
     }
+
+    @Override
+    public List<Orderinfo> selectOrderByTime(Orderinfo record) {
+        return orderinfoMapper.selectOrderByTime(record);
+    }
 }

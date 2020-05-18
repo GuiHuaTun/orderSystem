@@ -8,9 +8,7 @@ import com.os.service.OrderinfoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -65,6 +63,12 @@ public class OrderInfoController {
     public int insertOrder(@RequestBody Orderinfo orderinfo){
         System.out.println("insertOrder方法");
         return orderinfoService.insertSelective(orderinfo);
+    }
+
+    //根据时间查询订单
+    @RequestMapping(value = "selectOrdeyBytime",method = RequestMethod.POST)
+    public List<Orderinfo> selectOrdeyBytime(@RequestBody Orderinfo orderinfo){
+        return orderinfoService.selectOrderByTime(orderinfo);
     }
 
     /**
