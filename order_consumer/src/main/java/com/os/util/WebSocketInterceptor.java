@@ -24,7 +24,7 @@ public class WebSocketInterceptor implements HandshakeInterceptor {
             HttpSession session=serverHttpRequest.getServletRequest().getSession();
             if(session!=null){
                 System.out.println("WebSocketInterceptor  "+session.getAttribute("username"));
-                map.put("username",session.getAttribute("username"));
+                map.put(MyHandler.CLIENT_ID,session.getAttribute("username"));
             }
         }
         return true;

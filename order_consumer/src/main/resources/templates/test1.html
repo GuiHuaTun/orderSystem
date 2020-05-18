@@ -2,13 +2,13 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>test2</title>
+    <title>testSendMessage</title>
     <script src="/bootstrap/js/jquery-1.11.1.js"></script>
     <script type="text/javascript">
         $(function () {
             $.ajax({
                 type:"POST",
-                url:"/testLogin/waiter",
+                url:"/testLogin/chef",
                 dataType:"json",
                 success:function (data) {
                     //alert("连接成功");
@@ -42,7 +42,7 @@
                 {
                     var received_msg = evt.data;
                     //alert("数据已接收..."+received_msg);
-                    var otherChat="<div align='left' style='width: 100%;height: 40px;'>后厨："+received_msg+"</div>";
+                    var otherChat="<div align='left' style='width: 100%;height: 40px;'>点餐员："+received_msg+"</div>";
                     $("#chatBox").append(otherChat);
                 };
 
@@ -66,15 +66,15 @@
             }
         }
 
-        function toChef() {
+        function toWaiter() {
             var myMessage=$("#myMessage").val();
             var myChat="<div align='right' style='width: 100%;height: 40px;'>我："+myMessage+"</div>";
             $("#myMessage").val("");
             $("#chatBox").append(myChat);
             $.ajax({
                 type:"POST",
-                //url:"/sendMessageToUser/chef/炒菜！玛格巴子！",
-                url:"/sendMessageToUser/chef/"+myMessage,
+                //url:"/sendMessageToUser/waiter/上菜！憨批！",
+                url:"/sendMessageToUser/waiter/"+myMessage,
                 dataType:"json",
                 success:function (data) {
                     //alert("连接成功");
@@ -87,13 +87,13 @@
     </script>
 </head>
 <body>
-    <a href="javascript:toChef()">点单</a>
+    <a href="javascript:toWaiter()">上菜</a>
     <div id="chatBox" style="width: 200px;border: 1px solid black;">
 
     </div>
     <div>
         <textarea id="myMessage"></textarea>
     </div>
-    <div onclick="toChef()">发送</div>
+    <div onclick="toWaiter()">发送</div>
 </body>
 </html>

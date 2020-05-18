@@ -11,6 +11,7 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
+import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * @author haohui
@@ -22,12 +23,20 @@ public class MyHandler extends TextWebSocketHandler {
     private static final Map<String, WebSocketSession> users;
 
     //用户标识
-    private static final String CLIENT_ID="username";
+    public static final String CLIENT_ID="username";
+
+    //用户数量
+    private static final int size=200;
 
     static {
-        users=new HashMap<String,WebSocketSession>(200);
+        users=new ConcurrentHashMap<String,WebSocketSession>(size);
     }
 
+    /**
+     * 建立websocket连接时调用该方法
+     * @param session
+     * @throws Exception
+     */
     @Override
     public void afterConnectionEstablished(WebSocketSession session) throws Exception {
         System.out.println("成功建立连接");
@@ -35,23 +44,71 @@ public class MyHandler extends TextWebSocketHandler {
         System.out.println("username=getClientId(session): "+username);
         if(username!=null){
             users.put(username,session);
-            session.sendMessage(new TextMessage("成功建立socket连接"));
+            System.out.println("users: "+users.keySet());
+            for (String key : users.keySet()) {
+                System.out.println("user session: "+users.get(key).getAttributes().get(CLIENT_ID));
+            }
+            //session.sendMessage(new TextMessage("成功建立socket连接"));
             System.out.println("username: "+username);
             System.out.println("session: "+session);
         }
     }
 
+    /**
+     * 客户端调用websocket.send时，会调用该方法，进行数据通信
+     * @param session
+     * @param message
+     */
     @Override
     public void handleTextMessage(WebSocketSession session, TextMessage message) {
         System.out.println("handleTextMessage");
         System.out.println("message.getPayload(): "+message.getPayload());
 
-        WebSocketMessage wsMessage=new TextMessage("server: "+message);
+        WebSocketMessage wsMessage=new TextMessage("server: "+message.getPayload());
         try {
             session.sendMessage(wsMessage);
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    /**
+     * 传输过程中出现异常时，调用该方法
+     * @param session
+     * @param exception
+     * @throws Exception
+     */
+    @Override
+    public void handleTransportError(WebSocketSession session, Throwable exception) throws Exception {
+        System.out.println("handleTransportError");
+        if(session.isOpen()){
+            session.close();
+        }
+        System.out.println("连接出错");
+        users.remove(getClientId(session));
+    }
+
+    /**
+     * 关闭websocket是调用该方法
+     * @param session
+     * @param status
+     * @throws Exception
+     */
+    @Override
+    public void afterConnectionClosed(WebSocketSession session, CloseStatus status) throws Exception {
+        System.out.println("afterConnectionClosed");
+        System.out.println("连接已关闭: "+status);
+        users.remove(getClientId(session));
+    }
+
+    /**
+     *
+     * @return
+     */
+    @Override
+    public boolean supportsPartialMessages() {
+        System.out.println("supportsPartialMessages");
+        return false;
     }
 
     /**
@@ -106,29 +163,11 @@ public class MyHandler extends TextWebSocketHandler {
         return allSendSuccess;
     }
 
-    @Override
-    public void handleTransportError(WebSocketSession session, Throwable exception) throws Exception {
-        System.out.println("handleTransportError");
-        if(session.isOpen()){
-            session.close();
-        }
-        System.out.println("连接出错");
-        users.remove(getClientId(session));
-    }
-
-    @Override
-    public void afterConnectionClosed(WebSocketSession session, CloseStatus status) throws Exception {
-        System.out.println("afterConnectionClosed");
-        System.out.println("连接已关闭: "+status);
-        users.remove(getClientId(session));
-    }
-
-    @Override
-    public boolean supportsPartialMessages() {
-        System.out.println("supportsPartialMessages");
-        return false;
-    }
-
+    /**
+     * 获取用户id
+     * @param session
+     * @return
+     */
     private String getClientId(WebSocketSession session){
         System.out.println("getClientId");
         try {
