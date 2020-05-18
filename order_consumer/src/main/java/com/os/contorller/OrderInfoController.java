@@ -76,4 +76,19 @@ public class OrderInfoController {
     }
 
 
+    /**
+     * 根据时间查询订单数据
+     * @param orderbegindate
+     * @param orderenddate
+     * @return
+     */
+    @RequestMapping("selectOrdeyBytime/{orderbegindate}/{orderenddate}")
+    @ResponseBody
+    public List<Orderinfo> selectOrdeyBytime(@PathVariable("orderbegindate") String orderbegindate, @PathVariable("orderenddate") String orderenddate) {
+        Orderinfo orderinfo = new Orderinfo(orderbegindate, orderenddate);
+        System.out.println(orderinfo);
+        List<Orderinfo> orderinfoList = restTemplate.postForObject(url + "selectOrdeyBytime", orderinfo, List.class);
+        System.out.println(orderinfoList);
+        return orderinfoList;
+    }
 }

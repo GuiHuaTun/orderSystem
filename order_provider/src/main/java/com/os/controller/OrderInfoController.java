@@ -59,9 +59,16 @@ public class OrderInfoController {
     }
 
 
+    //添加订单
     @RequestMapping(value = "insertOrder",method = RequestMethod.POST)
     public int insertOrder(@RequestBody Orderinfo orderinfo){
         System.out.println("insertOrder方法");
         return orderinfoService.insertSelective(orderinfo);
+    }
+
+    //根据时间查询订单
+    @RequestMapping(value = "selectOrdeyBytime",method = RequestMethod.POST)
+    public List<Orderinfo> selectOrdeyBytime(@RequestBody Orderinfo orderinfo){
+        return orderinfoService.selectOrderByTime(orderinfo);
     }
 }

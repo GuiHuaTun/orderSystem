@@ -23,7 +23,7 @@
 <script src="/bootstrap/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="/js/ajax.js"></script>
 <script type="text/javascript" src="/js/rome.js"></script>
-<script type="text/javascript" src="/js/operatedata.js"></script>
+<script type="text/javascript" src="/js/admin/operatedata.js"></script>
 <script type="text/javascript">
 	function createXmlDom(str) {
 		if (document.all) {
@@ -37,15 +37,6 @@
 	function begin() {
 		rome(document.getElementById("bt"));
 		rome(document.getElementById("et"));
-
-	}
-
-	function search() {
-		var begin = document.getElementById("bt");
-		var end = document.getElementById("et");
-		xmlAjaxRequest("getoperatedate.order?bt=" + begin.value + "&et="
-				+ end.value + "&time=" + Math.random(), "get", true, null,
-				showOrder, null, null);
 
 	}
 	function showOrder(responseXml, obj) {
@@ -82,7 +73,7 @@
 				}
 			}
 
-			
+
 			var newLine = "<tr><td>" + tableId + "</td><td>" + orderEndDate
 					+ "</td><td>" + userAccount + "</td><td>" + sumPrice
 					+ "</td>";
@@ -157,7 +148,6 @@
 
 		}
 		$('#myModal').modal('show');
-
 	}
 </script>
 </head>
@@ -282,7 +272,6 @@
 										</div>
 									</div>
 									<div class="span6" style="width:50%;float:left">
-
 										<div
 											style="background-color: #CF0;padding: 15px;margin: 1px;height:100px;">
 											<h3>结餐时间</h3>

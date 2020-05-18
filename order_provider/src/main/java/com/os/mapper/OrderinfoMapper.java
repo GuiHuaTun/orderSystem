@@ -21,4 +21,6 @@ public interface OrderinfoMapper {
 
     int updateByPrimaryKeySelective(Orderinfo record);
 
+    List<Orderinfo> selectOrderByTime(Orderinfo record);
+
 }
