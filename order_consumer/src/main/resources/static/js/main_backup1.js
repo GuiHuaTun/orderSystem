@@ -103,7 +103,7 @@ function page(pIndex1){
                     "\t\t\t\t\t\t\t\t\t\t\tonmouseover=\"this.style.color='orange'\"\n" +
                     "\t\t\t\t\t\t\t\t\t\t\tonmouseout=\"this.style.color='black'\"\n" +
                     "\t\t\t\t\t\t\t\t\t\t\tclass=\"icon-sitemap icon-large\" title=\"查看订单详情\"\n" +
-                    "\t\t\t\t\t\t\t\t\t\t\tonclick=\"modal('"+dishes.tables.tableid+"','"+dishes.orderbegindate+"','"+dishes.orderenddate+"','100.00','"+dishes.userinfo.useraccount+"','"+pIndex1+"','"+dishes.orderid+"','"+totalprice+"')\"></i> &nbsp;&nbsp;<i\n" +
+                    "\t\t\t\t\t\t\t\t\t\t\tonclick=\"modal('"+dishes.tables.tableid+"','"+dishes.orderbegindate+"','"+orderenddate+"','100.00','"+dishes.userinfo.useraccount+"','"+pIndex1+"','"+dishes.orderid+"','"+totalprice+"')\"></i> &nbsp;&nbsp;<i\n" +
                     "\t\t\t\t\t\t\t\t\t\t\tstyle=\"cursor: pointer; font-size: 14px;\"\n" +
                     "\t\t\t\t\t\t\t\t\t\t\tonmouseover=\"this.style.color='orange'\"\n" +
                     "\t\t\t\t\t\t\t\t\t\t\tonmouseout=\"this.style.color='black'\"\n" +

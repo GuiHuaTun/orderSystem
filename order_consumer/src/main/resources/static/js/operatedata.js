@@ -39,9 +39,15 @@ function page(pIndex1) {
         for(var i=0;i<data[0].length;i++){
             var dishes=data[0][i];
             var dishes1=data[1][i];
+            var orderenddate="";
                 for (var j=0;j<data[1].length;j++){
                     if(data[1][j].orderinfo.orderid==dishes.orderid){
                         totalprice+=data[1][j].num*data[1][j].dishesinfo.dishesprice;
+                        if(dishes.orderenddate!=null && dishes.orderenddate!=""){
+                            orderenddate=dishes.orderenddate;
+                        }else{
+                            orderenddate="未结账";
+                        }
                         // alert(data[1][j].num);
                         // alert(data[1][j].dishesinfo.dishesprice);
                     }
@@ -49,7 +55,7 @@ function page(pIndex1) {
             /*var totalprice=dishes.num*dishes.dishesinfo.dishesprice;*/
             str+="<tr>\n" +
                 "\t\t\t\t\t\t\t\t\t\t<td>"+dishes.tables.tableid+"</td>" +
-                "\t\t\t\t\t\t\t\t\t\t<td>"+dishes.orderenddate+"</td>\n" +
+                "\t\t\t\t\t\t\t\t\t\t<td>"+orderenddate+"</td>\n" +
                 "\t\t\t\t\t\t\t\t\t\t<td>"+dishes.userinfo.useraccount+"</td>\n" +
                 "\t\t\t\t\t\t\t\t\t\t<td>"+totalprice+".0</td>\n" +
                 "\t\t\t\t\t\t\t\t\t\t<td><i style=\"cursor: pointer; font-size: 14px;\"\n" +
@@ -60,7 +66,7 @@ function page(pIndex1) {
                 "\t\t\t\t\t\t\t\t\t\t\tonmouseover=\"this.style.color='orange'\"\n" +
                 "\t\t\t\t\t\t\t\t\t\t\tonmouseout=\"this.style.color='black'\"\n" +
                 "\t\t\t\t\t\t\t\t\t\t\tclass=\"icon-sitemap icon-large\" title=\"查看订单详情\"\n" +
-                "\t\t\t\t\t\t\t\t\t\t\tonclick=\"modal('"+dishes.tables.tableid+"','"+dishes.orderbegindate+"','"+dishes.orderenddate+"','100.00','"+dishes.userinfo.useraccount+"','"+pIndex1+"','"+dishes.orderid+"','"+totalprice+"')\"></i><input type='hidden' id='hidden' name='hidden'> &nbsp;&nbsp;<i\n" +
+                "\t\t\t\t\t\t\t\t\t\t\tonclick=\"modal('"+dishes.tables.tableid+"','"+dishes.orderbegindate+"','"+orderenddate+"','100.00','"+dishes.userinfo.useraccount+"','"+pIndex1+"','"+dishes.orderid+"','"+totalprice+"')\"></i><input type='hidden' id='hidden' name='hidden'> &nbsp;&nbsp;<i\n" +
                 "\t\t\t\t\t\t\t\t\t\t\tstyle=\"cursor: pointer; font-size: 14px;\"\n" +
                 "\t\t\t\t\t\t\t\t\t\t\tonmouseover=\"this.style.color='orange'\"\n" +
                 "\t\t\t\t\t\t\t\t\t\t\tonmouseout=\"this.style.color='black'\"\n" +
