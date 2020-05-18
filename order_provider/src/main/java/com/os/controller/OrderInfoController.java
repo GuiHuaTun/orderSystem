@@ -70,4 +70,20 @@ public class OrderInfoController {
     public List<Orderinfo> selectOrdeyBytime(@RequestBody Orderinfo orderinfo){
         return orderinfoService.selectOrderByTime(orderinfo);
     }
+
+    /**
+     * 订单结账
+     * @param orderinfo：订单对象
+     * @return
+     */
+    @RequestMapping("/oderAccount")
+    public int oderAccount(@RequestBody Orderinfo orderinfo){
+        System.out.println("------------------provider-- oderAccount");
+        System.out.println("orderinfo: "+orderinfo);
+        int num=orderinfoService.updateByPrimaryKeySelective(orderinfo);
+        if(num>0){
+            return num;
+        }
+        return 0;
+    }
 }

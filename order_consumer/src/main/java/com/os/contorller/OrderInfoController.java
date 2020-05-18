@@ -90,4 +90,28 @@ public class OrderInfoController {
         System.out.println(orderinfoList);
         return orderinfoList;
     }
+
+    /**
+     * 订单结账
+     * @param orderid：订单编号
+     * @return
+     */
+    @RequestMapping("/oderAccount/{orderid}")
+    public int oderAccount(@PathVariable("orderid") int orderid){
+        System.out.println("------------------consumer-- oderAccount");
+        Date date=new Date(System.currentTimeMillis());
+        SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd HH:mm");
+        String orderenddate=sdf.format(date);
+        System.out.println("orderenddate: "+orderenddate);
+        Orderinfo orderinfo=new Orderinfo();
+        orderinfo.setOrderid(orderid);
+        orderinfo.setOrderenddate(orderenddate);
+        orderinfo.setOrderstate(1);
+        int num=restTemplate.postForObject(url+"oderAccount",orderinfo,Integer.class);
+        if(num>0){
+            return num;
+        }
+        return 0;
+    }
+
 }
