@@ -15,6 +15,8 @@ public interface UserinfoService {
 
     Userinfo loginUser(Userinfo userinfo);
 
+    Userinfo selectAccount(String account);
+
     int deleteByPrimaryKey(Integer userid);
 
 
@@ -23,4 +25,5 @@ public interface UserinfoService {
     Userinfo selectByPrimaryKey(Integer userid);
 
     int updateByPrimaryKeySelective(Userinfo record);
+
 }

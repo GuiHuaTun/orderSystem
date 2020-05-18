@@ -9,6 +9,7 @@ import java.util.List;
 
 @Mapper
 public interface UserinfoMapper {
+    Userinfo selectAccount(@Param("account") String account);
 
     List<Userinfo> selectAll(@Param("useraccount")String useraccount, @Param("roleid") int roleid);
 
@@ -22,5 +23,6 @@ public interface UserinfoMapper {
     Userinfo selectByPrimaryKey(Integer userid);
 
     int updateByPrimaryKeySelective(Userinfo record);
+
 
 }

@@ -25,6 +25,9 @@
         </if>
         order by u.userid
     </select>
+    <select id="selectAccount" resultMap="UserinfoResultMap">
+        SELECT <include refid="Base_Column_List"/> FROM userinfo where useraccount=#{account};
+    </select>
     <select id="loginUser" parameterType="Userinfo" resultMap="UserinfoResultMap">
     select u.*,r.* from userinfo u,roleinfo r where useraccount=#{useraccount} and userpass=#{userpass} and u.role=r.roleid
   </select>
