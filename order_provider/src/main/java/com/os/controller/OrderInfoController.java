@@ -8,7 +8,9 @@ import com.os.service.OrderinfoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -63,5 +65,21 @@ public class OrderInfoController {
     public int insertOrder(@RequestBody Orderinfo orderinfo){
         System.out.println("insertOrder方法");
         return orderinfoService.insertSelective(orderinfo);
+    }
+
+    /**
+     * 订单结账
+     * @param orderinfo：订单对象
+     * @return
+     */
+    @RequestMapping("/oderAccount")
+    public int oderAccount(@RequestBody Orderinfo orderinfo){
+        System.out.println("------------------provider-- oderAccount");
+        System.out.println("orderinfo: "+orderinfo);
+        int num=orderinfoService.updateByPrimaryKeySelective(orderinfo);
+        if(num>0){
+            return num;
+        }
+        return 0;
     }
 }
