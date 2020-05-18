@@ -278,8 +278,8 @@
                         <li><a href="javascript:;" id="last" onclick="last()">末页&rarr;</a></li>
                     </ul>
                 </nav>
-                <div style="text-align: center;">
-                    <a href="#" class="btn btn-danger confirmOrder"
+                <div style="text-align: center;" data-toggle="modal" id="modal" data-target="#myModal">
+                    <a class="btn btn-danger"
                        style="width: 40%;margin-bottom: 15px;font-size: 18px;font-weight: bold;">确认订单</a>
                 </div>
                 <div class="order_shoppcar">
@@ -301,6 +301,28 @@
         </footer>
     </div>
 </div>
+</div>
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" style="margin:15% 17%;">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">订单</h4>
+            </div>
+            <div class="modal-body test test-5" style="width:568px;height: 333px; overflow-y:scroll;">
+                <table class="table table-striped tb">
+                </table>
+            </div>
+            <div class="modal-footer">
+                <div style="float: left;">
+                    <span style="font-weight: 700; font-size: 20px;">总价:</span>
+                    <span style="color: red; font-weight: 700; font-size: 20px;display: inline-block;line-height: 17px;" class="modelPrice">￥0</span>
+                </div>
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                    <button type="button" class="btn btn-primary confirmOrder" >确认提交</button>
+            </div>
+        </div>
+    </div>
 </div>
 </body>
 </html>

@@ -10,7 +10,7 @@ $(function () {
      * 获得桌号
      * @type {string}
      */
-    var str= location.search.split("=");
+    var str = location.search.split("=");
     var table_id = str[1];
     tableid.val(table_id);
     /**
@@ -23,46 +23,84 @@ $(function () {
             $(".shoppcar").hide("fast");
         }
     })
-    
-    
-    $(".confirmOrder").on("click",function () {
+    //模态框
+    $("#modal").on("click", function () {
         var arr = [];
         arr = document.getElementsByClassName("shoppcarli");
-        if(arr.length==0){
+        var shoppcarli = $(".shoppcarli");
+        $(".tb").html("");
+        var tr = "<tr>\n" +
+            " <td>菜名</td>\n" +
+            " <td>数量</td>\n" +
+            " <td>单价</td>\n" +
+            " <td>金额</td>\n" +
+            " </tr>";
+        if (arr.length == 0) {
             alert("餐车中没有菜品，请添加后再提交!");
-        }else{
-            var paramsArr =[];
-            var dishes_id=null;
-            var nums=null;
+            $("#modal").removeAttr("data-toggle");
+        } else {
+            $("#modal").attr("data-toggle","modal");
+            var price = null;
+            var nums = null;
+            var totalNum = null;
+            var totalPrice = null;
+            var dishesName = null;
+            $(".tb").html("");
+            for (var i = 0; i < arr.length; i++) {
+                price = shoppcarli.eq(i).find(".price_one").val();
+                nums = shoppcarli.eq(i).find("#nums").val();
+                dishesName = shoppcarli.eq(i).find("#namers").html();
+                totalNum = parseInt(nums);
+                totalPrice = price * nums;
+                tr += "<tr>\n" +
+                    " <td>" + dishesName + "</td>\n" +
+                    " <td>" + nums + "</td>\n" +
+                    " <td>" + price + "</td>\n" +
+                    " <td>" + totalPrice + "</td>\n" +
+                    " </tr>"
+            }
+        }
+        $(".tb").append(tr);
+    })
+
+    $(".confirmOrder").on("click", function () {
+        var arr = [];
+        arr = document.getElementsByClassName("shoppcarli");
+        if (arr.length == 0) {
+            alert("餐车中没有菜品，请添加后再提交!");
+        } else {
+            var paramsArr = [];
+            var dishes_id = null;
+            var nums = null;
             var obj1;
             var shoppcarli = $(".shoppcarli");
             for (var i = 0; i < arr.length; i++) {
                 dishes_id = shoppcarli.eq(i).find(".dishes_id").val();
                 nums = shoppcarli.eq(i).find("#nums").val();
-                var obj={
-                    dishesinfo:obj1={
-                        dishesid:dishes_id
+                var obj = {
+                    dishesinfo: obj1 = {
+                        dishesid: dishes_id
                     },
-                    num:nums
+                    num: nums
                 };
                 paramsArr.push(obj);
             }
             $.ajax({
-                type:"POST",
-                url:"/insertOrder/"+tableid.val()+"/"+str[2],
-                data:JSON.stringify(paramsArr),
-                contentType:'application/json;charset=UTF-8',// 核心
-                dataType:"json",
-                success:function(data){
-                    data= eval(data);
-                    if(data){
+                type: "POST",
+                url: "/insertOrder/" + tableid.val() + "/" + str[2],
+                data: JSON.stringify(paramsArr),
+                contentType: 'application/json;charset=UTF-8',// 核心
+                dataType: "json",
+                success: function (data) {
+                    data = eval(data);
+                    if (data) {
                         alert("添加订单成功!");
                         top.mainwindow.location.href = "/pages/waiters/paylist.html";
-                    }else{
+                    } else {
                         alert("添加订单失败!");
                     }
                 },
-                error:function(){
+                error: function () {
                     alert("系统错误!");
                 },
             });
@@ -151,6 +189,7 @@ function operation(obj, op) {
     placeholder.find("input[name=num]").val(num);
 }
 
+//添加菜品
 function addOrder(obj) {
     $("#hint").hide();
     var placeholders = $(".placeholders");
@@ -203,6 +242,7 @@ function addOrder(obj) {
     calcPrice();
 }
 
+//增加或者减少菜品数量
 function shoppcarOperation(obj, op) {
     var obj = obj.parents(".shoppcarli");
     var price = parseInt(obj.find(".price_one").val());//单价
@@ -248,5 +288,6 @@ function calcPrice() {
         totalPrice += price * nums;
     }
     $("#totalPrice").val(totalPrice);
+    $(".modelPrice").html("￥" + totalPrice);
 }
 

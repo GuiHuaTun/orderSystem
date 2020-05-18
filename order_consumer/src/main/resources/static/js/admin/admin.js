@@ -45,6 +45,7 @@ function userOnline() {
         },
         error:function(){
             alert("系统错误!");
+            clearInterval(userOnline());
         },
     });
 }
