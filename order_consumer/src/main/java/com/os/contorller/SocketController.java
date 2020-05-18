@@ -25,14 +25,24 @@ public class SocketController {
         System.out.println("登录接口，username= "+username);
         session.setAttribute("username",username);
         System.out.println(session.getAttribute("username"));
-        return "登录成功";
+        return "true";
     }
 
     @RequestMapping("/sendMessage")
     @ResponseBody
     public String sendMessage(){
-        boolean flag=handler.sendMessageToAllUsers(new TextMessage("你好"));
+        System.out.println("广播");
+        boolean flag=handler.sendMessageToAllUsers(new TextMessage("全体起立"));
         System.out.println("flag: "+flag);
-        return "发送成功";
+        return "广播";
+    }
+
+    @RequestMapping("/sendMessageToUser/{username}/{contents}")
+    @ResponseBody
+    public String sendMessageToUser(@PathVariable("username") String username,@PathVariable("contents") String contents){
+        System.out.println("指定用户发送");
+        boolean flag=handler.sendMessageToUser(username,new TextMessage(contents));
+        System.out.println("flag: "+flag);
+        return contents;
     }
 }
