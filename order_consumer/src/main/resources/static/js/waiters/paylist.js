@@ -2,57 +2,73 @@ var pageIndex=1;
 var maxPage=1;
 
 $(function () {
-    page(1);
+    page("first");
 })
 
-function prev() {
-    if(pageIndex>1){
-        pageIndex--;
-        page(pageIndex);
+
+
+function page(op) {
+    var $totalPage = parseInt($("span[name=totalPage]").html());
+    var $pageIndex = parseInt($("span[name=pageIndex]").html());
+    var index;
+    switch (op) {
+        case "prev":
+            if ($pageIndex == 1) {
+                index = 1;
+            } else {
+                index = $pageIndex - 1;
+            }
+            break;
+        case "next":
+            if ($pageIndex == $totalPage) {
+                index = $totalPage;
+            } else {
+                index = $pageIndex + 1;
+            }
+            break;
+        case "first":
+            index = 1;
+            break;
+        case "end":
+            index = $totalPage;
+            break;
     }
+    changeByCondition(null, null, index);
 }
 
-function next() {
-    if(pageIndex<maxPage){
-        pageIndex++;
-        page(pageIndex);
-    }
-}
-
-function last() {
-    pageIndex=maxPage;
-    page(pageIndex);
-}
-
-function page(pIndex) {
-    var totalprice=0;
+function changeByCondition(bt,et,pageIndex) {
     $.ajax({
         type:"POST",
-        url:"/orderInfoFindAll?pageIndex="+pIndex,
+        url:"/selectOrdeyBytime/"+bt+"/"+et+"/"+pageIndex+"/"+0,
         dataType:"json",
         success:function (data) {
             data=eval(data);
             pageIndex=data[3];
             maxPage=data[2];
+            $("span[name=totalPage]").html(data[2]);
+            var totalPrice = null;
             $("#orderTable").html("");
             var str="";
             for(var i=0;i<data[0].length;i++){
                 var dishes=data[0][i];
                 var dishes1=data[1][i];
-                var orderenddate="";
                 for(var j=0;j<data[1].length;j++){
-                    totalprice+=data[1][j].num*data[1][j].dishesinfo.dishesprice;
+                    totalPrice+=data[1][j].num*data[1][j].dishesinfo.dishesprice;
                 }
                 str+="<tr>\n" +
-                    "\t\t\t\t\t\t\t\t\t\t<td></td>\n" +
-                    "\t\t\t\t\t\t\t\t\t\t<td></td>\n" +
-                    "\t\t\t\t\t\t\t\t\t\t<td></td>\n" +
-                    "\t\t\t\t\t\t\t\t\t\t<td></td>\n" +
+                    "\t\t\t\t\t\t\t\t\t\t<td>"+dishes.tables.tableid+"</td>\n" +
+                    "\t\t\t\t\t\t\t\t\t\t<td>"+dishes.userinfo.useraccount+"</td>\n" +
+                    "\t\t\t\t\t\t\t\t\t\t<td>"+dishes.orderbegindate+"</td>\n" +
+                    "\t\t\t\t\t\t\t\t\t\t<td>"+totalPrice+"</td>\n" +
                     "\t\t\t\t\t\t\t\t\t\t<td><a class='btn btn-danger' style='width:150px'>买单</a></td>\n" +
                     "\t\t\t\t\t\t\t\t\t</tr>";
                 totalprice=0;
             }
             $("#orderTable").append(str);
-        }
-    })
+            $("span[name=pageIndex]").html(pageIndex);
+        },
+        error: function () {
+            alert("系统错误!");
+        },
+    });
 }

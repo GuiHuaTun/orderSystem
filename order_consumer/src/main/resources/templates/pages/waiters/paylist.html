@@ -221,10 +221,11 @@
 
 							<nav>
 							<ul class="pager">
-								<li><a href="javascript:getUserList(1)" id="firstpage">&larr;首页</a></li>
-								<li><a href="#" id="pre">上一页</a></li>
-								<li><a href="#" id="next">下一页</a></li>
-								<li><a href="#" id="last">末页&rarr;</a></li>
+								<li><a href="javascript:getUserList(1)" onclick="page('first')" id="firstpage">&larr;首页</a></li>
+								<li><a href="#" onclick="page('prev')" id="pre">上一页</a></li>
+								<li><a href="#" onclick="page('next')" id="next">下一页</a></li>
+								<li><a href="#" onclick="page('end')" id="last">末页&rarr;</a></li>
+                                <span name="pageIndex">1</span>/<span name="totalPage">1</span>页
 							</ul>
 							</nav>
 
