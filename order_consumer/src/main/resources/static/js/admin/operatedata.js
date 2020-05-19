@@ -1,5 +1,4 @@
 var pageIndex = 1;
-var maxPage = 1;
 var id = 1;
 $(function () {
     page("first");
@@ -54,10 +53,10 @@ function search() {
     $("#orderTable").html("");
     $.ajax({
         type: "POST",
-        url: "/selectOrdeyBytime/" + bt + "/" + et + "/" + 1,
+        url: "/selectOrdeyBytime/" + bt + "/" + et + "/" + 1 + "/" + 2,
         dataType: "json",
         success: function (data) {
-            changeByCondition(bt,et,1);
+            changeByCondition(bt, et, 1);
         },
         error: function () {
             alert("系统错误!");
@@ -99,14 +98,14 @@ function page(op) {
     if (et == null || et == "") {
         et = null;
     }
-    changeByCondition(bt,et,index);
+    changeByCondition(bt, et, index);
 }
 
-function changeByCondition(bt,et,pageIndex) {
+function changeByCondition(bt, et, pageIndex) {
     $("#orderTable").html("");
     $.ajax({
         type: "POST",
-        url: "/selectOrdeyBytime/" + bt + "/" + et + "/" + pageIndex,
+        url: "/selectOrdeyBytime/" + bt + "/" + et + "/" + pageIndex + "/" + 2,
         dataType: "json",
         success: function (data) {
             data = eval(data);

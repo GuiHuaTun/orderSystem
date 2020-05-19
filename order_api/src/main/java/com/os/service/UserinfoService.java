@@ -26,4 +26,7 @@ public interface UserinfoService {
 
     int updateByPrimaryKeySelective(Userinfo record);
 
+
+    List<Userinfo> selectUserByRoleId(int roleid);
+
 }

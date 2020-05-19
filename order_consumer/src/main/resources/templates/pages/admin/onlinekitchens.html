@@ -12,25 +12,27 @@
 <!--
 	<link rel="stylesheet" type="text/css" href="styles.css">
 	-->
+	<!-- jQuery文件。务必在bootstrap.min.js 之前引入 -->
+	<script src="/bootstrap/js/jquery-1.11.1.min.js"></script>
 <link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css">
 <link rel="stylesheet" href="/css/dashboard.css">
+	<script src="/js/admin/onlinekitchens.js"></script>
 
 
 <link rel="stylesheet" href="/css/font-awesome.min.css">
 
-<!-- jQuery文件。务必在bootstrap.min.js 之前引入 -->
-<script src="bootstrap/js/jquery-1.11.1.min.js"></script>
+
 
 <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
-<script src="bootstrap/js/bootstrap.min.js"></script>
-<script type="text/javascript" src="js/ajax.js"></script>
+<script src="/bootstrap/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="/js/ajax.js"></script>
 <script type="text/javascript">
 
-	function getUserList() {
+	/*function getUserList() {
 
-		xmlAjaxRequest("getonlinekitchen.order?time=" + Math.random(), "get",
+		xmlAjaxRequest("/getonlinekitchen.order?time=" + Math.random(), "get",
 				true, null, showList, null, null);
-	}
+	}*/
 
 	function showList(responseXml, obj) {
 		var sessionNum = document.getElementById("sessionNum");
@@ -101,7 +103,7 @@
 </script>
 </head>
 
-<body style="font-family: 微软雅黑" onload="getUserList()">
+<body style="font-family: 微软雅黑" >
 	<nav class="navbar navbar-inverse navbar-fixed-top">
 	<div class="container-fluid">
 		<div class="navbar-header">
@@ -112,7 +114,7 @@
 					class="icon-bar"></span> <span class="icon-bar"></span> <span
 					class="icon-bar"></span>
 			</button>
-			<img src="img/logo.png" class="navbar-brand" /> <span
+			<img src="/img/logo.png" class="navbar-brand" /> <span
 				class="navbar-brand">${ORDER_SYS_NAME}</span>
 		</div>
 		<div id="navbar" class="navbar-collapse collapse">
@@ -122,12 +124,12 @@
 				<li class="dropdown"><a href="#" class="dropdown-toggle"
 					data-toggle="dropdown" role="button" aria-haspopup="true"
 					aria-expanded="false"><img
-						src="img/faces/${USER_INFO.faceimg }" width="24" height="24"
+						src="/img/faces/default.jpg" width="24" height="24"
 						class="img-circle" style="border:1px solid #FFF" />&nbsp;&nbsp;当前用户:【${USER_INFO.userAccount
 						}】,身份为管理员 <span class="caret"></span></a>
 					<ul class="dropdown-menu">
 						<li style="text-align: center;padding-top: 15px"><img
-							src="img/faces/${USER_INFO.faceimg }" width="128" height="128"
+							src="/img/faces/default.jpg" width="128" height="128"
 							class="img-circle"
 							style="border:1px solid #CCC;box-shadow:0 0 10px rgba(100, 100, 100, 1);margin-bottom: 20px" /></li>
 						<li><a href="modifymyinfo.order">修改我的密码</a></li>
@@ -213,32 +215,27 @@
 									</tr>
 								</thead>
 								<tbody id="orderTable">
-
 								</tbody>
 							</table>
-
-
-
+							<div class="page" style="margin-left: 600px;margin-top: 30px;">
+								<a href="#" onclick="page('first')">首页</a>
+								<a href="#" onclick="page('prev')">上一页</a>
+								<a href="#" onclick="page('next')">下一页</a>
+								<a href="#" onclick="page('end')">末页</a>
+								<span name="pageIndex">1</span>/<span name="totalPage">1</span>页
+							</div>
 						</div>
-
 					</div>
 				</div>
-
 				<div
 					style="height:1px;width: 100%;background: #CCC;margin-bottom: 10px"></div>
 				<footer>
 				<p>&copy; 桂花屯乡村</p>
 				</footer>
-
 			</div>
 		</div>
 	</div>
-
 	<br>
-
-
-
-
 
 
 	<!-- Modal -->
@@ -255,23 +252,13 @@
 				</div>
 				<div class="modal-body"
 					style="background-image: url('/img/body-bg.png')">
-
-
-
-
-
-
-
-
-
-
 					<div class="panel panel-danger" style="margin-top: 10px">
 						<div class="panel-heading">
 							<h3 class="panel-title">员工详情</h3>
 						</div>
 						<div class="panel-body" style="text-align: center;">
 
-							<img src="img/faces/default.jpg" id="faceimg" width="200px"
+							<img src="/img/faces/default.jpg" id="faceimg" width="200px"
 								height="200px" class="img-circle"
 								style="border:1px solid #CCC;box-shadow:0 0 10px rgba(100, 100, 100, 1);" />
 							<p>
@@ -284,24 +271,8 @@
 								员工角色：<span id="role"></span>
 							</h3>
 							</p>
-
-
 						</div>
-
-
-
 					</div>
-
-
-
-
-
-
-
-
-
-
-
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-danger" data-dismiss="modal">关闭</button>
@@ -310,19 +281,5 @@
 			</div>
 		</div>
 	</div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 </body>
 </html>
