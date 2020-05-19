@@ -100,6 +100,7 @@ public class OrderInfoController {
      * @return
      */
     @RequestMapping("/oderAccount/{orderid}")
+    @ResponseBody
     public int oderAccount(@PathVariable("orderid") int orderid) {
         System.out.println("------------------consumer-- oderAccount");
         Date date = new Date(System.currentTimeMillis());

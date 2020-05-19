@@ -1,5 +1,6 @@
 var pageIndex=1;
 var maxPage=1;
+var index;
 
 $(function () {
     page("first");
@@ -10,7 +11,6 @@ $(function () {
 function page(op) {
     var $totalPage = parseInt($("span[name=totalPage]").html());
     var $pageIndex = parseInt($("span[name=pageIndex]").html());
-    var index;
     switch (op) {
         case "prev":
             if ($pageIndex == 1) {
@@ -60,7 +60,7 @@ function changeByCondition(bt,et,pageIndex) {
                     "\t\t\t\t\t\t\t\t\t\t<td>"+dishes.userinfo.useraccount+"</td>\n" +
                     "\t\t\t\t\t\t\t\t\t\t<td>"+dishes.orderbegindate+"</td>\n" +
                     "\t\t\t\t\t\t\t\t\t\t<td>"+totalPrice+"</td>\n" +
-                    "\t\t\t\t\t\t\t\t\t\t<td><a class='btn btn-danger' style='width:150px'>买单</a></td>\n" +
+                    "\t\t\t\t\t\t\t\t\t\t<td><a class='btn btn-danger' onclick='account("+dishes.orderid+")' style='width:150px'>买单</a></td>\n" +
                     "\t\t\t\t\t\t\t\t\t</tr>";
                 totalprice=0;
             }
@@ -71,4 +71,24 @@ function changeByCondition(bt,et,pageIndex) {
             alert("系统错误!");
         },
     });
+}
+
+function account(id) {
+    var msg = "确定要结账吗？";
+    if (confirm(msg) == true) {
+        $.ajax({
+            type: "POST",
+            url: "/oderAccount/" + id,
+            dataType: "json",
+            success: function (data) {
+                alert("结账成功");
+                changeByCondition(null, null, index);
+                return true;
+            },error:function () {
+                alert("结账失败");
+            }
+        })
+    }else{
+        return false;
+    }
 }

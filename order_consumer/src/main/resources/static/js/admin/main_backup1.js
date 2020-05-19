@@ -1,3 +1,4 @@
+var index;
 $(function () {
     page2();
 
@@ -83,7 +84,6 @@ function modal(tableid, orderbegintime, orderendtime, sumprice, useraccount, pIn
 function page(op) {
     var $totalPage = parseInt($("span[name=totalPage]").html());
     var $pageIndex = parseInt($("span[name=pageIndex]").html());
-    var index;
     switch (op) {
         case "prev":
             if ($pageIndex == 1) {
@@ -140,7 +140,7 @@ function changeByCondition(bt, et, pageIndex) {
                     "\t\t\t\t\t\t\t\t\t\t<td><i style=\"cursor: pointer; font-size: 14px;\"\n" +
                     "\t\t\t\t\t\t\t\t\t\t\tonmouseover=\"this.style.color='orange'\"\n" +
                     "\t\t\t\t\t\t\t\t\t\t\tonmouseout=\"this.style.color='black'\"\n" +
-                    "\t\t\t\t\t\t\t\t\t\t\tclass=\"icon-credit-card icon-large\" title=\"确认结账\"></i>&nbsp;&nbsp;<i\n" +
+                    "\t\t\t\t\t\t\t\t\t\t\tclass=\"icon-credit-card icon-large\" onclick='account("+orderinfo[i].orderid+")' title=\"确认结账\"></i>&nbsp;&nbsp;<i\n" +
                     "\t\t\t\t\t\t\t\t\t\t\tstyle=\"cursor: pointer; font-size: 14px;\"\n" +
                     "\t\t\t\t\t\t\t\t\t\t\tonmouseover=\"this.style.color='orange'\"\n" +
                     "\t\t\t\t\t\t\t\t\t\t\tonmouseout=\"this.style.color='black'\"\n" +
@@ -161,4 +161,24 @@ function changeByCondition(bt, et, pageIndex) {
             alert("系统错误!");
         },
     });
+}
+
+function account(id) {
+    var msg = "确定要结账吗？";
+    if (confirm(msg) == true) {
+        $.ajax({
+            type: "POST",
+            url: "/oderAccount/" + id,
+            dataType: "json",
+            success: function (data) {
+                alert("结账成功");
+                changeByCondition(null, null, index);
+                return true;
+            },error:function () {
+                alert("结账失败");
+            }
+        })
+    }else{
+        return false;
+    }
 }
