@@ -4,6 +4,7 @@
     <resultMap id="OrderdishesResultMap" type="com.os.entity.Orderdishes">
         <id column="odid" jdbcType="INTEGER" property="odid"/>
         <result column="num" jdbcType="INTEGER" property="num"/>
+        <result column="status" jdbcType="INTEGER" property="status"></result>
         <association property="orderinfo" javaType="Orderinfo" column="orderid"
                      select="com.os.mapper.OrderinfoMapper.selectByPrimaryKey">
         </association>
@@ -12,7 +13,7 @@
         </association>
     </resultMap>
     <sql id="Base_Column_List">
-    odid, orderreference, dishes, num
+    odid, orderreference, dishes, num ,status
   </sql>
     <select id="selectAll" resultMap="OrderdishesResultMap">
     SELECT od.*,o.* ,d.* FROM orderdishes od,orderinfo o,dishesinfo d where od.orderreference=o.orderid and od.dishes=d.dishesid
@@ -42,6 +43,9 @@
             <if test="num != null">
                 num,
             </if>
+            <if test="status != null">
+                status,
+            </if>
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
             <if test="odid != null">
@@ -56,6 +60,9 @@
             <if test="num != null">
                 #{num,jdbcType=INTEGER},
             </if>
+            <if test="status != null">
+                #{status,jdbcType=INTEGER},
+            </if>
         </trim>
     </insert>
     <update id="updateByPrimaryKeySelective" parameterType="com.os.entity.Orderdishes">
@@ -69,6 +76,9 @@
             </if>
             <if test="num != null">
                 num = #{num,jdbcType=INTEGER},
+            </if>
+            <if test="status != null">
+                status = #{status,jdbcType=INTEGER},
             </if>
         </set>
         where odid = #{odid,jdbcType=INTEGER}

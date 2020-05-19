@@ -20,6 +20,9 @@ import java.util.List;
 @Controller
 public class OrderInfoController {
     String url = "http://order-provider/";
+    private final int pageIndex = 1;
+    private final int pageSize = 5;
+
 
     @Autowired
     private RestTemplate restTemplate;
@@ -40,7 +43,6 @@ public class OrderInfoController {
             int maxPage = (int) list.get(2);
             System.out.println("-----------------consumer-- maxPage: " + maxPage);
             System.out.println(orderinfoList.size());
-            System.out.println(orderinfoList);
             list.add(pageIndex);
             return list;
         }
@@ -77,38 +79,39 @@ public class OrderInfoController {
 
     /**
      * 根据时间查询订单数据
+     *
      * @param orderbegindate
      * @param orderenddate
      * @return
      */
-    @RequestMapping("selectOrdeyBytime/{orderbegindate}/{orderenddate}")
+    @RequestMapping("selectOrdeyBytime/{orderbegindate}/{orderenddate}/{pageIndex}")
     @ResponseBody
-    public List<Orderinfo> selectOrdeyBytime(@PathVariable("orderbegindate") String orderbegindate, @PathVariable("orderenddate") String orderenddate) {
+    public List<Orderinfo> selectOrdeyBytime(@PathVariable("orderbegindate") String orderbegindate, @PathVariable("orderenddate") String orderenddate, @PathVariable("pageIndex") int pageIndex) {
         Orderinfo orderinfo = new Orderinfo(orderbegindate, orderenddate);
         System.out.println(orderinfo);
-        List<Orderinfo> orderinfoList = restTemplate.postForObject(url + "selectOrdeyBytime", orderinfo, List.class);
-        System.out.println(orderinfoList);
+        List orderinfoList = restTemplate.postForObject(url + "selectOrdeyBytime/" + pageIndex + "/" + pageSize, orderinfo, List.class);
         return orderinfoList;
     }
 
     /**
      * 订单结账
+     *
      * @param orderid：订单编号
      * @return
      */
     @RequestMapping("/oderAccount/{orderid}")
-    public int oderAccount(@PathVariable("orderid") int orderid){
+    public int oderAccount(@PathVariable("orderid") int orderid) {
         System.out.println("------------------consumer-- oderAccount");
-        Date date=new Date(System.currentTimeMillis());
-        SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd HH:mm");
-        String orderenddate=sdf.format(date);
-        System.out.println("orderenddate: "+orderenddate);
-        Orderinfo orderinfo=new Orderinfo();
+        Date date = new Date(System.currentTimeMillis());
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+        String orderenddate = sdf.format(date);
+        System.out.println("orderenddate: " + orderenddate);
+        Orderinfo orderinfo = new Orderinfo();
         orderinfo.setOrderid(orderid);
         orderinfo.setOrderenddate(orderenddate);
         orderinfo.setOrderstate(1);
-        int num=restTemplate.postForObject(url+"oderAccount",orderinfo,Integer.class);
-        if(num>0){
+        int num = restTemplate.postForObject(url + "oderAccount", orderinfo, Integer.class);
+        if (num > 0) {
             return num;
         }
         return 0;

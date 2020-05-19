@@ -1,332 +1,342 @@
 <html>
 <head>
-	<meta charset="utf-8">
-<title>餐厅管理员</title>
+    <meta charset="utf-8">
+    <title>餐厅管理员</title>
 
-<meta http-equiv="pragma" content="no-cache">
-<meta http-equiv="cache-control" content="no-cache">
-<meta http-equiv="expires" content="0">
-<meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
-<meta http-equiv="description" content="This is my page">
-<!--
-	<link rel="stylesheet" type="text/css" href="styles.css">
-	-->
+    <meta http-equiv="pragma" content="no-cache">
+    <meta http-equiv="cache-control" content="no-cache">
+    <meta http-equiv="expires" content="0">
+    <meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
+    <meta http-equiv="description" content="This is my page">
+    <!--
+        <link rel="stylesheet" type="text/css" href="styles.css">
+        -->
 
-<link rel="stylesheet" href="/css/dashboard.css">
-<link rel="stylesheet" href="/css/rome.css">
-
-
-<!-- jQuery文件。务必在bootstrap.min.js 之前引入 -->
-<script src="/bootstrap/js/jquery-1.11.1.min.js"></script>
-
-<!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
-<script src="/bootstrap/js/bootstrap.min.js"></script>
-<script type="text/javascript" src="/js/ajax.js"></script>
-<script type="text/javascript" src="/js/rome.js"></script>
-<script type="text/javascript" src="/js/admin/operatedata.js"></script>
-<script type="text/javascript">
-	function createXmlDom(str) {
-		if (document.all) {
-			var xmlDom = new ActiveXObject("Microsoft.XMLDOM");
-			xmlDom.loadXML(str);
-			return xmlDom;
-		} else {
-			return new DOMParser().parseFromString(str, "text/xml");
-		}
-	}
-	function begin() {
-		rome(document.getElementById("bt"));
-		rome(document.getElementById("et"));
-
-	}
-	function showOrder(responseXml, obj) {
-
-		var order = responseXml.getElementsByTagName("order");
-		var table = document.getElementById("orderTable");
-			table.innerHTML = "";
-		for ( var i = 0; i < order.length; i++) {
-			var attrs = order[i].childNodes;
-			var tableId;
-			var orderId;
-
-			var orderEndDate;
-			var sumPrice;
-			var userAccount;
-
-			for ( var j = 0; j < attrs.length; j++) {
-				var attr = attrs[j];
-				if (attr.nodeName == "tableId") {
-					tableId = attr.childNodes[0].nodeValue;
-				}
-				if (attr.nodeName == "userAccount") {
-					userAccount = attr.childNodes[0].nodeValue;
-				}
-				if (attr.nodeName == "orderId") {
-					orderId = attr.childNodes[0].nodeValue;
-				}
-
-				if (attr.nodeName == "orderEndDate") {
-					orderEndDate = attr.childNodes[0].nodeValue;
-				}
-				if (attr.nodeName == "sumPrice") {
-					sumPrice = attr.childNodes[0].nodeValue;
-				}
-			}
+    <link rel="stylesheet" href="/css/dashboard.css">
+    <link rel="stylesheet" href="/css/rome.css">
 
 
-			var newLine = "<tr><td>" + tableId + "</td><td>" + orderEndDate
-					+ "</td><td>" + userAccount + "</td><td>" + sumPrice
-					+ "</td>";
-			newLine += "<td>";
+    <!-- jQuery文件。务必在bootstrap.min.js 之前引入 -->
+    <script src="/bootstrap/js/jquery-1.11.1.min.js"></script>
 
-			newLine += "<i style='cursor: pointer; font-size: 14;'";
-			newLine += "onmouseover='this.style.color=\"orange\"'";
-			newLine += "onmouseout='this.style.color=\"black\"'";
-			newLine += "class='icon-sitemap icon-large' onclick='getOrderDetail("
-					+ orderId + ")' title='查看订单详情'></i>";
+    <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
+    <script src="/bootstrap/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="/js/ajax.js"></script>
+    <script type="text/javascript" src="/js/rome.js"></script>
+    <script type="text/javascript" src="/js/admin/operatedata.js"></script>
+    <script type="text/javascript">
+        function createXmlDom(str) {
+            if (document.all) {
+                var xmlDom = new ActiveXObject("Microsoft.XMLDOM");
+                xmlDom.loadXML(str);
+                return xmlDom;
+            } else {
+                return new DOMParser().parseFromString(str, "text/xml");
+            }
+        }
 
-			newLine += "</td></tr>";
+        function begin() {
+            rome(document.getElementById("bt"));
+            rome(document.getElementById("et"));
 
-			table.innerHTML += newLine;
-		}
+        }
 
-	}
+        function showOrder(responseXml, obj) {
 
-	function getOrderDetail(id) {
-		xmlAjaxRequest("getorderdetail.order?orderId=" + id + "&time="
-				+ Math.random(), "get", true, null, showOrderDetail, null, null);
-	}
+            var order = responseXml.getElementsByTagName("order");
+            var table = document.getElementById("orderTable");
+            table.innerHTML = "";
+            for (var i = 0; i < order.length; i++) {
+                var attrs = order[i].childNodes;
+                var tableId;
+                var orderId;
+
+                var orderEndDate;
+                var sumPrice;
+                var userAccount;
+
+                for (var j = 0; j < attrs.length; j++) {
+                    var attr = attrs[j];
+                    if (attr.nodeName == "tableId") {
+                        tableId = attr.childNodes[0].nodeValue;
+                    }
+                    if (attr.nodeName == "userAccount") {
+                        userAccount = attr.childNodes[0].nodeValue;
+                    }
+                    if (attr.nodeName == "orderId") {
+                        orderId = attr.childNodes[0].nodeValue;
+                    }
+
+                    if (attr.nodeName == "orderEndDate") {
+                        orderEndDate = attr.childNodes[0].nodeValue;
+                    }
+                    if (attr.nodeName == "sumPrice") {
+                        sumPrice = attr.childNodes[0].nodeValue;
+                    }
+                }
 
 
-	function showOrderDetail(responseXml, obj) {
+                var newLine = "<tr><td>" + tableId + "</td><td>" + orderEndDate
+                    + "</td><td>" + userAccount + "</td><td>" + sumPrice
+                    + "</td>";
+                newLine += "<td>";
 
-		var tableId = document.getElementById("tableId");
-		var orderBeginTime = document.getElementById("orderBeginTime");
-		var orderEndTime = document.getElementById("orderEndTime");
-		var sumPrice = document.getElementById("sumPrice");
-		var userAccount = document.getElementById("userAccount");
+                newLine += "<i style='cursor: pointer; font-size: 14;'";
+                newLine += "onmouseover='this.style.color=\"orange\"'";
+                newLine += "onmouseout='this.style.color=\"black\"'";
+                newLine += "class='icon-sitemap icon-large' onclick='getOrderDetail("
+                    + orderId + ")' title='查看订单详情'></i>";
 
-		var detailTable = document.getElementById("detailTable");
-		detailTable.innerHTML = "";
+                newLine += "</td></tr>";
 
-		tableId.innerHTML = responseXml.getElementsByTagName("tableId")[0].childNodes[0].nodeValue;
-		orderBeginTime.innerHTML = responseXml
-				.getElementsByTagName("orderBeginDate")[0].childNodes[0].nodeValue;
-		orderEndTime.innerHTML = responseXml
-				.getElementsByTagName("orderEndDate")[0].childNodes[0].nodeValue;
-		sumPrice.innerHTML = responseXml.getElementsByTagName("sumPrice")[0].childNodes[0].nodeValue;
-		userAccount.innerHTML = responseXml.getElementsByTagName("userAccount")[0].childNodes[0].nodeValue;
+                table.innerHTML += newLine;
+            }
 
-		var units = responseXml.getElementsByTagName("unit");
-		for ( var i = 0; i < units.length; i++) {
-			var unit = units[i];
-			var attrs = unit.childNodes;
-			var dishesName;
-			var num;
-			var dishesPrice;
-			for ( var j = 0; j < attrs.length; j++) {
-				var attr = attrs[j];
-				if (attr.nodeName == "dishesName") {
-					dishesName = attr.childNodes[0].nodeValue;
-				}
-				if (attr.nodeName == "dishesPrice") {
-					dishesPrice = attr.childNodes[0].nodeValue;
-				}
-				if (attr.nodeName == "num") {
-					num = attr.childNodes[0].nodeValue;
-				}
+        }
 
-			}
+        function getOrderDetail(id) {
+            xmlAjaxRequest("getorderdetail.order?orderId=" + id + "&time="
+                + Math.random(), "get", true, null, showOrderDetail, null, null);
+        }
 
-			var newLine = "<tr>";
-			newLine += "<td>" + dishesName + "</td>";
-			newLine += "<td>" + dishesPrice + "</td>";
-			newLine += "<td>" + num + "</td>";
-			newLine += "</tr>";
 
-			detailTable.innerHTML += newLine;
+        function showOrderDetail(responseXml, obj) {
 
-		}
-		$('#myModal').modal('show');
-	}
-</script>
+            var tableId = document.getElementById("tableId");
+            var orderBeginTime = document.getElementById("orderBeginTime");
+            var orderEndTime = document.getElementById("orderEndTime");
+            var sumPrice = document.getElementById("sumPrice");
+            var userAccount = document.getElementById("userAccount");
+
+            var detailTable = document.getElementById("detailTable");
+            detailTable.innerHTML = "";
+
+            tableId.innerHTML = responseXml.getElementsByTagName("tableId")[0].childNodes[0].nodeValue;
+            orderBeginTime.innerHTML = responseXml
+                .getElementsByTagName("orderBeginDate")[0].childNodes[0].nodeValue;
+            orderEndTime.innerHTML = responseXml
+                .getElementsByTagName("orderEndDate")[0].childNodes[0].nodeValue;
+            sumPrice.innerHTML = responseXml.getElementsByTagName("sumPrice")[0].childNodes[0].nodeValue;
+            userAccount.innerHTML = responseXml.getElementsByTagName("userAccount")[0].childNodes[0].nodeValue;
+
+            var units = responseXml.getElementsByTagName("unit");
+            for (var i = 0; i < units.length; i++) {
+                var unit = units[i];
+                var attrs = unit.childNodes;
+                var dishesName;
+                var num;
+                var dishesPrice;
+                for (var j = 0; j < attrs.length; j++) {
+                    var attr = attrs[j];
+                    if (attr.nodeName == "dishesName") {
+                        dishesName = attr.childNodes[0].nodeValue;
+                    }
+                    if (attr.nodeName == "dishesPrice") {
+                        dishesPrice = attr.childNodes[0].nodeValue;
+                    }
+                    if (attr.nodeName == "num") {
+                        num = attr.childNodes[0].nodeValue;
+                    }
+
+                }
+
+                var newLine = "<tr>";
+                newLine += "<td>" + dishesName + "</td>";
+                newLine += "<td>" + dishesPrice + "</td>";
+                newLine += "<td>" + num + "</td>";
+                newLine += "</tr>";
+
+                detailTable.innerHTML += newLine;
+
+            }
+            $('#myModal').modal('show');
+        }
+    </script>
 </head>
 <body style="font-family: 微软雅黑" onload="begin()">
-	<div class="container-fluid">
-		<div class="row">
-			<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-				<ol class="breadcrumb">
-					<li><a href="/OrderSys/">首页</a></li>
-					<li>管理员</li>
-					<li class="active">管理管理界面</li>
-				</ol>
-				<div class="panel panel-danger">
-					<div class="panel-heading">
-						<h2 class="panel-title">搜索特定时间订单</h2>
-					</div>
-					<div class="panel-body" style="padding-bottom: 0px">
-						<form class="form-inline">
-							<div class="form-group">
-								<label for="bt">开始时间：</label> <input type="text"
-									class="form-control" id="bt" name="bt">
-							</div>
-							&nbsp;&nbsp;
-							<div class="form-group">
-								<label for="et">结束时间：</label> <input type="text"
-									class="form-control" id="et" name="et">
-							</div>
-							<input type="button" class="btn btn-danger" onclick="search()"
-								value="开始搜索" />
-						</form>
-					</div>
-				</div>
-				<div class="panel panel-danger">
-					<div class="panel-heading">
-						<h3 class="panel-title">搜索结果</h3>
-					</div>
-					<div class="panel-body">
-						<div class="table-responsive">
-							<table class="table table-striped">
-								<thead>
-									<tr>
-										<th>桌号</th>
-										<th>结账时间</th>
-										<th>服务员</th>
-										<th>总价</th>
-										<th>详情</th>
-									</tr>
-								</thead>
-								<tbody id="orderTable">
-									<!--<tr>
-									<#if dishes.orderenddate??>
-										<td>未结账</td>
-										<#else>
-										<td>dishes.orderenddate</td>
-										</#if>
-										<td>Lorem</td>
-										<td>ipsum</td>
-										<td>dolor</td>
-										<td><i style="cursor: pointer; font-size: 14px;"
-											onmouseover="this.style.color='orange'"
-											onmouseout="this.style.color='black'"
-											class="icon-credit-card icon-large" title="确认结账"></i>&nbsp;&nbsp;<i
-											style="cursor: pointer; font-size: 14px;"
-											onmouseover="this.style.color='orange'"
-											onmouseout="this.style.color='black'"
-											class="icon-sitemap icon-large" title="查看订单详情"
-											onclick="$('#myModal').modal('show')"></i> &nbsp;&nbsp;<i
-											style="cursor: pointer; font-size: 14px;"
-											onmouseover="this.style.color='orange'"
-											onmouseout="this.style.color='black'"
-											class=" icon-remove-sign icon-large" title="订单作废"
-											onclick="cancel(this)"></i></td>
-									</tr>-->
-								</tbody>
-							</table>
-						</div>
-					</div>
-				</div>
-				<div
-					style="height:1px;width: 100%;background: #CCC;margin-bottom: 10px"></div>
-				<footer>
-				<p>&copy; $ZRXL 2020</p>
-				</footer>
-			</div>
-		</div>
-	</div>
-	<br>
-	<!-- Modal -->
-	<div class="modal fade" id="myModal" tabindex="-1" role="dialog"
-		aria-labelledby="myModalLabel">
-		<div class="modal-dialog" role="document">
-			<div class="modal-content">
-				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal"
-						aria-label="Close">
-						<span aria-hidden="true">&times;</span>
-					</button>
-					<h4 class="modal-title" id="myModalLabel">订单详情</h4>
-				</div>
-				<div class="modal-body"
-					style="background-image: url('/img/body-bg.png')">
-					<div class="container-fluid" style="padding: 0px 0px;">
-						<div class="row-fluid">
-							<div class="span6" style="width:30%;float:left">
-								<div
-									style="background-color: #66A;padding: 15px;margin: 1px;height:202px;color:white;">
-									<h2 style="color: white;font-weight: bold;font-family: 微软雅黑">桌号</h2>
-									<p id="tableId">${dishes.orderinfo.tables.tableid}</p>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+            <ol class="breadcrumb">
+                <li><a href="/OrderSys/">首页</a></li>
+                <li>管理员</li>
+                <li class="active">管理管理界面</li>
+            </ol>
+            <div class="panel panel-danger">
+                <div class="panel-heading">
+                    <h2 class="panel-title">搜索特定时间订单</h2>
+                </div>
+                <div class="panel-body" style="padding-bottom: 0px">
+                    <form class="form-inline">
+                        <div class="form-group">
+                            <label for="bt">开始时间：</label> <input type="text"
+                                                                 class="form-control" id="bt" name="bt">
+                        </div>
+                        &nbsp;&nbsp;
+                        <div class="form-group">
+                            <label for="et">结束时间：</label> <input type="text"
+                                                                 class="form-control" id="et" name="et">
+                        </div>
+                        <input type="button" class="btn btn-danger" onclick="search()"
+                               value="开始搜索"/>
+                    </form>
+                </div>
+            </div>
+            <div class="panel panel-danger">
+                <div class="panel-heading">
+                    <h3 class="panel-title">搜索结果</h3>
+                </div>
+                <div class="panel-body">
+                    <div class="table-responsive">
+                        <table class="table table-striped">
+                            <thead>
+                            <tr>
+                                <th>桌号</th>
+                                <th>结账时间</th>
+                                <th>服务员</th>
+                                <th>总价</th>
+                                <th>详情</th>
+                            </tr>
+                            </thead>
+                            <tbody id="orderTable">
+                            <!--<tr>
+                            <#if dishes.orderenddate??>
+                                <td>未结账</td>
+                                <#else>
+                                <td>dishes.orderenddate</td>
+                                </#if>
+                                <td>Lorem</td>
+                                <td>ipsum</td>
+                                <td>dolor</td>
+                                <td><i style="cursor: pointer; font-size: 14px;"
+                                    onmouseover="this.style.color='orange'"
+                                    onmouseout="this.style.color='black'"
+                                    class="icon-credit-card icon-large" title="确认结账"></i>&nbsp;&nbsp;<i
+                                    style="cursor: pointer; font-size: 14px;"
+                                    onmouseover="this.style.color='orange'"
+                                    onmouseout="this.style.color='black'"
+                                    class="icon-sitemap icon-large" title="查看订单详情"
+                                    onclick="$('#myModal').modal('show')"></i> &nbsp;&nbsp;<i
+                                    style="cursor: pointer; font-size: 14px;"
+                                    onmouseover="this.style.color='orange'"
+                                    onmouseout="this.style.color='black'"
+                                    class=" icon-remove-sign icon-large" title="订单作废"
+                                    onclick="cancel(this)"></i></td>
+                            </tr>-->
+                            </tbody>
+                        </table>
+                        <div class="page" style="margin-left: 600px;margin-top: 30px;">
+                            <a href="#" onclick="page('first')">首页</a>
+                            <a href="#" onclick="page('prev')">上一页</a>
+                            <a href="#" onclick="page('next')">下一页</a>
+                            <a href="#" onclick="page('end')">末页</a>
+                            <span name="pageIndex">1</span>/<span name="totalPage">1</span>页
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div
+                    style="height:1px;width: 100%;background: #CCC;margin-bottom: 10px"></div>
+            <footer>
+                <p>&copy; $ZRXL 2020</p>
+            </footer>
+        </div>
+    </div>
+</div>
+<br>
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog"
+     aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"
+                        aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title" id="myModalLabel">订单详情</h4>
+            </div>
+            <div class="modal-body"
+                 style="background-image: url('/img/body-bg.png')">
+                <div class="container-fluid" style="padding: 0px 0px;">
+                    <div class="row-fluid">
+                        <div class="span6" style="width:30%;float:left">
+                            <div
+                                    style="background-color: #66A;padding: 15px;margin: 1px;height:202px;color:white;">
+                                <h2 style="color: white;font-weight: bold;font-family: 微软雅黑">桌号</h2>
+                                <p id="tableId">${dishes.orderinfo.tables.tableid}</p>
 
-									<p style="text-align: center;font-size: 24px;margin-top: 11px ">
-										<i class="icon-warning-sign icon-large"></i>
-									</p>
-								</div>
-							</div>
-							<div class="span6" style="width:70%;float:left">
-								<div class="row-fluid">
-									<div class="span6" style="width:50%;float:left">
-										<div
-											style="background-color: #CCC;padding: 15px;margin: 1px;height:100px;">
-											<h3>开始时间</h3>
-											<p id="orderBeginTime">2015-9-8 10：30</p>
-										</div>
-									</div>
-									<div class="span6" style="width:50%;float:left">
-										<div
-											style="background-color: #CF0;padding: 15px;margin: 1px;height:100px;">
-											<h3>结餐时间</h3>
-											<p id="orderEndTime">2015-9-8 10：30</p>
-										</div>
-									</div>
-								</div>
-								<div class="row-fluid">
-									<div class="span6" style="width:50%;float:left">
+                                <p style="text-align: center;font-size: 24px;margin-top: 11px ">
+                                    <i class="icon-warning-sign icon-large"></i>
+                                </p>
+                            </div>
+                        </div>
+                        <div class="span6" style="width:70%;float:left">
+                            <div class="row-fluid">
+                                <div class="span6" style="width:50%;float:left">
+                                    <div
+                                            style="background-color: #CCC;padding: 15px;margin: 1px;height:100px;">
+                                        <h3>开始时间</h3>
+                                        <p id="orderBeginTime">2015-9-8 10：30</p>
+                                    </div>
+                                </div>
+                                <div class="span6" style="width:50%;float:left">
+                                    <div
+                                            style="background-color: #CF0;padding: 15px;margin: 1px;height:100px;">
+                                        <h3>结餐时间</h3>
+                                        <p id="orderEndTime">2015-9-8 10：30</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row-fluid">
+                                <div class="span6" style="width:50%;float:left">
 
-										<div
-											style="background-color: #FA0;padding: 15px;margin: 1px;height:100px;">
-											<h3>点餐服务员</h3>
-											<p id="userAccount">杨强</p>
-										</div>
-									</div>
-									<div class="span6" style="width:50%;float:left">
+                                    <div
+                                            style="background-color: #FA0;padding: 15px;margin: 1px;height:100px;">
+                                        <h3>点餐服务员</h3>
+                                        <p id="userAccount">杨强</p>
+                                    </div>
+                                </div>
+                                <div class="span6" style="width:50%;float:left">
 
-										<div
-											style="background-color: #DAD;padding: 15px;margin: 1px;height:100px;">
-											<h3>总价（元）</h3>
-											<p id="totalprice">
-												<span style="color:red;font-weight: bold" id="sumPrice">1000.00</span>
-											</p>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-					<div class="panel panel-danger" style="margin-top: 10px">
-						<div class="panel-heading">
-							<h3 class="panel-title">订单详情</h3>
-						</div>
-						<div class="panel-body">
-							<table class="table table-striped">
-								<caption>该桌的订单详情如下</caption>
-								<thead>
-									<tr>
-										<th>菜品</th>
-										<th>单价</th>
-										<th>数量</th>
-									</tr>
-								</thead>
-								<tbody id="detailTable">
-								</tbody>
-							</table>
-						</div>
-					</div>
-				</div>
-				<div class="modal-footer">
-					<button type="button" class="btn btn-danger" data-dismiss="modal">关闭</button>
-				</div>
-			</div>
-		</div>
-	</div>
+                                    <div
+                                            style="background-color: #DAD;padding: 15px;margin: 1px;height:100px;">
+                                        <h3>总价（元）</h3>
+                                        <p id="totalprice">
+                                            <span style="color:red;font-weight: bold" id="sumPrice">1000.00</span>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                </table>
+                <div class="panel panel-danger" style="margin-top: 10px">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">订单详情</h3>
+                    </div>
+                    <div class="panel-body">
+                        <table class="table table-striped">
+                            <caption>该桌的订单详情如下</caption>
+                            <thead>
+                            <tr>
+                                <th>菜品</th>
+                                <th>单价</th>
+                                <th>数量</th>
+                            </tr>
+                            </thead>
+                            <tbody id="detailTable">
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">关闭</button>
+            </div>
+        </div>
+    </div>
+</div>
 </body>
 </html>
