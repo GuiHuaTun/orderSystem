@@ -28,16 +28,20 @@ function page(op) {
             index = $totalPage;
             break;
     }
+    ajax(index);
 }
 
-function ajax() {
+function ajax(pageIndex) {
     $.ajax({
         type:"POST",
-        url:"",
-        data:"",
+        url:"/searchOnlinePeople/"+pageIndex+"/1",
         dataType:"json",
         success:function(data){
-            
+            data=eval(data);
+            var online= data[0];
+            var totalOnline= data[1];
+            var onlineKitchen= data[2];
+            var totalPage=data[3];
         },
         error:function(){
             alert("系统错误!");

@@ -11,6 +11,8 @@
 
 	<link rel="stylesheet" href="/css/dashboard.css">
 	<script src="/bootstrap/js/jquery-1.11.1.min.js"></script>
+	<script src="/bootstrap/js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="/js/ajax.js"></script>
 	<script src="/js/kitchen/kitchenmain.js"></script>
 </head>
 
@@ -53,6 +55,14 @@
 							<tbody id="orderTable">
 							</tbody>
 						</table>
+						<nav>
+							<ul class="pager">
+								<li><a href="javascript:page(1)" id="firstpage">&larr;首页</a></li>
+								<li><a href="javascript:prev()" id="pre">上一页</a></li>
+								<li><a href="javascript:next()" id="next">下一页</a></li>
+								<li><a href="javascript:last()" id="last">末页&rarr;</a></li>
+							</ul>
+						</nav>
 					</div>
 				</div>
 			</div>

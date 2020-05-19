@@ -61,6 +61,7 @@ public class UserinfoController {
                     data[0] = "chef";
                     int chef = request.getServletContext().getAttribute("chef") == null ? 0 : (int) request.getServletContext().getAttribute("chef");
                     request.getServletContext().setAttribute("chef", (chef + 1));
+                    restTemplate.getForObject(url + "updateLocked/" + userinfo.getUserid() + "/" + 0, Integer.class);
                     break;
                 case 2://管理员
                     System.out.println("admin");
@@ -71,10 +72,10 @@ public class UserinfoController {
                     data[0] = "waiter";
                     int waiter = request.getServletContext().getAttribute("waiter") == null ? 0 : (int) request.getServletContext().getAttribute("waiter");
                     request.getServletContext().setAttribute("waiter", (waiter + 1));
+                    restTemplate.getForObject(url + "updateLocked/" + userinfo.getUserid() + "/" + 0, Integer.class);
                     break;
             }
             //session.setAttribute(data[0],userinfo);
-            restTemplate.getForObject(url + "updateLocked/" + userinfo.getUserid() + "/" + 0, Integer.class);
             data[1] = userinfo.getUserid().toString();
         }
         return data;
