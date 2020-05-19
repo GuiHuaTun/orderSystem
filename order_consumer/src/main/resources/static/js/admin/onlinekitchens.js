@@ -1,5 +1,5 @@
 $(function () {
-
+    page("first");
 })
 
 function page(op) {
@@ -33,18 +33,33 @@ function page(op) {
 
 function ajax(pageIndex) {
     $.ajax({
-        type:"POST",
-        url:"/searchOnlinePeople/"+pageIndex+"/1",
-        dataType:"json",
-        success:function(data){
-            data=eval(data);
-            var online= data[0];
-            var totalOnline= data[1];
-            var onlineKitchen= data[2];
-            var totalPage=data[3];
+        type: "POST",
+        url: "/searchOnlinePeople/" + pageIndex + "/1",
+        dataType: "json",
+        success: function (data) {
+            data = eval(data);
+            var online = data[0];
+            $("#sessionNum").html(data[1]);
+            $("#kitchenNum").html(data[2]);
+            $("#totalPage").html(data[3]);
+            var empty = "";
+            for (var i = 0; i < online.length; i++) {
+                var users = online[i];
+                empty += "<tr><td class='textcetern'>" + users.userid + "</td><td class='textcetern'>" + users.useraccount + "</td><td class='textcetern'>" + users.roleinfo.rolename + "</td><td class='textcetern'><i  class=\"iconfont green\" onclick=detail('"+users.useraccount+"','"+users.roleinfo.rolename+"','"+users.faceimg+"')>&#xe63e;</i><i class=\"iconfont red\" onclick='unOnline($(this))'>&#xe608;</i></td></tr>";
+            }
+            $("#orderTable").append(empty);
         },
-        error:function(){
+        error: function () {
             alert("系统错误!");
         },
     });
+}
+
+function unOnline(obj) {
+    if(confirm("是否将该员工强行下线?")){
+        var userid= obj.parent().siblings("td:eq(0)").html();
+        obj.parent().parent().remove();
+        alert("强制离线成功！");
+    }
+
 }

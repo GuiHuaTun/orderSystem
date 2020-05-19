@@ -32,7 +32,7 @@ $(function () {
                 dataType: "json",
                 success: function (data) {
                     var role = data[0].toString();
-                    var userid=data[1].toString();
+                    var userid=data[1];
                     switch (role) {
                         case "codeError":
                             alert("验证码错误!");
@@ -53,6 +53,11 @@ $(function () {
                             break;
                         case "false":
                             alert("账号或密码错误!");
+                            imagers();
+                            clean();
+                            break;
+                        case "lock":
+                            alert("该账号已登录!");
                             imagers();
                             clean();
                             break;
