@@ -19,7 +19,7 @@
 
 <!-- jQuery文件。务必在bootstrap.min.js 之前引入 -->
 <script src="/bootstrap/js/jquery-1.11.1.min.js"></script>
-
+	<script src="/js/admin/onlinewaiters.js"></script>
 <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
 <script src="/bootstrap/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="/js/ajax.js"></script>
@@ -126,7 +126,7 @@
 					class="icon-bar"></span> <span class="icon-bar"></span> <span
 					class="icon-bar"></span>
 			</button>
-			<img src="img/logo.png" class="navbar-brand" /> <span
+			<img src="/img/logo.png" class="navbar-brand" /> <span
 				class="navbar-brand">${ORDER_SYS_NAME}</span>
 		</div>
 		<div id="navbar" class="navbar-collapse collapse">
@@ -136,12 +136,12 @@
 				<li class="dropdown"><a href="#" class="dropdown-toggle"
 					data-toggle="dropdown" role="button" aria-haspopup="true"
 					aria-expanded="false"><img
-						src="img/faces/${USER_INFO.faceimg }" width="24" height="24"
+						src="/img/faces/default.jpg" width="24" height="24"
 						class="img-circle" style="border:1px solid #FFF" />&nbsp;&nbsp;当前用户:【${USER_INFO.userAccount
 						}】,身份为管理员 <span class="caret"></span></a>
 					<ul class="dropdown-menu">
 						<li style="text-align: center;padding-top: 15px"><img
-							src="img/faces/${USER_INFO.faceimg }" width="128" height="128"
+							src="/img/faces/default.jpg" width="128" height="128"
 							class="img-circle"
 							style="border:1px solid #CCC;box-shadow:0 0 10px rgba(100, 100, 100, 1);margin-bottom: 20px" /></li>
 						<li><a href="modifymyinfo.order">修改我的密码</a></li>
@@ -275,7 +275,7 @@
 						</div>
 						<div class="panel-body" style="text-align: center;">
 
-							<img src="img/faces/default.jpg" id="faceimg" width="200px"
+							<img src="/img/faces/default.jpg" id="faceimg" width="200px"
 								height="200px" class="img-circle"
 								style="border:1px solid #CCC;box-shadow:0 0 10px rgba(100, 100, 100, 1);" />
 							<p>

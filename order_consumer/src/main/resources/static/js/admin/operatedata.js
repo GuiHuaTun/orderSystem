@@ -105,7 +105,7 @@ function changeByCondition(bt, et, pageIndex) {
     $("#orderTable").html("");
     $.ajax({
         type: "POST",
-        url: "/selectOrdeyBytime/" + bt + "/" + et + "/" + pageIndex + "/" + 2,
+        url: "/selectOrdeyBytime/" + bt + "/" + et + "/" + pageIndex + "/" + 1,
         dataType: "json",
         success: function (data) {
             data = eval(data);
@@ -125,10 +125,7 @@ function changeByCondition(bt, et, pageIndex) {
                     "\t\t\t\t\t\t\t\t\t\t<td>" + orderinfo[i].orderenddate + "</td>\n" +
                     "\t\t\t\t\t\t\t\t\t\t<td>" + orderinfo[i].userinfo.useraccount + "</td>\n" +
                     "\t\t\t\t\t\t\t\t\t\t<td>" + totalPrice + ".0</td>\n" +
-                    "\t\t\t\t\t\t\t\t\t\t<td><i style=\"cursor: pointer; font-size: 14px;\"\n" +
-                    "\t\t\t\t\t\t\t\t\t\t\tonmouseover=\"this.style.color='orange'\"\n" +
-                    "\t\t\t\t\t\t\t\t\t\t\tonmouseout=\"this.style.color='black'\"\n" +
-                    "\t\t\t\t\t\t\t\t\t\t\tclass=\"icon-credit-card icon-large\" title=\"确认结账\"></i>&nbsp;&nbsp;<i\n" +
+                    "\t\t\t\t\t\t\t\t\t\t<td><i\n" +
                     "\t\t\t\t\t\t\t\t\t\t\tstyle=\"cursor: pointer; font-size: 14px;\"\n" +
                     "\t\t\t\t\t\t\t\t\t\t\tonmouseover=\"this.style.color='orange'\"\n" +
                     "\t\t\t\t\t\t\t\t\t\t\tonmouseout=\"this.style.color='black'\"\n" +

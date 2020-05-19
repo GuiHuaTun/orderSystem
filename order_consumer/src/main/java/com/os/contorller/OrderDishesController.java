@@ -60,6 +60,11 @@ public class OrderDishesController {
 
     }
 
+    /**
+     * 后厨订单遍历
+     * @param pageIndex：页码
+     * @return
+     */
     @RequestMapping("/selectByStatus")
     @ResponseBody
     public List<Orderdishes> selectByStatus(Integer pageIndex){
@@ -75,5 +80,23 @@ public class OrderDishesController {
             return list;
         }
         return null;
+    }
+
+    /**
+     * 后厨上菜
+     * @param odid：订单编号
+     * @return
+     */
+    @RequestMapping("/updateStatus")
+    @ResponseBody
+    public int updateStatus(int odid){
+        System.out.println("-----------------consumer-- updateStatus");
+        System.out.println("odid: "+odid);
+        Integer status=0;
+        int num=restTemplate.getForObject(url+"updateStatus/"+status+"/"+odid,Integer.class);
+        if(num>0){
+            return num;
+        }
+        return 0;
     }
 }
