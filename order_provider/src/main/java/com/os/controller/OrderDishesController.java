@@ -88,7 +88,7 @@ public class OrderDishesController {
             list.add(orderdishesList);
             list.add(pageIndex);
             list.add(maxPage);
-            return orderdishesList;
+            return list;
         }
         return null;
     }
