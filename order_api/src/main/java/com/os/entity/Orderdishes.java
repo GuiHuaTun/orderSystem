@@ -19,4 +19,6 @@ public class Orderdishes implements Serializable {
     private Dishesinfo dishesinfo;
 
     private Integer num;
+
+    private Integer status;
 }

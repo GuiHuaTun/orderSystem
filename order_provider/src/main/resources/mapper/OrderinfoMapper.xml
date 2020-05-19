@@ -17,14 +17,15 @@
     orderid, orderbegindate, orderenddate, waiterid, orderstate, tableid
     </sql>
 
-    <select id="selectOrderByTime">
-    SELECT o.*,u.*,t.* FROM WHERE orderinfo o,userinfo u,`tables` t where o.waiterid=u.userid and  o.tableid=t.tableid
-    <if test="orderbegindate!=null">
-      and  orderbegindate &gt;= #{orderbegindate}
-    </if>
-    <if test="orderenddate!=null">
-      and  orderenddate &lt;= #{orderenddate}
-    </if>
+    <select id="selectOrderByTime" resultMap="OrderinfoResultMap">
+        SELECT o.*,u.*,t.* FROM orderinfo o,userinfo u,`tables` t where o.waiterid=u.userid and o.tableid=t.tableid
+        <if test="orderbegindate!=null">
+            and orderbegindate &gt;= #{orderbegindate}
+        </if>
+        <if test="orderenddate!=null">
+            and orderenddate &lt;= #{orderenddate}
+        </if>
+        and orderstate=2
     </select>
 
     <select id="selectTablesByTableId" resultMap="OrderinfoResultMap">
