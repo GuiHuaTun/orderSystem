@@ -98,9 +98,6 @@ public class OrderInfoController {
         System.out.println("------------------provider-- oderAccount");
         System.out.println("orderinfo: " + orderinfo);
         int num = orderinfoService.updateByPrimaryKeySelective(orderinfo);
-        if (num > 0) {
-            return num;
-        }
-        return 0;
+        return num;
     }
 }

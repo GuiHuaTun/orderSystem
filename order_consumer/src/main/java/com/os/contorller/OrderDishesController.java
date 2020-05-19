@@ -5,6 +5,7 @@ import com.os.entity.Roleinfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.client.RestTemplate;
@@ -38,7 +39,6 @@ public class OrderDishesController {
         if(orderdishesList!=null && orderdishesList.size()>0){
             System.out.println("maxPage: "+list.get(2));
             System.out.println("orderdishesList.size: "+orderdishesList.size());
-            System.out.println(orderdishesList);
             list.add(pageIndex);
             return list;
         }
@@ -54,12 +54,49 @@ public class OrderDishesController {
         List<Orderdishes> orderbyList= (List<Orderdishes>) list.get(0);
         if(orderbyList!=null && orderbyList.size()>0){
             System.out.println(orderbyList.size());
-            System.out.println(orderbyList);
             return list;
         }
         return null;
 
     }
 
+    /**
+     * 后厨订单遍历
+     * @param pageIndex：页码
+     * @return
+     */
+    @RequestMapping("/selectByStatus")
+    @ResponseBody
+    public List<Orderdishes> selectByStatus(Integer pageIndex){
+        System.out.println("-----------------consumer-- selectByStatus");
+        System.out.println("pageIndex: "+pageIndex);
+        if(pageIndex==0 || pageIndex<1){
+            pageIndex=1;
+        }
+        Integer pageSize=8;
+        Integer status=0;
+        List list=restTemplate.getForObject(url+"selectByStatus/"+status+"/"+pageIndex+"/"+pageSize,List.class);
+        if(list!=null){
+            return list;
+        }
+        return null;
+    }
 
+    /**
+     * 后厨上菜
+     * @param odid：订单编号
+     * @return
+     */
+    @RequestMapping("/updateStatus")
+    @ResponseBody
+    public int updateStatus(int odid){
+        System.out.println("-----------------consumer-- updateStatus");
+        System.out.println("odid: "+odid);
+        Integer status=0;
+        int num=restTemplate.getForObject(url+"updateStatus/"+status+"/"+odid,Integer.class);
+        if(num>0){
+            return num;
+        }
+        return 0;
+    }
 }

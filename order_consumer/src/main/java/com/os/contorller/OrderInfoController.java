@@ -84,10 +84,10 @@ public class OrderInfoController {
      * @param orderenddate
      * @return
      */
-    @RequestMapping("selectOrdeyBytime/{orderbegindate}/{orderenddate}/{pageIndex}")
+    @RequestMapping("selectOrdeyBytime/{orderbegindate}/{orderenddate}/{pageIndex}/{orderstate}")
     @ResponseBody
-    public List<Orderinfo> selectOrdeyBytime(@PathVariable("orderbegindate") String orderbegindate, @PathVariable("orderenddate") String orderenddate, @PathVariable("pageIndex") int pageIndex) {
-        Orderinfo orderinfo = new Orderinfo(orderbegindate, orderenddate);
+    public List<Orderinfo> selectOrdeyBytime(@PathVariable("orderbegindate") String orderbegindate, @PathVariable("orderenddate") String orderenddate, @PathVariable("pageIndex") int pageIndex ,@PathVariable("orderstate") int orderstate) {
+        Orderinfo orderinfo = new Orderinfo(orderbegindate, orderenddate,orderstate);
         System.out.println(orderinfo);
         List orderinfoList = restTemplate.postForObject(url + "selectOrdeyBytime/" + pageIndex + "/" + pageSize, orderinfo, List.class);
         return orderinfoList;
@@ -100,6 +100,7 @@ public class OrderInfoController {
      * @return
      */
     @RequestMapping("/oderAccount/{orderid}")
+    @ResponseBody
     public int oderAccount(@PathVariable("orderid") int orderid) {
         System.out.println("------------------consumer-- oderAccount");
         Date date = new Date(System.currentTimeMillis());

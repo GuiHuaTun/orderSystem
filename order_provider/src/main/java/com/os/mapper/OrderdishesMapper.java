@@ -21,4 +21,5 @@ public interface OrderdishesMapper {
 
     List<Orderdishes> selectById(Integer id);
 
+    List<Orderdishes> selectByStatus(Integer status);
 }

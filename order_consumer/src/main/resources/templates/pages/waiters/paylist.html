@@ -14,6 +14,7 @@
 
 <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
 <script src="/bootstrap/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="/js/waiters/paylist.js"></script>
 <!--<script type="text/javascript">
 	function createXmlDom(str) {
 		if (document.all) {
@@ -196,6 +197,7 @@
 										<th>桌号</th>
 										<th>服务员</th>
 										<th>开餐时间</th>
+										<th>总价</th>
 										<th>操作</th>
 									</tr>
 
@@ -209,6 +211,7 @@
 										<td></td>
 										<td></td>
 										<td></td>
+										<td></td>
 										<td><a class='btn btn-danger' style='width:350px'>买单</a></td>
 									</tr>
 
@@ -218,10 +221,11 @@
 
 							<nav>
 							<ul class="pager">
-								<li><a href="javascript:getUserList(1)" id="firstpage">&larr;首页</a></li>
-								<li><a href="#" id="pre">上一页</a></li>
-								<li><a href="#" id="next">下一页</a></li>
-								<li><a href="#" id="last">末页&rarr;</a></li>
+								<li><a href="javascript:getUserList(1)" onclick="page('first')" id="firstpage">&larr;首页</a></li>
+								<li><a href="#" onclick="page('prev')" id="pre">上一页</a></li>
+								<li><a href="#" onclick="page('next')" id="next">下一页</a></li>
+								<li><a href="#" onclick="page('end')" id="last">末页&rarr;</a></li>
+                                <span name="pageIndex">1</span>/<span name="totalPage">1</span>页
 							</ul>
 							</nav>
 

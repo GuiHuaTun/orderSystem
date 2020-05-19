@@ -15,6 +15,13 @@
     <sql id="Base_Column_List">
     userid, useraccount, userpass, locked, faceimg
   </sql>
+    <select id="selectUserByRoleId" resultMap="UserinfoResultMap">
+        SELECT u.*,r.* from userinfo u,roleinfo r where u.role=r.roleid and u.locked=0
+        <if test="roleid!=0">
+            and u.role=#{roleid}
+        </if>
+    </select>
+
     <select id="selectAll" resultMap="UserinfoResultMap">
         select u.*,r.* from userinfo u,roleinfo r where u.role=r.roleid
         <if test="useraccount != null ">
