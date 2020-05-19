@@ -9,7 +9,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.client.RestTemplate;
 
+import java.util.Iterator;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * 详单控制器
@@ -33,9 +36,8 @@ public class OrderDishesController {
         List list = restTemplate.getForObject(url + "orderDishesFindAll/" + pageIndex + "/" + pageSize, List.class);
         List<Orderdishes> orderdishesList= (List<Orderdishes>) list.get(0);
         if(orderdishesList!=null && orderdishesList.size()>0){
-            int maxPage= (int) list.get(1);
-            System.out.println("-----------------consumer-- maxPage: "+maxPage);
-            System.out.println(orderdishesList.size());
+            System.out.println("maxPage: "+list.get(2));
+            System.out.println("orderdishesList.size: "+orderdishesList.size());
             System.out.println(orderdishesList);
             list.add(pageIndex);
             return list;
