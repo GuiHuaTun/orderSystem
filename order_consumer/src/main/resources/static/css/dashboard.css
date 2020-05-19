@@ -9,9 +9,16 @@
 /*
  * Global add-ons
  */
+.size{
+  float: left;
+  height: 50px;
+  padding: 5px 5px;
+  font-size: 18px;
+  line-height: 20px;
+}
 
 .img-thumbnail{
-  width: 200px;
+  width: 150px;
 }
 .textcetern{
   text-align: center;
