@@ -64,18 +64,17 @@ public class OrderDishesController {
 
     @RequestMapping("/selectByStatus")
     @ResponseBody
-    public List<Orderdishes> selectByStatus(Integer status,Integer pageIndex){
+    public List<Orderdishes> selectByStatus(Integer pageIndex){
         System.out.println("-----------------consumer-- selectByStatus");
-        System.out.println("status: "+status);
         System.out.println("pageIndex: "+pageIndex);
         if(pageIndex==0 || pageIndex<1){
             pageIndex=1;
         }
         Integer pageSize=8;
-        List<Orderdishes> orderdishesList=restTemplate.getForObject(url+"selectByStatus/"+status+"/"+pageIndex+"/"+pageSize,List.class);
-        System.out.println("orderdishesList: "+orderdishesList);
-        if(orderdishesList!=null){
-            return orderdishesList;
+        Integer status=0;
+        List list=restTemplate.getForObject(url+"selectByStatus/"+status+"/"+pageIndex+"/"+pageSize,List.class);
+        if(list!=null){
+            return list;
         }
         return null;
     }

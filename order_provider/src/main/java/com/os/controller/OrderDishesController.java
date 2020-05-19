@@ -78,8 +78,16 @@ public class OrderDishesController {
         System.out.println("pageSize: "+pageSize);
         PageHelper.startPage(pageIndex,pageSize);
         List<Orderdishes> orderdishesList=orderdishesService.selectByStatus(status);
+        int totalPage=orderdishesService.selectByStatus(status).size();
+        System.out.println("totalPage: "+totalPage);
+        int maxPage=totalPage%pageSize==0?totalPage/pageSize:totalPage/pageSize+1;
+        System.out.println("maxPage: "+maxPage);
         System.out.println("orderdishesList: "+orderdishesList);
         if(orderdishesList!=null){
+            List list=new ArrayList();
+            list.add(orderdishesList);
+            list.add(pageIndex);
+            list.add(maxPage);
             return orderdishesList;
         }
         return null;
