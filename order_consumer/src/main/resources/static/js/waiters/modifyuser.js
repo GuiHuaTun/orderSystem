@@ -1,5 +1,4 @@
 var userOldPass = null;
-var facesSrc = null;
 var userOldPassWord = null;
 var userPass = null;
 var userPass1 = null;
@@ -9,7 +8,6 @@ var userid = null;
 var imgform = null;
 $(function () {
     userOldPass = $("#userOldPass");
-    facesSrc = $("#facesSrc");
     userOldPassWord = $("#userOldPassWord");
     userPass = $("#userPass");
     userPass1 = $("#userPass1");
@@ -31,7 +29,6 @@ $(function () {
             $("#face").attr("src",data.faceimg);
             userid.val(data.userid);
             $("[name=userid]").val(data.userid);
-            facesSrc.val(data.faceimg);
         },
         error: function () {
             alert("系统错误!");
@@ -105,7 +102,6 @@ $(function () {
                 $("#face").attr("src", objUrl);
             }
         }
-        facesSrc.val($("#inputfile").val());
 
     })
 

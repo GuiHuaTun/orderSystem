@@ -137,6 +137,7 @@ public class UserinfoController {
         System.out.println("userid: " + userid);
         System.out.println("path: "+path);
         String imgPath = FileUpload.upload(uploadFile, path);
+        System.out.println("imgPath="+imgPath);
         Userinfo userinfo = new Userinfo();
         userinfo.setUserid(userid);
         userinfo.setFaceimg(imgPath);

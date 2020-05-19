@@ -8,6 +8,30 @@ $(function () {
     takeorder_backup = $("#takeorder_backup");
     loginOut=$("#loginOut");
     var userid = location.search.split("=")[1];
+
+    $.ajax({
+        type:"POST",
+        url:"/selectUserInfo/"+userid,
+        dataType:"json",
+        success:function(data){
+            data=eval(data);
+            if(data.locked==1){
+                alert("您的账号已被强制下线");
+                location.href="/loginout/"+data.userid+"/"+data.roleinfo.roleid;
+            }else{
+                $("#username").html(data.useraccount);
+                $("#userface").attr("src",data.faceimg);
+                $("#userface1").attr("src",data.faceimg);
+                loginOut.attr("href","/loginout/"+data.userid+"/"+data.roleinfo.roleid);
+                $("#updatepass").attr("href","/pages/users/modifyuser.html?userid="+data.userid+"="+userid);
+            }
+        },
+        error:function(){
+            alert("系统错误!");
+        },
+    });
+
+
     /**
      * 查询桌号
      */
@@ -32,22 +56,7 @@ $(function () {
         }
     });
     
-    $.ajax({
-        type:"POST",
-        url:"/selectUserInfo/"+userid,
-        dataType:"json",
-        success:function(data){
-            data=eval(data);
-            $("#username").html(data.useraccount);
-            $("#userface").attr("src",data.faceimg);
-            $("#userface1").attr("src",data.faceimg);
-            loginOut.attr("href","/loginout/"+data.userid+"/"+data.roleinfo.roleid);
-            $("#updatepass").attr("href","/pages/users/modifyuser.html?userid="+data.userid+"="+userid);
-        },
-        error:function(){
-            alert("系统错误!");
-        },
-    });
+
 
 });
 

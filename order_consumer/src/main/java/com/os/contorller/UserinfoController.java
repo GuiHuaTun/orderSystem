@@ -123,7 +123,7 @@ public class UserinfoController {
     public String updateUserInfo(Userinfo userinfo) {
         System.out.println(userinfo);
         int flag = restTemplate.postForObject(url + "uptUser", userinfo, Integer.class);
-        return "true";
+        return flag>0?"true":"false";
     }
 
     /**

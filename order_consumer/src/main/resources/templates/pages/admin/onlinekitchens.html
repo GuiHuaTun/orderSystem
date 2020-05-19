@@ -95,7 +95,7 @@
 		var userAccount = document.getElementById("userAccount");
 		var userRole = document.getElementById("role");
 		var faceimg = document.getElementById("faceimg");
-		faceimg.src = "img/faces/" + img;
+		faceimg.src = img;
 		userAccount.innerHTML = account;
 		userRole.innerHTML = role;
 		$("#myModal").modal("show");
@@ -202,7 +202,7 @@
 					
 					<div class="panel-body">
 						<div style="text-align: right;">
-							当前在线人数:<span id="sessionNum">0</span>人,其中后厨人员<span id="kitchenNum">0</span>人
+							当前在线人数:<span id="sessionNum">0</span>,其中后厨人员<span id="kitchenNum">0</span>人
 						</div>
 						<div class="table-responsive">
 							<table class="table table-striped">

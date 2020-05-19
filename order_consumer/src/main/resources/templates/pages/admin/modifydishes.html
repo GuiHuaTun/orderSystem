@@ -193,12 +193,13 @@
 										<label for="lastname" class="col-sm-2 control-label"></label>
 										<div class="col-sm-10">
 											<#if dishesinfo.recommend==1>
-											<input type="checkbox" checked="checked" name="recommend" id="recommend"
+											<input type="checkbox" checked="checked" id="recommend"
 												value="1" />
 											<#else>
-											<input type="checkbox" name="recommend" id="recommend"
+											<input type="checkbox"  id="recommend"
 												   value="0" />
 											</#if>
+										<input type="hidden" name="recommend"/>
 											<span style="font-size: 16px;font-weight: bold;">推荐菜品</span>
 										</div>
 										<div style="color: red;float: right;" id="priceerror"></div>
@@ -208,7 +209,6 @@
 									<input type="hidden" value="${dishesinfo.dishesid }" id="dishesId"
 										name="dishesid" /> <input type="hidden" value="${dishesinfo.dishesimg }"
 										id="dishesImg" name="dishesimg" />
-
 									<div class="form-group">
 										<div class="col-sm-offset-2 col-sm-10">
 											<input type="button" class="btn btn-danger" id="addbtu" value="添加菜品" />

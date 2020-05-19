@@ -114,6 +114,7 @@ $(function () {
             contentType: false,// 告诉jQuery不要去设置Content-Type请求头
             success: function (data) {
                 faceimgname.val(data);
+                alert("头像已修改!");
             },
             error: function () {
                 alert("修改头像失败!");
