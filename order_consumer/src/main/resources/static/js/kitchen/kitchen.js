@@ -21,7 +21,7 @@ $(function () {
             kitchenname.html(data.useraccount);
             kitchenImgFace.attr("src", data.faceimg);
             kitchenImgFace1.attr("src", data.faceimg);
-            loginOut.attr("href", "/loginout/" + data.userid+"/"+1);
+            loginOut.attr("href", "/loginout/" + data.userid+"/"+data.roleinfo.roleid);
             modifyuser.attr("href", "/pages/users/modifyuser.html?userid=" + data.userid + "=" + kichenid);
         },
         error: function () {

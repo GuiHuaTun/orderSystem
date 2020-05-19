@@ -15,21 +15,40 @@
     </resultMap>
     <sql id="Base_Column_List">
     orderid, orderbegindate, orderenddate, waiterid, orderstate, tableid
-  </sql>
+    </sql>
+
+    <select id="selectOrderByTime">
+    SELECT o.*,u.*,t.* FROM WHERE orderinfo o,userinfo u,`tables` t where o.waiterid=u.userid and  o.tableid=t.tableid
+    <if test="orderbegindate!=null">
+      and  orderbegindate &gt;= #{orderbegindate}
+    </if>
+    <if test="orderenddate!=null">
+      and  orderenddate &lt;= #{orderenddate}
+    </if>
+    </select>
+
     <select id="selectTablesByTableId" resultMap="OrderinfoResultMap">
     SELECT o.*,u.*,t.* FROM orderinfo o,userinfo u,`tables` t where o.waiterid=u.userid and  o.tableid=t.tableid and o.tableid=#{tableid} order by o.orderid desc limit 1
     </select>
+
+
     <select id="selectAll" resultMap="OrderinfoResultMap">
     SELECT o.*,u.*,t.* FROM orderinfo o,userinfo u,`tables` t where o.waiterid=u.userid and  o.tableid=t.tableid
-  </select>
+    </select>
+
+
     <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="OrderinfoResultMap">
     select 
     o.*,u.*,t.* FROM orderinfo o,userinfo u,`tables` t where o.waiterid=u.userid and  o.tableid=t.tableid and orderid = #{orderid,jdbcType=INTEGER}
-  </select>
+    </select>
+
+
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from orderinfo
     where orderid = #{orderid,jdbcType=INTEGER}
-  </delete>
+    </delete>
+
+
     <insert id="insertSelective" parameterType="com.os.entity.Orderinfo">
         insert into orderinfo
         <trim prefix="(" suffix=")" suffixOverrides=",">
@@ -73,6 +92,7 @@
             </if>
         </trim>
     </insert>
+
     <update id="updateByPrimaryKeySelective" parameterType="com.os.entity.Orderinfo">
         update orderinfo
         <set>

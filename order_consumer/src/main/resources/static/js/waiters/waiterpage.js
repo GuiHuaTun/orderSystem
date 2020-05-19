@@ -42,7 +42,7 @@ $(function () {
             $("#username").html(data.useraccount);
             $("#userface").attr("src",data.faceimg);
             $("#userface1").attr("src",data.faceimg);
-            loginOut.attr("href","/loginout/"+data.userid+"/"+3);
+            loginOut.attr("href","/loginout/"+data.userid+"/"+data.roleinfo.roleid);
             $("#updatepass").attr("href","/pages/users/modifyuser.html?userid="+data.userid+"="+userid);
         },
         error:function(){

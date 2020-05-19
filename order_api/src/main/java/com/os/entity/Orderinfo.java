@@ -24,6 +24,11 @@ public class Orderinfo implements Serializable {
 
     private Tables tables;
 
+    public Orderinfo(String orderbegindate, String orderenddate) {
+        this.orderbegindate = orderbegindate;
+        this.orderenddate = orderenddate;
+    }
+
     public Orderinfo(String orderbegindate, Userinfo userinfo, Integer orderstate, Tables tables) {
         this.orderbegindate = orderbegindate;
         this.userinfo = userinfo;

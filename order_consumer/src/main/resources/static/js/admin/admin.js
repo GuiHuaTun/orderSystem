@@ -19,7 +19,7 @@ $(function () {
             adminName.html(data.useraccount);
             adminFace.attr("src", data.faceimg);
             adminFace1.attr("src", data.faceimg);
-            loginOut.attr("href", "/loginout/" + data.userid + "/" + 3 + "/" + 2);
+            loginOut.attr("href", "/loginout/" + data.userid + "/" + data.roleinfo.roleid);
         },
         error: function () {
             alert("系统错误!");

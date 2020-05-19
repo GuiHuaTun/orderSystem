@@ -39,7 +39,7 @@ $(function () {
             alert("餐车中没有菜品，请添加后再提交!");
             $("#modal").removeAttr("data-toggle");
         } else {
-            $("#modal").attr("data-toggle","modal");
+            $("#modal").attr("data-toggle", "modal");
             var price = null;
             var nums = null;
             var totalNum = null;
@@ -143,35 +143,35 @@ function page(pIndex) {
             for (var i = 0; i < data[0].length; i++) {
                 var dishes = data[0][i];
                 str += "<div class=\"col-xs-6 col-sm-3 placeholder\">\n" +
-                    "\t\t\t\t\t\t\t\t<a href=\"#\"> <img class=\"img-thumbnail\"\n" +
-                    "\t\t\t\t\t\t\t\t\tstyle=\"border-radius:20px\" id='dishesimg' \n" +
-                    "\t\t\t\t\t\t\t\t\tsrc=\"/img/dishes/1.jpg\"></a>\n" +
-                    "\t\t\t\t\t\t\t\t<h4 id='dishesname'>" + dishes.dishesname + "</h4>\n" +
-                    "\t\t\t\t\t\t\t\t<span class=\"text-muted\" id='dishesprice'>￥" + dishes.dishesprice + "</span><input type='hidden' id=\"dishesid\" value=" + dishes.dishesid + " />\n" +
-                    "\t\t\t\t\t\t\t\t<div class=\"form-group\">\n" +
-                    "\t\t\t\t\t\t\t\t\t<form>\n" +
-                    "\t\t\t\t\t\t\t\t\t\t<div style=\"width:120px;margin: 0px auto\">\n" +
-                    "\t\t\t\t\t\t\t\t\t\t\t<div class=\"input-group\">\n" +
-                    "\t\t\t\t\t\t\t\t\t\t\t\t<span class=\"input-group-btn\">\n" +
-                    "\t\t\t\t\t\t\t\t\t\t\t\t\t<button class=\"btn btn-default\" type=\"button\"\n" +
-                    "\t\t\t\t\t\t\t\t\t\t\t\t\t\tonclick=\"operation($(this),'subtract')\">-</button>\n" +
-                    "\t\t\t\t\t\t\t\t\t\t\t\t</span> <input type=\"text\" class=\"form-control\" value=\"1\"\n" +
-                    "\t\t\t\t\t\t\t\t\t\t\t\t\tdisabled=\"disabled\" name=\"num\"\n" +
-                    "\t\t\t\t\t\t\t\t\t\t\t\t\tstyle=\"text-align: center;padding: 0px;cursor: text;\"><input\n" +
-                    "\t\t\t\t\t\t\t\t\t\t\t\t\ttype=\"hidden\" name=\"dishes\" value=\"6\" /> <span\n" +
-                    "\t\t\t\t\t\t\t\t\t\t\t\t\tclass=\"input-group-btn\">\n" +
-                    "\t\t\t\t\t\t\t\t\t\t\t\t\t<button class=\"btn btn-default\" type=\"button\"\n" +
-                    "\t\t\t\t\t\t\t\t\t\t\t\t\t\tonclick=\"operation($(this),'add')\">+</button>\n" +
-                    "\t\t\t\t\t\t\t\t\t\t\t\t</span>\n" +
-                    "\t\t\t\t\t\t\t\t\t\t\t</div>\n" +
-                    "\t\t\t\t\t\t\t\t\t\t</div>\n" +
-                    "\t\t\t\t\t\t\t\t\t\t<p>\n" +
-                    "\t\t\t\t\t\t\t\t\t\t\t<input type=\"button\" class=\"btn btn-danger\"\n" +
-                    "\t\t\t\t\t\t\t\t\t\t\t\tstyle=\"width:120px;margin-top: 5px\" value=\"加入点餐车\" onclick='addOrder($(this))'></input>\n" +
-                    "\t\t\t\t\t\t\t\t\t\t</p>\n" +
-                    "\t\t\t\t\t\t\t\t\t</form>\n" +
-                    "\t\t\t\t\t\t\t\t</div>\n" +
-                    "\t\t\t\t\t\t\t</div>";
+                    "<a href=\"#\"> <img class=\"img-thumbnail\"\n" +
+                    "style=\"border-radius:20px\" id='dishesimg' \n" +
+                    "src=\"/img/dishes/1.jpg\"></a>\n" +
+                    "<h4 id='dishesname'>" + dishes.dishesname + "</h4>\n" +
+                    "<span class=\"text-muted\" id='dishesprice'>￥" + dishes.dishesprice + "</span><input type='hidden' id=\"dishesid\" value=" + dishes.dishesid + " />\n" +
+                    "<div class=\"form-group\">\n" +
+                    "<form>\n" +
+                    "<div style=\"width:120px;margin: 0px auto\">\n" +
+                    "<div class=\"input-group\">\n" +
+                    "<span class=\"input-group-btn\">\n" +
+                    "<button class=\"btn btn-default\" type=\"button\"\n" +
+                    "onclick=\"operation($(this),'subtract')\">-</button>\n" +
+                    "</span> <input type=\"text\" class=\"form-control\" value=\"1\"\n" +
+                    "disabled=\"disabled\" name=\"num\"\n" +
+                    "style=\"text-align: center;padding: 0px;cursor: text;\"><input\n" +
+                    "type=\"hidden\" name=\"dishes\" value=\"6\" /> <span\n" +
+                    "class=\"input-group-btn\">\n" +
+                    "<button class=\"btn btn-default\" type=\"button\"\n" +
+                    "onclick=\"operation($(this),'add')\">+</button>\n" +
+                    "</span>\n" +
+                    "</div>\n" +
+                    "</div>\n" +
+                    "<p>\n" +
+                    "<input type=\"button\" class=\"btn btn-danger\"\n" +
+                    "style=\"width:120px;margin-top: 5px\" value=\"加入点餐车\" onclick='addOrder($(this))'></input>\n" +
+                    "</p>\n" +
+                    "</form>\n" +
+                    "</div>\n" +
+                    "</div>";
             }
             $("#dishesbord").append(str);
         }
@@ -215,27 +215,27 @@ function addOrder(obj) {
     }
     if (!flag) {
         var li = "<li class=\"shoppcarli\">\n" +
-            "\t\t\t\t\t\t\t\t\t<div id=\"pictur\">\n" +
-            "\t\t\t\t\t\t\t\t\t\t<img src=" + dishesimg + " >\n" +
-            "\t\t\t\t\t\t\t\t\t</div>\n" +
-            "\t\t\t\t\t\t\t\t\t<div id=\"infors\">\n" +
-            "\t\t\t\t\t\t\t\t\t\t<div id=\"namers\">\n" +
-            "\t\t\t\t\t\t\t\t\t\t\t" + dishesname + "\n" +
-            "\t\t\t\t\t\t\t\t\t\t</div>\n" +
+            "<div id=\"pictur\">\n" +
+            "<img src=" + dishesimg + " >\n" +
+            "</div>\n" +
+            "<div id=\"infors\">\n" +
+            "<div id=\"namers\">\n" +
+            "" + dishesname + "\n" +
+            "</div>\n" +
             "\n" +
-            "\t\t\t\t\t\t\t\t\t\t<div id=\"prices\">\n" +
-            "\t\t\t\t\t\t\t\t\t\t\t￥" + price + "\n" +
-            "\t\t\t\t\t\t\t\t\t\t</div>\n" +
+            "<div id=\"prices\">\n" +
+            "￥" + price + "\n" +
+            "</div>\n" +
             "\n" +
-            "\t\t\t\t\t\t\t\t\t</div>\n" +
-            "\t\t\t\t\t\t\t\t\t<div id=\"numbers\">\n" +
-            "\t\t\t\t\t\t\t\t\t\t<input class=\"btner btn_minus\" type=\"button\"  onclick=\"shoppcarOperation($(this),'subtract')\" value=\"\" />\n" +
-            "\t\t\t\t\t\t\t\t\t\t<input  class=\"inputNum\" type=\"text\"  id=\"nums\" disabled='disabled' value=" + num + " />\n" +
-            "\t\t\t\t\t\t\t\t\t\t<input type=\"button\" class=\"btner btn_plus\"   onclick=\"shoppcarOperation($(this),'add')\" value=\"\" />" +
+            "</div>\n" +
+            "<div id=\"numbers\">\n" +
+            "<input class=\"btner btn_minus\" type=\"button\"  onclick=\"shoppcarOperation($(this),'subtract')\" value=\"\" />\n" +
+            "<input  class=\"inputNum\" type=\"text\"  id=\"nums\" disabled='disabled' value=" + num + " />\n" +
+            "<input type=\"button\" class=\"btner btn_plus\"   onclick=\"shoppcarOperation($(this),'add')\" value=\"\" />" +
             "<input type=\"hidden\" class='dishes_id' value=" + dishesid + " />" +
             "<input type=\"hidden\" class='price_one' value=" + price_one + " />\n" +
-            "\t\t\t\t\t\t\t\t\t</div>\n" +
-            "\t\t\t\t\t\t\t\t</li>";
+            "</div>\n" +
+            "</li>";
         $(".shoppcar").append(li);
 
     }

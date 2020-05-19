@@ -2,13 +2,13 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>testSendMessage</title>
+    <title>test1</title>
     <script src="/bootstrap/js/jquery-1.11.1.js"></script>
     <script type="text/javascript">
         $(function () {
             $.ajax({
                 type:"POST",
-                url:"/testLogin/chef",
+                url:"/webSocketLogin/chef",
                 dataType:"json",
                 success:function (data) {
                     //alert("连接成功");
@@ -16,6 +16,31 @@
                 },
                 error:function () {
                     alert("连接失败！");
+                }
+            });
+
+            $("#myMessage").keydown(function (event) {
+                if(event.keyCode==13){
+                    if($(this).val().trim()==""){
+                        $(this).val("");
+                    }else{
+                        toWaiter();
+                    }
+                }
+            });
+
+            $("#myMessage").keyup(function (event) {
+                if(event.keyCode==13){
+                    $(this).val("");
+                }
+            });
+
+            $("#send").click(function () {
+                if($("#myMessage").val().trim()==""){
+                    $("#myMessage").val("");
+                }else{
+                    toWaiter();
+                    $("#myMessage").val("");
                 }
             });
         });
@@ -42,7 +67,7 @@
                 {
                     var received_msg = evt.data;
                     //alert("数据已接收..."+received_msg);
-                    var otherChat="<div align='left' style='width: 100%;height: 40px;'>点餐员："+received_msg+"</div>";
+                    var otherChat="<div align='left' style='width: 100%;height: 40px;white-space: normal;'>点餐员："+received_msg+"</div>";
                     $("#chatBox").append(otherChat);
                 };
 
@@ -68,7 +93,7 @@
 
         function toWaiter() {
             var myMessage=$("#myMessage").val();
-            var myChat="<div align='right' style='width: 100%;height: 40px;'>我："+myMessage+"</div>";
+            var myChat="<div align='right' style='width: 100%;height: 40px;word-break: break-all;'>"+myMessage+":我</div>";
             $("#myMessage").val("");
             $("#chatBox").append(myChat);
             $.ajax({
@@ -88,12 +113,12 @@
 </head>
 <body>
     <a href="javascript:toWaiter()">上菜</a>
-    <div id="chatBox" style="width: 200px;border: 1px solid black;">
+    <div id="chatBox" style="width: 600px;border: 1px solid black;word-break: break-all;">
 
     </div>
     <div>
         <textarea id="myMessage"></textarea>
     </div>
-    <div onclick="toWaiter()">发送</div>
+    <button id="send">发送</button>
 </body>
 </html>

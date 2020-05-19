@@ -19,7 +19,13 @@ public class SocketController {
     @Autowired
     MyHandler handler;
 
-    @RequestMapping("/testLogin/{username}")
+    /**
+     * 在WebSocket中注册用户
+     * @param session
+     * @param username：用户名
+     * @return
+     */
+    @RequestMapping("/webSocketLogin/{username}")
     @ResponseBody
     public String testLogin(HttpSession session, @PathVariable("username") String username){
         System.out.println("登录接口，username= "+username);
@@ -28,6 +34,10 @@ public class SocketController {
         return "true";
     }
 
+    /**
+     * 广播
+     * @return
+     */
     @RequestMapping("/sendMessage")
     @ResponseBody
     public String sendMessage(){
@@ -37,12 +47,18 @@ public class SocketController {
         return "广播";
     }
 
+    /**
+     * 给指定用户发送消息
+     * @param username：用户名
+     * @param contents：消息内容
+     * @return
+     */
     @RequestMapping("/sendMessageToUser/{username}/{contents}")
     @ResponseBody
     public String sendMessageToUser(@PathVariable("username") String username,@PathVariable("contents") String contents){
         System.out.println("指定用户发送");
         boolean flag=handler.sendMessageToUser(username,new TextMessage(contents));
         System.out.println("flag: "+flag);
-        return contents;
+        return "true";
     }
 }
