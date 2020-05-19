@@ -77,8 +77,7 @@ function serving(odid,tableid,dishesname) {
     });
 }
 
-function WebSocketTest()
-{
+function WebSocketTest() {
     if ("WebSocket" in window)
     {
         //alert("您的浏览器支持 WebSocket!");
