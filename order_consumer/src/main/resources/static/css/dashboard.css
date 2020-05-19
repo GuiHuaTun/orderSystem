@@ -10,6 +10,9 @@
  * Global add-ons
  */
 
+.img-thumbnail{
+  width: 200px;
+}
 .textcetern{
   text-align: center;
 }
