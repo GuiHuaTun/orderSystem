@@ -39,7 +39,6 @@ public class OrderDishesController {
         if(orderdishesList!=null && orderdishesList.size()>0){
             System.out.println("maxPage: "+list.get(2));
             System.out.println("orderdishesList.size: "+orderdishesList.size());
-            System.out.println(orderdishesList);
             list.add(pageIndex);
             return list;
         }
@@ -55,7 +54,6 @@ public class OrderDishesController {
         List<Orderdishes> orderbyList= (List<Orderdishes>) list.get(0);
         if(orderbyList!=null && orderbyList.size()>0){
             System.out.println(orderbyList.size());
-            System.out.println(orderbyList);
             return list;
         }
         return null;

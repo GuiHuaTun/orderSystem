@@ -24,5 +24,5 @@ public interface UserinfoMapper {
 
     int updateByPrimaryKeySelective(Userinfo record);
 
-
+    List<Userinfo> selectUserByRoleId(@Param("roleid")int roleid);
 }

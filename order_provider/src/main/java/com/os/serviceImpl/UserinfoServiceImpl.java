@@ -53,4 +53,9 @@ public class UserinfoServiceImpl implements UserinfoService {
         return userinfoMapper.updateByPrimaryKeySelective(record);
     }
 
+    @Override
+    public List<Userinfo> selectUserByRoleId(int roleid) {
+        return userinfoMapper.selectUserByRoleId(roleid);
+    }
+
 }
