@@ -9,6 +9,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.*;
@@ -203,5 +204,16 @@ public class UserinfoController {
         System.out.println(userinfo);
         int num = restTemplate.postForObject(url + "insertUser", userinfo, Integer.class);
         return num > 0 ? "true" : "false";
+    }
+
+    @RequestMapping("selectUserByID/{userid}")
+    public String selectUserByID(@PathVariable("userid") int userid, Model model){
+        System.out.println("cusm进入了");
+        Userinfo userinfo=restTemplate.getForObject(url+"selectUserByID/"+userid,Userinfo.class);
+        System.out.println("-------------------userinfo="+userinfo);
+        if(userinfo!=null){
+            model.addAttribute("userinfo",userinfo);
+        }
+        return "pages/admin/modifyuser";
     }
 }
