@@ -93,7 +93,7 @@ function page(op) {
             }
             break;
         case "next":
-            if ($pageIndex == $totalPage) {
+            if ($pageIndex >= $totalPage ) {
                 index = $totalPage;
             } else {
                 index = $pageIndex + 1;
