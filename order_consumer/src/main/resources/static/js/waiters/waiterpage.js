@@ -8,7 +8,6 @@ $(function () {
     takeorder_backup = $("#takeorder_backup");
     loginOut=$("#loginOut");
     var userid = location.search.split("=")[1];
-
     /**
      * 查询桌号
      */

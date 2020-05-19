@@ -49,4 +49,9 @@ public class OrderdishesServiceImpl implements OrderdishesService {
     public List<Orderdishes> selectById(Integer id) {
         return orderdishesMapper.selectById(id);
     }
+
+    @Override
+    public List<Orderdishes> selectByStatus(Integer status) {
+        return orderdishesMapper.selectByStatus(status);
+    }
 }

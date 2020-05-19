@@ -1,8 +1,45 @@
-var pageIndex = 1;
-var id = 1;
 $(function () {
+    page2();
+
     page("first");
 })
+
+
+function page2() {
+    $.ajax({
+        type: "POST",
+        url: "/selectDishesByRec?pageIndex=1",
+        datatype: "json",
+        success: function (data) {
+            data = eval(data);
+            $("#byrecommend").html("");
+            var str = "";
+            var str1 = "<nav>\n" +
+                "\t\t\t\t\t\t\t<ul class=\"pager\" style=\"margin-right: 20px\">\n" +
+                "\n" +
+                "\t\t\t\t\t\t\t\t<li class=\"next\"><a href=\"todishesadmin.order\">更多特色菜品 <span\n" +
+                "\t\t\t\t\t\t\t\t\t\taria-hidden=\"true\">&rarr;</span></a></li>\n" +
+                "\t\t\t\t\t\t\t</ul>\n" +
+                "\t\t\t\t\t\t\t</nav>";
+            for (var i = 0; i < 4; i++) {
+                var dishes = data[0][i];
+                str += "<div id=\"byrecommend\" class=\"row placeholders\">\n" +
+                    "\n" +
+                    "\t\t\t\t\t\t\t<div class=\"col-xs-6 col-sm-3 placeholder\">\n" +
+                    "\t\t\t\t\t\t\t\t<a href=\"#\"> <img class=\"img-thumbnail\"\n" +
+                    "\t\t\t\t\t\t\t\t\tstyle=\"border-radius:20px\" alt=\"Generic placeholder thumbnail\"\n" +
+                    "\t\t\t\t\t\t\t\t\tsrc=\"/img/dishes/1.jpg\"></a>\n" +
+                    "\t\t\t\t\t\t\t\t<h4>" + dishes.dishesname + "</h4>\n" +
+                    "\t\t\t\t\t\t\t\t<span class=\"text-muted\">" + dishes.dishesdiscript + "</span>\n" +
+                    "\t\t\t\t\t\t</div>";
+            }
+            $("#byrecommend").append(str);
+            $("#byrecommend").append(str1);
+        }
+
+    })
+}
+
 
 function modal(tableid, orderbegintime, orderendtime, sumprice, useraccount, pIndex2, orderid, totalprice) {
     var tableId = document.getElementById("tableId");
@@ -29,46 +66,23 @@ function modal(tableid, orderbegintime, orderendtime, sumprice, useraccount, pIn
             for (var i = 0; i < data[0].length; i++) {
                 var dishes = data[0][i];
                 str += "<tr>\n" +
-                    "<th>" + dishes.dishesinfo.dishesname + "</th>\n" +
-                    "<th>" + dishes.dishesinfo.dishesprice + ".00</th>\n" +
-                    "<th>" + dishes.num + "</th>\n" +
-                    "</tr>";
+                    "\t\t\t\t\t\t\t\t\t\t<th>" + dishes.dishesinfo.dishesname + "</th>\n" +
+                    "\t\t\t\t\t\t\t\t\t\t<th>" + dishes.dishesinfo.dishesprice + ".00</th>\n" +
+                    "\t\t\t\t\t\t\t\t\t\t<th>" + dishes.num + "</th>\n" +
+                    "\t\t\t\t\t\t\t\t\t</tr>";
+
             }
             $("#detailTable").append(str);
             $('#myModal').modal('show');
         }
     })
+
 }
 
-//根据时间查经营数据
-function search() {
-    var bt = $("#bt").val();
-    var et = $("#et").val();
-    if (bt == null || bt == "") {
-        bt = null;
-    }
-    if (et == null || et == "") {
-        et = null;
-    }
-    $("#orderTable").html("");
-    $.ajax({
-        type: "POST",
-        url: "/selectOrdeyBytime/" + bt + "/" + et + "/" + 1 + "/" + 2,
-        dataType: "json",
-        success: function (data) {
-            changeByCondition(bt, et, 1);
-        },
-        error: function () {
-            alert("系统错误!");
-        },
-    });
-}
 
 function page(op) {
     var $totalPage = parseInt($("span[name=totalPage]").html());
     var $pageIndex = parseInt($("span[name=pageIndex]").html());
-    var bt = $("#bt").val();
-    var et = $("#et").val();
     var index;
     switch (op) {
         case "prev":
@@ -92,20 +106,15 @@ function page(op) {
             index = $totalPage;
             break;
     }
-    if (bt == null || bt == "") {
-        bt = null;
-    }
-    if (et == null || et == "") {
-        et = null;
-    }
-    changeByCondition(bt, et, index);
+    changeByCondition(null, null, index);
 }
+
 
 function changeByCondition(bt, et, pageIndex) {
     $("#orderTable").html("");
     $.ajax({
         type: "POST",
-        url: "/selectOrdeyBytime/" + bt + "/" + et + "/" + pageIndex + "/" + 2,
+        url: "/selectOrdeyBytime/" + bt + "/" + et + "/" + pageIndex + "/" + 0,
         dataType: "json",
         success: function (data) {
             data = eval(data);
@@ -120,10 +129,13 @@ function changeByCondition(bt, et, pageIndex) {
                         totalPrice += orderdishes[j].num * parseInt(orderdishes[j].dishesinfo.dishesprice);
                     }
                 }
+                if(orderinfo[i].orderenddate==null || orderenddateorderinfo[i].orderenddate==""){
+                    orderinfo[i].orderenddate="未结账";
+                }
                 tr += "<tr>\n" +
                     "\t\t\t\t\t\t\t\t\t\t<td>" + orderinfo[i].tables.tableid + "</td>" +
+                    "\t\t\t\t\t\t\t\t\t\t<td>" + orderinfo[i].orderbegindate + "</td>\n" +
                     "\t\t\t\t\t\t\t\t\t\t<td>" + orderinfo[i].orderenddate + "</td>\n" +
-                    "\t\t\t\t\t\t\t\t\t\t<td>" + orderinfo[i].userinfo.useraccount + "</td>\n" +
                     "\t\t\t\t\t\t\t\t\t\t<td>" + totalPrice + ".0</td>\n" +
                     "\t\t\t\t\t\t\t\t\t\t<td><i style=\"cursor: pointer; font-size: 14px;\"\n" +
                     "\t\t\t\t\t\t\t\t\t\t\tonmouseover=\"this.style.color='orange'\"\n" +

@@ -22,4 +22,6 @@ public interface OrderdishesService {
     int updateByPrimaryKeySelective(Orderdishes record);
 
     List<Orderdishes> selectById(Integer id);
+
+    List<Orderdishes> selectByStatus(Integer status);
 }

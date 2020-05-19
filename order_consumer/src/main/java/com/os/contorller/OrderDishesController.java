@@ -5,11 +5,15 @@ import com.os.entity.Roleinfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.client.RestTemplate;
 
+import java.util.Iterator;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * 详单控制器
@@ -33,10 +37,8 @@ public class OrderDishesController {
         List list = restTemplate.getForObject(url + "orderDishesFindAll/" + pageIndex + "/" + pageSize, List.class);
         List<Orderdishes> orderdishesList= (List<Orderdishes>) list.get(0);
         if(orderdishesList!=null && orderdishesList.size()>0){
-            int maxPage= (int) list.get(1);
-            System.out.println("-----------------consumer-- maxPage: "+maxPage);
-            System.out.println(orderdishesList.size());
-            System.out.println(orderdishesList);
+            System.out.println("maxPage: "+list.get(2));
+            System.out.println("orderdishesList.size: "+orderdishesList.size());
             list.add(pageIndex);
             return list;
         }
@@ -52,12 +54,27 @@ public class OrderDishesController {
         List<Orderdishes> orderbyList= (List<Orderdishes>) list.get(0);
         if(orderbyList!=null && orderbyList.size()>0){
             System.out.println(orderbyList.size());
-            System.out.println(orderbyList);
             return list;
         }
         return null;
 
     }
 
-
+    @RequestMapping("/selectByStatus")
+    @ResponseBody
+    public List<Orderdishes> selectByStatus(Integer status,Integer pageIndex){
+        System.out.println("-----------------consumer-- selectByStatus");
+        System.out.println("status: "+status);
+        System.out.println("pageIndex: "+pageIndex);
+        if(pageIndex==0 || pageIndex<1){
+            pageIndex=1;
+        }
+        Integer pageSize=8;
+        List<Orderdishes> orderdishesList=restTemplate.getForObject(url+"selectByStatus/"+status+"/"+pageIndex+"/"+pageSize,List.class);
+        System.out.println("orderdishesList: "+orderdishesList);
+        if(orderdishesList!=null){
+            return orderdishesList;
+        }
+        return null;
+    }
 }
