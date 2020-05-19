@@ -30,7 +30,7 @@ function page(pIndex) {
             var tr="";
             for(var i=0;i<orderdishes.length;i++){
                 var orderdish=orderdishes[i];
-                tr+="<tr><td>"+orderdish.orderinfo.tables.tableid+"</td><td>"+orderdish.dishesinfo.dishesname+"</td><td>"+orderdish.num+"</td><td><a href='javascript:serving("+orderdish.odid+","+orderdish.orderinfo.tables.tableid+","+orderdish.dishesinfo.dishesname+")'>上菜</a></td></tr>";
+                tr+="<tr><td>"+orderdish.orderinfo.tables.tableid+"</td><td>"+orderdish.dishesinfo.dishesname+"</td><td>"+orderdish.num+"</td><td><a href='javascript:serving("+orderdish.odid+","+orderdish.orderinfo.tables.tableid+",\""+orderdish.dishesinfo.dishesname+"\")'>上菜</a></td></tr>";
             }
             $("#orderTable").append(tr);
         },
@@ -57,24 +57,26 @@ function last() {
 
 //上菜
 function serving(odid,tableid,dishesname) {
-    $.ajax({
-        type:"POST",
-        url:"/updateStatus",
-        data:"odid="+odid,
-        dataType:"json",
-        success:function (data) {
-            if(data>0){
-                page(1);
-                var message=tableid+"号桌菜品："+dishesname+"已经完成！";
-                toWaiter(message);
-            }else{
-                alert("上菜失败！");
+    if(confirm("确定要上菜吗？")){
+        $.ajax({
+            type:"POST",
+            url:"/updateStatus",
+            data:"odid="+odid,
+            dataType:"json",
+            success:function (data) {
+                if(data>0){
+                    page(1);
+                    var message=tableid+"号桌菜品："+dishesname+"已经完成！";
+                    toWaiter(message);
+                }else{
+                    alert("上菜失败！");
+                }
+            },
+            error:function () {
+                alert("连接失败！");
             }
-        },
-        error:function () {
-            alert("连接失败！");
-        }
-    });
+        });
+    }
 }
 
 function WebSocketTest() {
@@ -97,7 +99,8 @@ function WebSocketTest() {
         ws.onmessage = function (evt)
         {
             var received_msg = evt.data;
-            alert("数据已接收..."+received_msg);
+            //alert("数据已接收..."+received_msg);
+            $("#message").html(received_msg);
         };
 
         //连接出错时

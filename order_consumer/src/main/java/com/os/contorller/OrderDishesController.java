@@ -92,7 +92,7 @@ public class OrderDishesController {
     public int updateStatus(int odid){
         System.out.println("-----------------consumer-- updateStatus");
         System.out.println("odid: "+odid);
-        Integer status=0;
+        Integer status=1;
         int num=restTemplate.getForObject(url+"updateStatus/"+status+"/"+odid,Integer.class);
         if(num>0){
             return num;
