@@ -69,4 +69,19 @@ public class OrderDishesController {
     public int insertOrderDishes(@RequestBody Orderdishes orderdishes){
         return orderdishesService.insertSelective(orderdishes);
     }
+
+    @RequestMapping("/selectByStatus/{status}/{pageIndex}/{pageSize}")
+    public List<Orderdishes> selectByStatus(@PathVariable("status") int status,@PathVariable("pageIndex") int pageIndex,@PathVariable("pageSize") int pageSize){
+        System.out.println("-----------------provider-- selectByStatus");
+        System.out.println("status: "+status);
+        System.out.println("pageIndex: "+pageIndex);
+        System.out.println("pageSize: "+pageSize);
+        PageHelper.startPage(pageIndex,pageSize);
+        List<Orderdishes> orderdishesList=orderdishesService.selectByStatus(status);
+        System.out.println("orderdishesList: "+orderdishesList);
+        if(orderdishesList!=null){
+            return orderdishesList;
+        }
+        return null;
+    }
 }
