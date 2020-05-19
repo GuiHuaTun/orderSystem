@@ -93,7 +93,7 @@ function page(op) {
             }
             break;
         case "next":
-            if ($pageIndex >= $totalPage ) {
+            if ($pageIndex == $totalPage) {
                 index = $totalPage;
             } else {
                 index = $pageIndex + 1;
@@ -129,7 +129,7 @@ function changeByCondition(bt, et, pageIndex) {
                         totalPrice += orderdishes[j].num * parseInt(orderdishes[j].dishesinfo.dishesprice);
                     }
                 }
-                if(orderinfo[i].orderenddate==null || orderenddateorderinfo[i].orderenddate==""){
+                if(orderinfo[i].orderenddate==null || orderinfo[i].orderenddate==""){
                     orderinfo[i].orderenddate="未结账";
                 }
                 tr += "<tr>\n" +

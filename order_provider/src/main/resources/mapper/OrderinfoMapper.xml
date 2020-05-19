@@ -103,14 +103,18 @@
             <if test="orderenddate != null">
                 orderenddate = #{orderenddate,jdbcType=VARCHAR},
             </if>
-            <if test="userinfo.userid != null">
-                waiterid = #{userinfo.userid,jdbcType=INTEGER},
+            <if test="userinfo!=null">
+                <if test="userinfo.userid != null">
+                    waiterid = #{userinfo.userid,jdbcType=INTEGER},
+                </if>
             </if>
             <if test="orderstate != null">
                 orderstate = #{orderstate,jdbcType=INTEGER},
             </if>
-            <if test="tables.tableid != null">
-                tableid = #{tables.tableid,jdbcType=INTEGER},
+            <if test="tables!=null">
+                <if test="tables.tableid != null">
+                    tableid = #{tables.tableid,jdbcType=INTEGER},
+                </if>
             </if>
         </set>
         where orderid = #{orderid,jdbcType=INTEGER}

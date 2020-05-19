@@ -54,7 +54,9 @@ public class UserinfoController {
         System.out.println(userinfo);
         if (userinfo == null) {
             data[0] = "false";
-        } else {
+        } else if(userinfo.getLocked()==0){
+            data[0] = "lock";
+        }else {
             switch (userinfo.getRoleinfo().getRoleid()) {
                 case 1://后厨
                     data[0] = "chef";
