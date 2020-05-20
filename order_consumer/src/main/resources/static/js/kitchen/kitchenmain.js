@@ -102,6 +102,7 @@ function WebSocketTest() {
             //alert("数据已接收..."+received_msg);
             info(received_msg);
             $("#message").html(received_msg);
+            page(1);
         };
 
         //连接出错时

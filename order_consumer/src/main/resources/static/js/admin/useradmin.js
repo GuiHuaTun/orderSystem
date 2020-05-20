@@ -61,7 +61,6 @@ function last() {
 }
 
 function delUser(uid) {
-    alert(uid);
     if (confirm("您真的要删除吗？")) {
         $.ajax({
             type: "GET",

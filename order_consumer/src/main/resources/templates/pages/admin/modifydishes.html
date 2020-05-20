@@ -45,7 +45,7 @@
 		path.value = responseTxt;
 	}
 	var formstate = 0;
-	function testState() {
+	/*function testState() {
 
 		var btu = document.getElementById("addbtu");
 		if ((formstate & 3) == 3) {
@@ -54,7 +54,7 @@
 			btu.disabled = "disabled";
 		}
 	}
-
+*/
 	function checkprice() {
 		var price = document.getElementById("dishesPrice");
 		var error = document.getElementById("priceerror");
@@ -69,7 +69,7 @@
 			error.innerHTML = "请输入正确的价格格式！";
 		}
 
-		testState();
+		/*testState();*/
 	}
 
 	function checkname() {
@@ -85,7 +85,7 @@
 			formstate = formstate | 1;
 			error.innerHTML = "";
 		}
-		testState();
+	/*	testState();*/
 	}
 	function userCallback(responseTxt, obj) {
 		var error = document.getElementById("usererror");
@@ -100,7 +100,7 @@
 			error.innerHTML = "用户名已经被占用！";
 
 		}
-		testState();
+		/*testState();*/
 	}
 </script>
 <script type="text/javascript" src="/js/dishes/modifydishes.js"></script>

@@ -143,7 +143,6 @@ function page(op) {
 }
 
 function changeByCondition(bt, et, pageIndex) {
-    $("#orderTable").html("");
     $.ajax({
         type: "POST",
         url: "/selectOrdeyBytime/" + bt + "/" + et + "/" + pageIndex + "/" + 1,
@@ -180,6 +179,7 @@ function changeByCondition(bt, et, pageIndex) {
                     "\t\t\t\t\t\t\t\t\t</tr>";
                 totalPrice = 0;
             }
+            $("#orderTable").html("");
             $("#orderTable").append(tr);
             $("span[name=pageIndex]").html(pageIndex);
         },
