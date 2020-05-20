@@ -23,7 +23,7 @@ function page2() {
                     "\t\t\t\t\t\t\t<div class=\"col-xs-6 col-sm-3 placeholder\">\n" +
                     "\t\t\t\t\t\t\t\t<a href=\"#\"> <img class=\"img-thumbnail\"\n" +
                     "\t\t\t\t\t\t\t\t\tstyle=\"border-radius:20px\" alt=\"Generic placeholder thumbnail\"\n" +
-                    "\t\t\t\t\t\t\t\t\tsrc=\"/img/dishes/1.jpg\"></a>\n" +
+                    "\t\t\t\t\t\t\t\t\tsrc="+dishes.dishesimg+"></a>\n" +
                     "\t\t\t\t\t\t\t\t<h4>" + dishes.dishesname + "</h4>\n" +
                     "\t\t\t\t\t\t\t\t<span class=\"text-muted\">" + dishes.dishesdiscript + "</span>\n" +
                     "\t\t\t\t\t\t</div>";
@@ -87,7 +87,7 @@ function page(op) {
             }
             break;
         case "next":
-            if ($pageIndex == $totalPage) {
+            if ($pageIndex >= $totalPage) {
                 index = $totalPage;
             } else {
                 index = $pageIndex + 1;

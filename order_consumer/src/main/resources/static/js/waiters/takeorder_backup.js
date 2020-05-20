@@ -160,9 +160,9 @@ function page(pIndex) {
             for (var i = 0; i < data[0].length; i++) {
                 var dishes = data[0][i];
                 str += "<div class=\"col-xs-6 col-sm-3 placeholder\">\n" +
-                    "<a href=\"#\"> <img class=\"img-thumbnail\"\n" +
+                    "<a> <img class=\"img-thumbnail\"\n" +
                     "style=\"border-radius:20px\" id='dishesimg' \n" +
-                    "src=\"/img/dishes/1.jpg\"></a>\n" +
+                    "src="+dishes.dishesimg+"></a>\n" +
                     "<h4 id='dishesname'>" + dishes.dishesname + "</h4>\n" +
                     "<span class=\"text-muted\" id='dishesprice'>￥" + dishes.dishesprice + "</span><input type='hidden' id=\"dishesid\" value=" + dishes.dishesid + " />\n" +
                     "<div class=\"form-group\">\n" +
