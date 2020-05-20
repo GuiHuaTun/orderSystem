@@ -17,7 +17,7 @@ $(function(){
         success: function (List) {
             var rolelist = eval(List[0]);
             var allRole="";
-            $(".dropdown").html("");
+            $(".dropdown").html("<li><input class='roleids' style='display: none' value='0'><a href='#' onclick='bianli($(this))' onchange='change()'>请选择</a></li>");
             for(var i=0;i<rolelist.length;i++){
                 var roles = rolelist[i];
                 allRole+="<li><input class='roleids' style='display: none' value="+roles.roleid+"><a href='#' onclick='bianli($(this))' onchange='change()'>"+roles.rolename+"</a></li>";
@@ -85,6 +85,8 @@ function modifyuser(id){
 }
 
 function page(pageIndex) {
+    this.pageIndex=pageIndex;
+
     var userName = $(".searchbyname").val();
     var userRole = $(".initis").val();
     if(userName=="" || userName==null){
@@ -111,6 +113,7 @@ function page(pageIndex) {
             }
             for(var i = 1;i<=totalpage;i++){
                 pageList += "<li><a href='#' onclick='page("+i+")' id='yema'>"+i+"</a></li>";
+
             }
             $("#orderTable").append(empty);
             $("#pageList").append(pageList);
