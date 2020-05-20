@@ -3,8 +3,10 @@ package com.os.controller;
 import com.github.pagehelper.PageHelper;
 import com.os.entity.Orderdishes;
 import com.os.entity.Orderinfo;
+import com.os.entity.Tables;
 import com.os.service.OrderdishesService;
 import com.os.service.OrderinfoService;
+import com.os.service.TableService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,6 +20,9 @@ public class OrderInfoController {
 
     @Autowired
     OrderdishesService orderdishesService;
+
+    @Autowired
+    TableService tableService;
 
     /**
      * 查找所有订单
@@ -98,6 +103,18 @@ public class OrderInfoController {
         System.out.println("------------------provider-- oderAccount");
         System.out.println("orderinfo: " + orderinfo);
         int num = orderinfoService.updateByPrimaryKeySelective(orderinfo);
+        orderinfo = orderinfoService.selectByPrimaryKey(orderinfo.getOrderid());
+        Tables tables = new Tables();
+        tables.setTableid(orderinfo.getTables().getTableid());
+        tables.setTablestatus(0);
+        tableService.updateByPrimaryKeySelective(tables);
+        return num;
+    }
+
+    @RequestMapping("/deleteOrder")
+    public int deleteOrder(int orderid){
+        System.out.println("------------------provider-- deleteOrder");
+        int num=orderinfoService.deleteByPrimaryKey(orderid);
         return num;
     }
 }

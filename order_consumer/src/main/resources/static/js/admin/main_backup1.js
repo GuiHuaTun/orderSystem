@@ -15,13 +15,7 @@ function page2() {
             data = eval(data);
             $("#byrecommend").html("");
             var str = "";
-            var str1 = "<nav>\n" +
-                "\t\t\t\t\t\t\t<ul class=\"pager\" style=\"margin-right: 20px\">\n" +
-                "\n" +
-                "\t\t\t\t\t\t\t\t<li class=\"next\"><a href=\"todishesadmin.order\">更多特色菜品 <span\n" +
-                "\t\t\t\t\t\t\t\t\t\taria-hidden=\"true\">&rarr;</span></a></li>\n" +
-                "\t\t\t\t\t\t\t</ul>\n" +
-                "\t\t\t\t\t\t\t</nav>";
+            var str1 = "";
             for (var i = 0; i < 4; i++) {
                 var dishes = data[0][i];
                 str += "<div id=\"byrecommend\" class=\"row placeholders\">\n" +
@@ -129,8 +123,8 @@ function changeByCondition(bt, et, pageIndex) {
                         totalPrice += orderdishes[j].num * parseInt(orderdishes[j].dishesinfo.dishesprice);
                     }
                 }
-                if(orderinfo[i].orderenddate==null || orderinfo[i].orderenddate==""){
-                    orderinfo[i].orderenddate="未结账";
+                if (orderinfo[i].orderenddate == null || orderinfo[i].orderenddate == "") {
+                    orderinfo[i].orderenddate = "未结账";
                 }
                 tr += "<tr>\n" +
                     "\t\t\t\t\t\t\t\t\t\t<td>" + orderinfo[i].tables.tableid + "</td>" +
@@ -140,7 +134,7 @@ function changeByCondition(bt, et, pageIndex) {
                     "\t\t\t\t\t\t\t\t\t\t<td><i style=\"cursor: pointer; font-size: 14px;\"\n" +
                     "\t\t\t\t\t\t\t\t\t\t\tonmouseover=\"this.style.color='orange'\"\n" +
                     "\t\t\t\t\t\t\t\t\t\t\tonmouseout=\"this.style.color='black'\"\n" +
-                    "\t\t\t\t\t\t\t\t\t\t\tclass=\"icon-credit-card icon-large\" onclick='account("+orderinfo[i].orderid+")' title=\"确认结账\"></i>&nbsp;&nbsp;<i\n" +
+                    "\t\t\t\t\t\t\t\t\t\t\tclass=\"icon-credit-card icon-large\" onclick='account(" + orderinfo[i].orderid + ")' title=\"确认结账\"></i>&nbsp;&nbsp;<i\n" +
                     "\t\t\t\t\t\t\t\t\t\t\tstyle=\"cursor: pointer; font-size: 14px;\"\n" +
                     "\t\t\t\t\t\t\t\t\t\t\tonmouseover=\"this.style.color='orange'\"\n" +
                     "\t\t\t\t\t\t\t\t\t\t\tonmouseout=\"this.style.color='black'\"\n" +
@@ -149,8 +143,8 @@ function changeByCondition(bt, et, pageIndex) {
                     "\t\t\t\t\t\t\t\t\t\t\tstyle=\"cursor: pointer; font-size: 14px;\"\n" +
                     "\t\t\t\t\t\t\t\t\t\t\tonmouseover=\"this.style.color='orange'\"\n" +
                     "\t\t\t\t\t\t\t\t\t\t\tonmouseout=\"this.style.color='black'\"\n" +
-                    "\t\t\t\t\t\t\t\t\t\t\tclass=\" icon-remove-sign icon-large\" title=\"订单作废\"\n" +
-                    "\t\t\t\t\t\t\t\t\t\t\tonclick=\"cancel(this)\"></i></td>\n" +
+                    "\t\t\t\t\t\t\t\t\t\t\tclass=\" icon-remove-sign icon-large\"  title=\"订单作废\"\n" +
+                    "\t\t\t\t\t\t\t\t\t\t\tonclick=\"deleteorder("+orderinfo[i].orderid+")\"></i></td>\n" +
                     "\t\t\t\t\t\t\t\t\t</tr>";
                 totalPrice = 0;
             }
@@ -174,8 +168,27 @@ function account(id) {
                 alert("结账成功");
                 changeByCondition(null, null, index);
                 return true;
-            },error:function () {
+            }, error: function () {
                 alert("结账失败");
+            }
+        })
+    } else {
+        return false;
+    }
+}
+
+function deleteorder(orderid) {
+    var msg = "确定要作废该订单吗？";
+    if (confirm(msg) == true) {
+        $.ajax({
+            type: "POST",
+            url: "/deleteOrder/" + orderid,
+            dataType: "json",
+            success: function (data) {
+                alert("订单已作废");
+                changeByCondition(null, null, index);
+            },error:function () {
+                alert("操作失败");
             }
         })
     }else{

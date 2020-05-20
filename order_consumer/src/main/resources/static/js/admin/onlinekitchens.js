@@ -1,3 +1,4 @@
+var currentIndex = null;
 $(function () {
     page("first");
 })
@@ -28,6 +29,7 @@ function page(op) {
             index = $totalPage;
             break;
     }
+    currentIndex = index;
     ajax(index);
 }
 
@@ -41,11 +43,12 @@ function ajax(pageIndex) {
             var online = data[0];
             $("#sessionNum").html(data[1]);
             $("#kitchenNum").html(data[2]);
-            $("#totalPage").html(data[3]);
+            $("span[name=totalPage]").html(data[3]);
+            $("#orderTable").html("");
             var empty = "";
             for (var i = 0; i < online.length; i++) {
                 var users = online[i];
-                empty += "<tr><td class='textcetern'>" + users.userid + "</td><td class='textcetern'>" + users.useraccount + "</td><td class='textcetern'>" + users.roleinfo.rolename + "</td><td class='textcetern'><i  class=\"iconfont green\" onclick=detail('"+users.useraccount+"','"+users.roleinfo.rolename+"','"+users.faceimg+"')>&#xe63e;</i><i class=\"iconfont red\" onclick='unOnline($(this))'>&#xe608;</i></td></tr>";
+                empty += "<tr><td class='textcetern'>" + users.userid + "</td><td class='textcetern'>" + users.useraccount + "</td><td class='textcetern'>" + users.roleinfo.rolename + "</td><td class='textcetern'><i  class=\"iconfont green\" onclick=detail('" + users.useraccount + "','" + users.roleinfo.rolename + "','" + users.faceimg + "')>&#xe63e;</i><i class=\"iconfont red\" onclick='unOnline($(this))'>&#xe608;</i></td></tr>";
             }
             $("#orderTable").append(empty);
         },
@@ -56,10 +59,24 @@ function ajax(pageIndex) {
 }
 
 function unOnline(obj) {
-    if(confirm("是否将该员工强行下线?")){
-        var userid= obj.parent().siblings("td:eq(0)").html();
-        obj.parent().parent().remove();
-        alert("强制离线成功！");
+    if (confirm("是否将该员工强行下线?")) {
+        var userid = obj.parent().siblings("td:eq(0)").html();
+        $.ajax({
+            type: "POST",
+            url: "/modifyuser",
+            data: "userid=" + userid + "&locked=" + 1,
+            dataType: "json",
+            success: function (data) {
+                data = eval(data);
+                if (data == true) {
+                    obj.parent().parent().remove();
+                    alert("强制离线成功！");
+                    ajax(currentIndex);
+                }
+            },
+            error: function () {
+                alert("系统错误!");
+            },
+        });
     }
-
 }

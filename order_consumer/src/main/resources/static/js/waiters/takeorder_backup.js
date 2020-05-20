@@ -3,6 +3,18 @@ var maxPage = 1;
 var tableid = null;
 var placeholder = null;
 $(function () {
+    $.ajax({
+        type:"POST",
+        url:"/webSocketLogin/waiter",
+        dataType:"json",
+        success:function (data) {
+            //alert("连接成功");
+            WebSocketTest();
+        },
+        error:function () {
+            alert("连接失败！");
+        }
+    });
     tableid = $("#tableid");
     page(1);
 
@@ -95,7 +107,9 @@ $(function () {
                     data = eval(data);
                     if (data) {
                         alert("添加订单成功!");
-                        top.mainwindow.location.href = "/pages/waiters/paylist.html";
+                        var message=table_id+"号桌已下单，请尽快上菜！";
+                        toChef(message);
+                        top.location.reload();
                     } else {
                         alert("添加订单失败!");
                     }
@@ -291,3 +305,88 @@ function calcPrice() {
     $(".modelPrice").html("￥" + totalPrice);
 }
 
+function WebSocketTest() {
+    if ("WebSocket" in window)
+    {
+        //alert("您的浏览器支持 WebSocket!");
+
+        // 打开一个 web socket
+        var ws=new WebSocket("ws://localhost:8090/myHandler");
+
+        //打开连接时
+        ws.onopen = function()
+        {
+            // Web Socket 已连接上，使用 send() 方法发送数据
+            //ws.send("发送数据");
+            //alert("数据发送中...");
+        };
+
+        //收到消息时
+        ws.onmessage = function (evt)
+        {
+            var received_msg = evt.data;
+            //alert("数据已接收..."+received_msg);
+            info(received_msg);
+            $("#message").html(received_msg);
+        };
+
+        //连接出错时
+        ws.onerror = function (ev) {
+            //alert("连接出现问题!");
+            setInterval("getMessage()",1000);
+        }
+
+        //连接关闭时
+        ws.onclose = function()
+        {
+            // 关闭 websocket
+            //alert("连接已关闭...");
+        };
+    }
+
+    else
+    {
+        // 浏览器不支持 WebSocket
+        alert("您的浏览器不支持 WebSocket!");
+    }
+}
+
+function toChef(message) {
+    $.ajax({
+        type:"POST",
+        url:"/sendMessageToUser/chef/"+message,
+        dataType:"json",
+        success:function (data) {
+            //alert("连接成功");
+        },
+        error:function () {
+            alert("连接失败！");
+        }
+    });
+}
+
+function info(msg) {
+    var message = new window.SpeechSynthesisUtterance(msg);
+    message.pitch=2;
+    window.speechSynthesis.speak(message);
+}
+
+function getMessage() {
+    $.ajax({
+        type:"POST",
+        url:"/getMessage",
+        dataType:"json",
+        success:function (data) {
+            var message=data[0];
+            if(message.indexOf("下单")<0){
+                if(message!="" && message!=null){
+                    info(message);
+                    $("#message").html(message);
+                }
+            }
+        },
+        error:function () {
+            alert("连接失败！");
+        }
+    });
+}

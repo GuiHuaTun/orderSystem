@@ -68,11 +68,15 @@
     <update id="updateByPrimaryKeySelective" parameterType="com.os.entity.Orderdishes">
         update orderdishes
         <set>
-            <if test="orderinfo.orderid != null">
-                orderreference = #{orderinfo.orderid,jdbcType=INTEGER},
+            <if test="orderinfo!=null">
+                <if test="orderinfo.orderid != null">
+                    orderreference = #{orderinfo.orderid,jdbcType=INTEGER},
+                </if>
             </if>
-            <if test="dishesinfo.dishesid != null">
-                dishes = #{dishesinfo.dishesid,jdbcType=INTEGER},
+            <if test="dishesinfo!=null">
+                <if test="dishesinfo.dishesid != null">
+                    dishes = #{dishesinfo.dishesid,jdbcType=INTEGER},
+                </if>
             </if>
             <if test="num != null">
                 num = #{num,jdbcType=INTEGER},

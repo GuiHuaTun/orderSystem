@@ -43,6 +43,7 @@ $(function () {
     });
 
     $("#addbtu").click(function () {
+        $("input[name=recommend]").val($("#recommend").val());
         $.ajax({
             type:"POST",
             url:"/dishesInfoUpdate",
