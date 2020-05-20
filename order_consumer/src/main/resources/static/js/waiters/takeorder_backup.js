@@ -109,6 +109,9 @@ $(function () {
                         alert("添加订单成功!");
                         //top.mainwindow.location.href = "/pages/waiters/paylist.html";
                         var message=table_id+"号桌已下单，请尽快上菜！";
+                        if($("#remark").val().trim()!=null){
+                            message+=message+"备注："+$("#remark").val();
+                        }
                         toChef(message);
                     } else {
                         alert("添加订单失败!");
