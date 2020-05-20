@@ -107,12 +107,12 @@ $(function () {
                     data = eval(data);
                     if (data) {
                         alert("添加订单成功!");
-                        //top.mainwindow.location.href = "/pages/waiters/paylist.html";
                         var message=table_id+"号桌已下单，请尽快上菜！";
                         if($("#remark").val().trim()!=null){
                             message+=message+"备注："+$("#remark").val();
                         }
                         toChef(message);
+                        top.location.reload();
                     } else {
                         alert("添加订单失败!");
                     }
@@ -329,12 +329,14 @@ function WebSocketTest() {
         {
             var received_msg = evt.data;
             //alert("数据已接收..."+received_msg);
+            info(received_msg);
             $("#message").html(received_msg);
         };
 
         //连接出错时
         ws.onerror = function (ev) {
-            alert("连接出现问题!");
+            //alert("连接出现问题!");
+            setInterval("getMessage()",1000);
         }
 
         //连接关闭时
@@ -366,3 +368,28 @@ function toChef(message) {
     });
 }
 
+function info(msg) {
+    var message = new window.SpeechSynthesisUtterance(msg);
+    message.pitch=2;
+    window.speechSynthesis.speak(message);
+}
+
+function getMessage() {
+    $.ajax({
+        type:"POST",
+        url:"/getMessage",
+        dataType:"json",
+        success:function (data) {
+            var message=data[0];
+            if(message.indexOf("下单")<0){
+                if(message!="" && message!=null){
+                    info(message);
+                    $("#message").html(message);
+                }
+            }
+        },
+        error:function () {
+            alert("连接失败！");
+        }
+    });
+}

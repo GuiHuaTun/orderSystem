@@ -77,7 +77,7 @@ public class UserinfoController {
                     restTemplate.getForObject(url + "updateLocked/" + userinfo.getUserid() + "/" + 0, Integer.class);
                     break;
             }
-            //session.setAttribute(data[0],userinfo);
+            session.setAttribute("userinfo",userinfo);
             data[1] = userinfo.getUserid().toString();
         }
         return data;

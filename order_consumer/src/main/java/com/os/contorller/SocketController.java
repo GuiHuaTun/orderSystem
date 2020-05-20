@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.socket.TextMessage;
 
 import javax.servlet.http.HttpSession;
+import java.net.Inet4Address;
+import java.net.UnknownHostException;
 
 /**
  * @author haohui
@@ -16,6 +18,9 @@ import javax.servlet.http.HttpSession;
  */
 @Controller
 public class SocketController {
+    private String message=null;
+
+
     @Autowired
     MyHandler handler;
 
@@ -58,7 +63,29 @@ public class SocketController {
     public String sendMessageToUser(@PathVariable("username") String username,@PathVariable("contents") String contents){
         System.out.println("指定用户发送");
         boolean flag=handler.sendMessageToUser(username,new TextMessage(contents));
+        message=contents;
         System.out.println("flag: "+flag);
         return "true";
+    }
+
+    @RequestMapping("getIp")
+    @ResponseBody
+    public String[] getIp(){
+        String[] ip=new String[1];
+        try {
+            ip[0]= Inet4Address.getLocalHost().getHostAddress();
+        } catch (UnknownHostException e) {
+            e.printStackTrace();
+        }
+        System.out.println(ip[0]);
+        return ip;
+    }
+
+    @RequestMapping("/getMessage")
+    @ResponseBody
+    public String[] getMessage(){
+        String[] msg=new String[]{message};
+        message=null;
+        return msg;
     }
 }

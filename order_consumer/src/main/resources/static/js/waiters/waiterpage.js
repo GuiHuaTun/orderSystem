@@ -1,34 +1,34 @@
 var tableId = null;
 var tableresult = null;
 var takeorder_backup = null;
-var loginOut=null;
+var loginOut = null;
 $(function () {
     tableId = $("#tableId");
     tableresult = $("#tableresult");
     takeorder_backup = $("#takeorder_backup");
-    loginOut=$("#loginOut");
+    loginOut = $("#loginOut");
     var userid = location.search.split("=")[1];
 
     $.ajax({
-        type:"POST",
-        url:"/selectUserInfo/"+userid,
-        dataType:"json",
-        success:function(data){
-            data=eval(data);
-            if(data.locked==1){
+        type: "POST",
+        url: "/selectUserInfo/" + userid,
+        dataType: "json",
+        success: function (data) {
+            data = eval(data);
+            if (data.locked == 1) {
                 alert("您的账号已被强制下线");
-                location.href="/loginout/"+data.userid+"/"+data.roleinfo.roleid;
-            }else{
+                location.href = "/loginout/" + data.userid + "/" + data.roleinfo.roleid;
+            } else {
                 $("#username").html(data.useraccount);
-                $("#userface").attr("src",data.faceimg);
-                $("#userface1").attr("src",data.faceimg);
-                loginOut.attr("href","/loginout/"+data.userid+"/"+data.roleinfo.roleid);
-                $("#updatepass").attr("href","/pages/users/modifyuser.html?userid="+data.userid+"="+userid);
+                $("#userface").attr("src", data.faceimg);
+                $("#userface1").attr("src", data.faceimg);
+                loginOut.attr("href", "/loginout/" + data.userid + "/" + data.roleinfo.roleid);
+                $("#updatepass").attr("href", "/pages/users/modifyuser.html?userid=" + data.userid + "=" + userid);
             }
         },
-        error:function(){
+        error: function () {
             alert("系统错误!");
-        },
+        }
     });
 
 
@@ -44,7 +44,7 @@ $(function () {
             if (data != null) {
                 tableId.val(data.tableid);
                 tableresult.html("【" + data.tablename + "】");
-                takeorder_backup.attr("href", "/pages/waiters/takeorder_backup.html?tableid=" + data.tableid+"="+userid);
+                takeorder_backup.attr("href", "/pages/waiters/takeorder_backup.html?tableid=" + data.tableid + "=" + userid);
             } else {
                 alert("已无空桌，请等待");
                 tableresult.html("【已无空桌，请等待】");
@@ -55,8 +55,6 @@ $(function () {
             tableId.val("");
         }
     });
-    
-
 
 });
 
@@ -85,3 +83,4 @@ function setTableId() {
         },
     });
 }
+
