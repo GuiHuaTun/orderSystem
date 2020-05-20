@@ -1,11 +1,10 @@
-var pageIndex=1;
-var maxPage=1;
+var pageIndex = 1;
+var maxPage = 1;
 var index;
 
 $(function () {
     page("first");
 })
-
 
 
 function page(op) {
@@ -36,33 +35,34 @@ function page(op) {
     changeByCondition(null, null, index);
 }
 
-function changeByCondition(bt,et,pageIndex) {
+function changeByCondition(bt, et, pageIndex) {
     $.ajax({
-        type:"POST",
-        url:"/selectOrdeyBytime/"+bt+"/"+et+"/"+pageIndex+"/"+0,
-        dataType:"json",
-        success:function (data) {
-            data=eval(data);
-            pageIndex=data[3];
-            maxPage=data[2];
+        type: "POST",
+        url: "/selectOrdeyBytime/" + bt + "/" + et + "/" + pageIndex + "/" + 0,
+        dataType: "json",
+        success: function (data) {
+            data = eval(data);
+            var orderinfo = data[0];
+            var orderdishes = data[1];
+            pageIndex = data[3];
             $("span[name=totalPage]").html(data[2]);
-            var totalPrice = null;
+            var totalPrice = 0;
             $("#orderTable").html("");
-            var str="";
-            for(var i=0;i<data[0].length;i++){
-                var dishes=data[0][i];
-                var dishes1=data[1][i];
-                for(var j=0;j<data[1].length;j++){
-                    totalPrice+=data[1][j].num*data[1][j].dishesinfo.dishesprice;
+            var str = "";
+            for (var i = 0; i < orderinfo.length; i++) {
+                for (var j = 0; j < orderdishes.length; j++) {
+                    if (orderdishes[j].orderinfo.orderid == orderinfo[i].orderid) {
+                        totalPrice += orderdishes[j].num * parseInt(orderdishes[j].dishesinfo.dishesprice);
+                    }
                 }
-                str+="<tr>\n" +
-                    "\t\t\t\t\t\t\t\t\t\t<td>"+dishes.tables.tableid+"</td>\n" +
-                    "\t\t\t\t\t\t\t\t\t\t<td>"+dishes.userinfo.useraccount+"</td>\n" +
-                    "\t\t\t\t\t\t\t\t\t\t<td>"+dishes.orderbegindate+"</td>\n" +
-                    "\t\t\t\t\t\t\t\t\t\t<td>"+totalPrice+"</td>\n" +
-                    "\t\t\t\t\t\t\t\t\t\t<td><a class='btn btn-danger' onclick='account("+dishes.orderid+")' style='width:150px'>买单</a></td>\n" +
+                str += "<tr>\n" +
+                    "\t\t\t\t\t\t\t\t\t\t<td>" + orderinfo[i].tables.tableid + "</td>\n" +
+                    "\t\t\t\t\t\t\t\t\t\t<td>" + orderinfo[i].userinfo.useraccount + "</td>\n" +
+                    "\t\t\t\t\t\t\t\t\t\t<td>" + orderinfo[i].orderbegindate + "</td>\n" +
+                    "\t\t\t\t\t\t\t\t\t\t<td>" + totalPrice + "</td>\n" +
+                    "\t\t\t\t\t\t\t\t\t\t<td><a class='btn btn-danger' onclick='account(" + orderinfo[i].orderid + ")' style='width:150px'>买单</a></td>\n" +
                     "\t\t\t\t\t\t\t\t\t</tr>";
-                totalprice=0;
+                totalprice = 0;
             }
             $("#orderTable").append(str);
             $("span[name=pageIndex]").html(pageIndex);
@@ -84,11 +84,11 @@ function account(id) {
                 alert("结账成功");
                 changeByCondition(null, null, index);
                 return true;
-            },error:function () {
+            }, error: function () {
                 alert("结账失败");
             }
         })
-    }else{
+    } else {
         return false;
     }
 }

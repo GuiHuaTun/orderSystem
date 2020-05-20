@@ -58,13 +58,13 @@ $(function () {
                             break;
                         case "lock":
                             alert("该账号已登录!");
-                            imagers();
-                            clean();
+                            window.location.reload();
                             break;
                     }
                 },
                 error: function () {
                     alert("错误");
+                    window.location.reload();
                 }
             });
         }
