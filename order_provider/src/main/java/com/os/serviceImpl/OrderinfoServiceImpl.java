@@ -53,4 +53,11 @@ public class OrderinfoServiceImpl implements OrderinfoService {
     public List<Orderinfo> selectOrderByTime(Orderinfo record) {
         return orderinfoMapper.selectOrderByTime(record);
     }
+
+    @Override
+    public List<Orderinfo> selectCharts(Orderinfo record) {
+        return orderinfoMapper.selectCharts(record);
+    }
+
+
 }

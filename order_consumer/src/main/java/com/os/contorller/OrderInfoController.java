@@ -86,8 +86,8 @@ public class OrderInfoController {
      */
     @RequestMapping("selectOrdeyBytime/{orderbegindate}/{orderenddate}/{pageIndex}/{orderstate}")
     @ResponseBody
-    public List<Orderinfo> selectOrdeyBytime(@PathVariable("orderbegindate") String orderbegindate, @PathVariable("orderenddate") String orderenddate, @PathVariable("pageIndex") int pageIndex ,@PathVariable("orderstate") int orderstate) {
-        Orderinfo orderinfo = new Orderinfo(orderbegindate, orderenddate,orderstate);
+    public List<Orderinfo> selectOrdeyBytime(@PathVariable("orderbegindate") String orderbegindate, @PathVariable("orderenddate") String orderenddate, @PathVariable("pageIndex") int pageIndex, @PathVariable("orderstate") int orderstate) {
+        Orderinfo orderinfo = new Orderinfo(orderbegindate, orderenddate, orderstate);
         System.out.println(orderinfo);
         List orderinfoList = restTemplate.postForObject(url + "selectOrdeyBytime/" + pageIndex + "/" + pageSize, orderinfo, List.class);
         return orderinfoList;
@@ -119,13 +119,19 @@ public class OrderInfoController {
     }
 
     @RequestMapping("/deleteOrder/{orderid}")
-    public int deleteOrder(@PathVariable("orderid") int orderid){
+    @ResponseBody
+    public int deleteOrder(@PathVariable("orderid") int orderid) {
         System.out.println("------------------consumer-- deleteOrder");
-        int num=restTemplate.getForObject(url+"deleteOrder/"+orderid,Integer.class);
-        if(num>0){
+        int num = restTemplate.getForObject(url + "deleteOrder/" + orderid, Integer.class);
+        if (num > 0) {
             return num;
         }
         return 0;
     }
 
+    @RequestMapping("selectCharts")
+    @ResponseBody
+    public List selectCharts() {
+        return restTemplate.getForObject(url + "selectCharts", List.class);
+    }
 }

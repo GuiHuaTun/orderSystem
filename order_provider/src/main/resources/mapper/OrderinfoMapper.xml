@@ -27,7 +27,10 @@
         </if>
         and orderstate=#{orderstate}
     </select>
-
+    <select id="selectCharts" resultMap="OrderinfoResultMap">
+        SELECT o.*,u.*,t.* FROM orderinfo o,userinfo u,`tables` t where o.waiterid=u.userid and o.tableid=t.tableid and orderenddate BETWEEN #{orderbegindate} AND #{orderenddate}
+        and orderstate=1
+    </select>
     <select id="selectTablesByTableId" resultMap="OrderinfoResultMap">
     SELECT o.*,u.*,t.* FROM orderinfo o,userinfo u,`tables` t where o.waiterid=u.userid and  o.tableid=t.tableid and o.tableid=#{tableid} order by o.orderid desc limit 1
     </select>

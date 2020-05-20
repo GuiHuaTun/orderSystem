@@ -23,4 +23,5 @@ public interface OrderinfoMapper {
 
     List<Orderinfo> selectOrderByTime(Orderinfo record);
 
+    List<Orderinfo> selectCharts(Orderinfo record);
 }

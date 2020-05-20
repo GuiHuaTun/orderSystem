@@ -2,6 +2,47 @@ var pageIndex = 1;
 var id = 1;
 $(function () {
     page("first");
+    $.ajax({
+        type:"POST",
+        url:"/selectCharts",
+        dataType:"json",
+        success:function(data){
+            data=eval(data);
+            // 基于准备好的dom，初始化echarts实例
+            var myChart = echarts.init(document.getElementById("main"));
+            for (var i=0;i<data.length;i++){
+                var obj=data[i];
+                data[i][1]= obj[1].split(" ")[0];
+            }
+            // 指定图表的配置项和数据
+            var option = {
+                title: {
+                    text: '七天经验数据统计'
+                },
+                tooltip: {},
+                legend: {
+                    data:['金额']
+                },
+                xAxis: {
+                    data: [data[6][1],data[5][1], data[4][1], data[3][1], data[2][1], data[1][1], data[0][1]]
+                },
+                yAxis: {},
+                series: [{
+                    name: '日期',
+                    type: 'line',
+                    data: [data[6][0],data[5][0], data[4][0], data[3][0], data[2][0], data[1][0], data[0][0]]
+                }]
+            };
+            // 使用刚指定的配置项和数据显示图表。
+            myChart.setOption(option);
+        },
+        error:function(){
+            alert("系统错误!");
+        },
+    });
+
+
+
 })
 
 function modal(tableid, orderbegintime, orderendtime, sumprice, useraccount, pIndex2, orderid, totalprice) {

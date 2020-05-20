@@ -24,6 +24,7 @@
     <script type="text/javascript" src="/js/ajax.js"></script>
     <script type="text/javascript" src="/js/rome.js"></script>
     <script type="text/javascript" src="/js/admin/operatedata.js"></script>
+    <script src="/js/echartsall.js"></script>
     <script type="text/javascript">
         function createXmlDom(str) {
             if (document.all) {
@@ -232,14 +233,18 @@
                             <a href="#" onclick="page('end')">末页</a>
                             <span name="pageIndex">1</span>/<span name="totalPage">1</span>页
                         </div>
+
                     </div>
                 </div>
             </div>
             <div
                     style="height:1px;width: 100%;background: #CCC;margin-bottom: 10px"></div>
+
             <footer>
                 <p>&copy; $ZRXL 2020</p>
             </footer>
+
+            <div id="main" style="width: 1200px;height:400px;"></div>
         </div>
     </div>
 </div>
