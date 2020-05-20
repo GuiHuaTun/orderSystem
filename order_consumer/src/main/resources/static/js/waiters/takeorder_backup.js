@@ -108,6 +108,9 @@ $(function () {
                     if (data) {
                         alert("添加订单成功!");
                         var message=table_id+"号桌已下单，请尽快上菜！";
+                        if($("#remark").val().trim()!=""){
+                            message=message+"备注："+$("#remark").val();
+                        }
                         toChef(message);
                         top.location.reload();
                     } else {
