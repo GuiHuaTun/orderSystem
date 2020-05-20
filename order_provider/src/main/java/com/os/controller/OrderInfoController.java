@@ -100,4 +100,11 @@ public class OrderInfoController {
         int num = orderinfoService.updateByPrimaryKeySelective(orderinfo);
         return num;
     }
+
+    @RequestMapping("/deleteOrder")
+    public int deleteOrder(int orderid){
+        System.out.println("------------------provider-- deleteOrder");
+        int num=orderinfoService.deleteByPrimaryKey(orderid);
+        return num;
+    }
 }
