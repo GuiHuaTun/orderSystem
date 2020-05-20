@@ -118,4 +118,14 @@ public class OrderInfoController {
         return 0;
     }
 
+    @RequestMapping("/deleteOrder/{orderid}")
+    public int deleteOrder(@PathVariable("orderid") int orderid){
+        System.out.println("------------------consumer-- deleteOrder");
+        int num=restTemplate.getForObject(url+"deleteOrder/"+orderid,Integer.class);
+        if(num>0){
+            return num;
+        }
+        return 0;
+    }
+
 }
